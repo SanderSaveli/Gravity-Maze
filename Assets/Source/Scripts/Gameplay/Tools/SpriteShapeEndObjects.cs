@@ -4,6 +4,7 @@ using UnityEngine.U2D;
 [ExecuteAlways]
 public class SpriteShapeEndObjects : MonoBehaviour
 {
+    public bool IsActivate;
     [SerializeField] private SpriteShapeController spriteShape;
     [SerializeField] private Transform startObject;
     [SerializeField] private Transform endObject;
@@ -26,7 +27,11 @@ public class SpriteShapeEndObjects : MonoBehaviour
     {
         if (spriteShape == null)
             return;
-
+        EnableObjects(IsActivate);
+        if (!IsActivate)
+        {
+            return;
+        }
         var spline = spriteShape.spline;
         int count = spline.GetPointCount();
         if (count < 2)
@@ -68,29 +73,24 @@ public class SpriteShapeEndObjects : MonoBehaviour
         int neighborIndex,
         Spline spline)
     {
-        // Позиция
         target.position = spriteShape.transform.TransformPoint(localPosition);
 
         Vector3 worldDir;
 
-        // === 1. Пытаемся использовать тангент ===
         if (localTangent.sqrMagnitude > 0.0001f)
         {
             worldDir = spriteShape.transform.TransformVector(localTangent);
         }
-        // === 2. Fallback для Linear / Corner ===
         else
         {
             Vector3 p0 = spline.GetPosition(pointIndex);
             Vector3 p1 = spline.GetPosition(neighborIndex);
             worldDir = spriteShape.transform.TransformVector(p0 - p1);
 
-            // Для старта инвертируем
             if (pointIndex == 0)
                 worldDir = -worldDir;
         }
 
-        // Вращение
         if (worldDir.sqrMagnitude > 0.0001f)
         {
             worldDir.Normalize();
@@ -98,8 +98,13 @@ public class SpriteShapeEndObjects : MonoBehaviour
             target.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
-        // Масштаб
         float scale = spline.GetHeight(pointIndex) * scaleFactor;
         target.localScale = Vector3.one * scale;
+    }
+
+    private void EnableObjects(bool isTrue)
+    {
+        startObject.gameObject.SetActive(isTrue);
+        endObject.gameObject.SetActive(isTrue);
     }
 }

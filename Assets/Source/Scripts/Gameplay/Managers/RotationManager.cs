@@ -11,7 +11,7 @@ namespace SanderSaveli.GravityMaze
             get => _currentRotation;
             private set
             {
-                float clamped = Mathf.Clamp(value, -360, 0);
+                float clamped = Mathf.Clamp(value, 0, 360);
                 if(clamped != _currentRotation)
                 {
                     _currentRotation = clamped;
@@ -49,11 +49,11 @@ namespace SanderSaveli.GravityMaze
         {
             if(_isHold)
             {
-                CurrentRotation -= _rotationSpeed * Time.deltaTime;
+                CurrentRotation += _rotationSpeed * Time.deltaTime;
             }
             else
             {
-                CurrentRotation += _rotationSpeed * Time.deltaTime;
+                CurrentRotation -= _rotationSpeed * Time.deltaTime;
             }
         }
         private void StartRotation(Vector2 screenPosition)

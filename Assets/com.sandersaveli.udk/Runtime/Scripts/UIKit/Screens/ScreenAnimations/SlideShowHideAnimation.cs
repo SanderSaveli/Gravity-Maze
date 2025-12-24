@@ -1,7 +1,9 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using SanderSaveli.UDK.UI;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SanderSaveli.UDK
 {
@@ -31,9 +33,23 @@ namespace SanderSaveli.UDK
 
         private void Awake()
         {
+            if(_rectTransform == null)
+            {
+                Intialisze();
+            }
+        }
+
+        private async void Intialisze()
+        {
+            transform.localScale = Vector3.one;
             _rectTransform = GetComponent<RectTransform>();
             _initialAnchoredPosition = _rectTransform.anchoredPosition;
-            transform.localScale = Vector3.one;
+            await UniTask.Yield();
+            foreach (var rt in _rectTransform.GetComponentsInChildren<RectTransform>(true))
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rt);
+            }
+            Debug.Log(_initialAnchoredPosition);
         }
 
         public override void Hide(float delay, float duration, Action callback)
@@ -45,10 +61,11 @@ namespace SanderSaveli.UDK
 
         public override void HideImmediately()
         {
-            Vector2 toPos = GetOffsetPosition(_exitTo);
             if (_rectTransform == null)
-                _rectTransform = GetComponent<RectTransform>();
-            _rectTransform.anchoredPosition = toPos;
+            {
+                Intialisze();
+            }
+            _rectTransform.anchoredPosition = GetOffsetPosition(_enterFrom);
         }
 
         public override void Show(float delay, float duration, Action callback)
@@ -60,17 +77,18 @@ namespace SanderSaveli.UDK
 
             Vector2 fromPos = GetOffsetPosition(_enterFrom);
             _rectTransform.anchoredPosition = fromPos;
-
             Animate(_initialAnchoredPosition, duration, delay, _enterEase, callback);
         }
 
         public override void ShowImmediately()
         {
+            transform.localScale = Vector3.one;
             _rectTransform.anchoredPosition = _initialAnchoredPosition;
         }
 
         private void Animate(Vector2 anchoredPosition, float duration, float delay, Ease ease, Action callback)
         {
+            transform.localScale = Vector3.one;
             _rectTransform.DOAnchorPos(anchoredPosition, duration)
                 .SetEase(ease)
                 .SetDelay(delay)

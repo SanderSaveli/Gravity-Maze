@@ -14,11 +14,21 @@ namespace SanderSaveli.GravityMaze
         public Action<Vector2> OnBeginDrag { get; set; }
         public Action<Vector2> OnDrag { get; set; }
         public Action<Vector2> OnEndDrag { get; set; }
-        public bool IsEnabled { get; set; }
-
+        public bool IsEnabled { get => _isEnabled; 
+            set 
+            {
+                if (_pointerDown)
+                {
+                    ProcessPointerUp(_currPos);
+                }
+                _isEnabled = value;
+            } 
+        }
+        private bool _isEnabled;
         private bool _pointerDown;
         private bool _isDragging;
         private Vector2 _startPos;
+        private Vector2 _currPos;
         private int _activeTouchId = -1;
 
         private void Awake()
@@ -93,14 +103,14 @@ namespace SanderSaveli.GravityMaze
             _pointerDown = true;
             _isDragging = false;
             _startPos = screenPos;
-
+            _currPos = screenPos;
             OnPointerDown?.Invoke(screenPos);
         }
 
         private void ProcessPointerMove(Vector2 screenPos)
         {
             if (!_pointerDown) return;
-
+            _currPos = screenPos;
             float moved = Vector2.Distance(screenPos, _startPos);
 
             if (!_isDragging && moved > _dragThresholdPixels)
@@ -118,7 +128,7 @@ namespace SanderSaveli.GravityMaze
         private void ProcessPointerUp(Vector2 screenPos)
         {
             if (!_pointerDown) return;
-
+            _currPos = screenPos;
             if (_isDragging)
             {
                 OnEndDrag?.Invoke(screenPos);

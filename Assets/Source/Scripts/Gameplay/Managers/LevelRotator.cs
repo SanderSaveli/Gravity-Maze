@@ -32,15 +32,11 @@ namespace SanderSaveli.GravityMaze
             _rotationManager.OnRotatonChange -= HandleRotationChange;
         }
 
-        private void FixedUpdate()
-        {
-            Vector3 rotateVector = new Vector3(0, 0, _targetRotation);
-            _rotationTransform.rotation = Quaternion.Euler(rotateVector);
-        }
-
         private void HandleRotationChange(float value)
         {
             _targetRotation = value;
+            Vector3 rotateVector = new Vector3(0, 0, _targetRotation);
+            _rotationTransform.rotation = Quaternion.Euler(rotateVector);
         }
     }
 }
