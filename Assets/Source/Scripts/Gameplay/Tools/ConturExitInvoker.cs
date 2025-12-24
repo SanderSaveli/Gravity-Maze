@@ -6,6 +6,7 @@ namespace SanderSaveli.GravityMaze
     public class ConturExitInvoker : MonoBehaviour
     {
         private SignalBus _signalBus;
+        private bool _isActive = true;
 
         [Inject]
         public void Construct(SignalBus signalBus)
@@ -17,7 +18,11 @@ namespace SanderSaveli.GravityMaze
         {
             if (collision.gameObject.TryGetComponent(out Player player))
             {
-                _signalBus.Fire(new SignalPlayerExitContour(player));
+                if(_isActive)
+                {
+                    _signalBus.Fire(new SignalPlayerExitContour(player));
+                    _isActive = false;
+                }
             }
         }
     }

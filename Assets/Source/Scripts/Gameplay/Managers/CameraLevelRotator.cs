@@ -7,13 +7,11 @@ namespace SanderSaveli.GravityMaze
     {
         private IRotationManager _rotationManager;
         private Transform _camera;
-        private ILevelProvider _levelProvider;
 
         [Inject]
-        public void Construct(IRotationManager rotationManager, ILevelProvider levelProvider)
+        public void Construct(IRotationManager rotationManager)
         {
             _rotationManager = rotationManager;
-            _levelProvider = levelProvider;
         }
 
         private float _targetRotation;
@@ -27,14 +25,6 @@ namespace SanderSaveli.GravityMaze
 
         [SerializeField] private float _rotationSpeed = 720f; // град/с
 
-        private void Awake()
-        {
-            PlayerGravityRotator r = _levelProvider.Player.GetComponent<PlayerGravityRotator>();
-            if(r!= null)
-            {
-                r.AttachToCamera(_levelProvider.RotablePart, this);
-            }
-        }
         private void Start()
         {
             _camera = Camera.main.transform;

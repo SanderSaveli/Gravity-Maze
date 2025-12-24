@@ -4,7 +4,7 @@
     {
         Default = 0,
         Regular = 1,
-        Bold = 2,
-        Black = 3,
+        SemiBold = 2,
+        Bold = 3,
     }
 }

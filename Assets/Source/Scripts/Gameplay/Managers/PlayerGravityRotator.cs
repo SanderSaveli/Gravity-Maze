@@ -10,9 +10,6 @@ namespace SanderSaveli.GravityMaze
 
         private Rigidbody2D _rb;
         private float _targetRotation;
-        private bool _isAttachedToCamera = false;
-        private Transform _rotationCenter;
-        private CameraLevelRotator _cameraRotator;
 
         [SerializeField] private float _gravityStrength = 9.81f;
 
@@ -20,6 +17,17 @@ namespace SanderSaveli.GravityMaze
         public void Construct(IRotationManager rotationManager)
         {
             _rotationManager = rotationManager;
+        }
+
+
+        public void AttachTo(Transform newParent)
+        {
+            _rb.simulated = false;
+            Vector2 velocity = _rb.velocity;
+            transform.SetParent(newParent, true);
+            _rb.velocity = velocity;
+            _rb.simulated = true;
+            Debug.Log("Change Parent");
         }
 
         private void Awake()
@@ -44,42 +52,10 @@ namespace SanderSaveli.GravityMaze
 
         private void FixedUpdate()
         {
+            Debug.Log(_rb.velocity);
             Vector2 gravityDir = Quaternion.Euler(0f, 0f, _targetRotation) * Vector2.down;
             Vector2 gravityForce = gravityDir * _gravityStrength * _rb.mass;
             _rb.AddForce(gravityForce, ForceMode2D.Force);
-
-            if (_isAttachedToCamera)
-            {
-                Vector2 offset = _rb.position - (Vector2)_rotationCenter.position;
-                float deltaAngle = _cameraRotator.AngularVelocityRad * Time.fixedDeltaTime;
-                Vector2 rotatedOffset = RotateVector(offset, deltaAngle);
-
-                _rb.position = (Vector2)_rotationCenter.position + rotatedOffset;
-
-                _rb.velocity = RotateVector(_rb.velocity, deltaAngle);
-            }
-        }
-
-        public void AttachToCamera(Transform rotationCenter, CameraLevelRotator cameraRotator)
-        {
-            _rotationCenter = rotationCenter;
-            _cameraRotator = cameraRotator;
-        }
-
-        public void ExitContour()
-        {
-            _isAttachedToCamera = true;
-            return;
-        }
-
-        private Vector2 RotateVector(Vector2 v, float angleRad)
-        {
-            float sin = Mathf.Sin(angleRad);
-            float cos = Mathf.Cos(angleRad);
-            return new Vector2(
-                cos * v.x - sin * v.y,
-                sin * v.x + cos * v.y
-            );
         }
     }
 }

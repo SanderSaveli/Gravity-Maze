@@ -24,7 +24,7 @@ namespace SanderSaveli.UDK.UI
 
         public Action<T> OnValueChanged;
 
-        private RadioButton<T> _selectedElement;
+        protected RadioButton<T> _selectedElement;
 
         private void Awake()
         {

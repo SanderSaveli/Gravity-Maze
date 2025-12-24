@@ -26,14 +26,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleExitContour(SignalPlayerExitContour ctx)
         {
-            ctx.Player.transform.SetParent(_targetParent);
-
-            PlayerGravityRotator rotator = ctx.Player.GetComponent<PlayerGravityRotator>();
-            if (rotator != null)
-            {
-                rotator.ExitContour();
-            }
-            Debug.Log(ctx.Player.transform.parent.name);
+            ctx.Player.GetComponent<PlayerGravityRotator>().AttachTo(_targetParent);
         }
     }
 }
