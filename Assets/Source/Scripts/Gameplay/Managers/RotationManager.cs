@@ -21,16 +21,17 @@ namespace SanderSaveli.GravityMaze
         }
         public Action<float> OnRotatonChange { get; set; }
 
-        [SerializeField] private float _rotationSpeed;
+        private float _rotationSpeed;
 
         private IInputManager _inputManager;
         private float _currentRotation;
         private bool _isHold;
 
         [Inject]
-        public void Construct(IInputManager inputManager)
+        public void Construct(IInputManager inputManager, IGameplayConfig gameplayConfig)
         {
             _inputManager = inputManager;
+            _rotationSpeed = gameplayConfig.RotationSpeed;
         }
 
         private void OnEnable()

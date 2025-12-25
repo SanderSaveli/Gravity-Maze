@@ -8,33 +8,40 @@ namespace SanderSaveli.GravityMaze
     public class WinScreen : UiScreen
     {
         [Header("Buttons")]
-        [SerializeField] private Button _restart;
+        [SerializeField] private Button _nextButton;
         [SerializeField] private Button _exitToMenu;
 
         private SignalBus _signalBus;
+        private IGameContext _gameContext;
+        private ILevelManager _levelManager;
 
         [Inject]
-        public void Construct(SignalBus signalBus)
+        public void Construct(SignalBus signalBus, IGameContext gameContext, ILevelManager levelManager)
         {
             _signalBus = signalBus;
+            _gameContext = gameContext;
+            _levelManager = levelManager;
         }
 
         protected override void SubscribeToEvents()
         {
-            _restart.onClick.AddListener(HandleRestrt);
+            _nextButton.onClick.AddListener(HandleNext);
             _exitToMenu.onClick.AddListener(HandleExitToMenu);
             base.SubscribeToEvents();
         }
 
         protected override void UnsubscribeFromEvents()
         {
-            _restart.onClick.RemoveListener(HandleRestrt);
+            _nextButton.onClick.RemoveListener(HandleNext);
             _exitToMenu.onClick.RemoveListener(HandleExitToMenu);
             base.UnsubscribeFromEvents();
         }
 
-        private void HandleRestrt()
+        private void HandleNext()
         {
+            int level = _gameContext.LevelNumber;
+            level = Mathf.Clamp(level + 1, 0, _levelManager.Levels.Count-1);
+            _gameContext.LevelNumber = level;
             _signalBus.Fire(new SignalInputAction(InputActionType.LoadGame));
         }
 

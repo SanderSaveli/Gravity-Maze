@@ -55,11 +55,13 @@ namespace SanderSaveli.GravityMaze
 
         public override void Hide(float delay, float duration, Action callback)
         {
+            if (_blocks == null)
+            {
+                Intialisze();
+            }
             float stepDelay = duration / _blocks.Count;
-            Debug.Log("Duration: "+ duration);
             for (int i = 0; i < _blocks.Count; i++)
             {
-                Debug.Log("Block");
                 BlockContext blockContext = _blocks[i];
                 Vector2 toOffset = GetOffsetPosition(_exitTo, blockContext);
                 blockContext.RectTransform.DOAnchorPos(toOffset, duration)
@@ -94,6 +96,10 @@ namespace SanderSaveli.GravityMaze
 
         public override void Show(float delay, float duration, Action callback)
         {
+            if (_blocks == null)
+            {
+                Intialisze();
+            }
             float stepDelay = duration / _blocks.Count;
 
             for (int i = 0; i < _blocks.Count; i++)
@@ -124,22 +130,15 @@ namespace SanderSaveli.GravityMaze
 
         public override void ShowImmediately()
         {
-            foreach(var block in _blocks)
+            if (_blocks == null)
+            {
+                Intialisze();
+            }
+            foreach (var block in _blocks)
             {
                 block.CanvasGroup.alpha = 1;
                 block.RectTransform.anchoredPosition = block.InitialPosition;
             }
-        }
-
-        private void Animate(Vector2 anchoredPosition, float duration, float delay, Ease ease, Action callback)
-        {
-            transform.localScale = Vector3.one;
-            _rectTransform.DOAnchorPos(anchoredPosition, duration)
-                .SetEase(ease)
-                .SetDelay(delay)
-                .SetUpdate(true)
-                .OnComplete(() => callback?.Invoke())
-                .SetLink(gameObject);
         }
 
         private Vector2 GetOffsetPosition(SlideDirection direction, BlockContext block)

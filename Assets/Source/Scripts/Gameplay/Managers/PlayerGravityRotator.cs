@@ -11,12 +11,13 @@ namespace SanderSaveli.GravityMaze
         private Rigidbody2D _rb;
         private float _targetRotation;
 
-        [SerializeField] private float _gravityStrength = 9.81f;
+        private float _gravityStrength = 9.81f;
 
         [Inject]
-        public void Construct(IRotationManager rotationManager)
+        public void Construct(IRotationManager rotationManager, IGameplayConfig gameplayConfig)
         {
             _rotationManager = rotationManager;
+            _gravityStrength = gameplayConfig.GravityForce;
         }
 
 
@@ -52,7 +53,6 @@ namespace SanderSaveli.GravityMaze
 
         private void FixedUpdate()
         {
-            Debug.Log(_rb.velocity);
             Vector2 gravityDir = Quaternion.Euler(0f, 0f, _targetRotation) * Vector2.down;
             Vector2 gravityForce = gravityDir * _gravityStrength * _rb.mass;
             _rb.AddForce(gravityForce, ForceMode2D.Force);

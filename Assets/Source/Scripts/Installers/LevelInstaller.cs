@@ -8,7 +8,8 @@ namespace SanderSaveli.GravityMaze
         public override void InstallBindings()
         {
             ILevelManager levelManager = Container.Resolve<ILevelManager>();
-            ILevelProvider levelProvider = levelManager.GetCurrentLevel();
+            IGameContext gameContext = Container.Resolve<IGameContext>();
+            ILevelProvider levelProvider = levelManager.Levels[gameContext.LevelNumber];
             ILevelProvider instance = Container.InstantiatePrefabForComponent<ILevelProvider>(levelProvider as Object);
             Container.Bind<ILevelProvider>().FromInstance(instance).AsSingle().NonLazy();
         }

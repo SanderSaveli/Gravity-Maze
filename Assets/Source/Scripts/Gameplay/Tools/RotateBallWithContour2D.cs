@@ -6,10 +6,7 @@ namespace SanderSaveli.GravityMaze
     public class RotateBallWithContour2D : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private Transform _rotationCenter; // центр контура
-
-        [Header("Settings")]
-        [SerializeField] private bool _applyOnlyWhileRotating = true;
+        [SerializeField] private Transform _rotationCenter; 
 
         private Rigidbody2D _rb;
         private float _lastRotationZ;
@@ -19,10 +16,6 @@ namespace SanderSaveli.GravityMaze
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-
-        /// <summary>
-        /// Вызывать каждый FixedUpdate, когда контур вращается
-        /// </summary>
         public void ApplyRotation(float currentRotationZ)
         {
             if (!_initialized)

@@ -42,8 +42,10 @@ namespace SanderSaveli.UDK.UI
             UiScreenAnimator.Show(DelayTime, ShowTime, () => OnShow(callback));
             Background?.Show();
         }
+
         public virtual void ShowImmediately()
         {
+            if (IsDisableWhileHidden) gameObject.SetActive(true);
             UiScreenAnimator.ShowImmediately();
             Background?.ShowImmediately();
         }
@@ -53,6 +55,7 @@ namespace SanderSaveli.UDK.UI
             ScreenRect.DOKill();
             UiScreenAnimator.Hide(DelayTime, HideTime, () => OnHide(callback));
             Background?.Hide();
+            if (IsDisableWhileHidden) gameObject.SetActive(false);
         }
 
         public virtual void HideImmediately()

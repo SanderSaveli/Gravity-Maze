@@ -32,10 +32,10 @@ namespace SanderSaveli.GravityMaze
                     ExitGame();
                     break;
                 case InputActionType.LoadMenu:
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    SceneManager.LoadScene(SceneType.MenuScene.ToString());
                     break;
                 case InputActionType.LoadGame:
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    SceneManager.LoadScene(SceneType.GameScene.ToString());
                     break;
             }
         }

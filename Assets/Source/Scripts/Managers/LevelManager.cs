@@ -29,15 +29,7 @@ namespace SanderSaveli.GravityMaze
 
         public void CompleteLevel(int level)
         {
-            if(level >= _levels.Count)
-            {
-                _lastCompleteLevel = 0;
-            }
-            else
-            {
-                _lastCompleteLevel = level;
-            }
-            //_lastCompleteLevel = Mathf.Clamp(level, _lastCompleteLevel, _levels.Count - 1);
+            _lastCompleteLevel = Mathf.Clamp(level, _lastCompleteLevel, _levels.Count - 1);
 
             PlayerPrefs.SetInt(LEVEL_KEY, _lastCompleteLevel);
         }

@@ -15,8 +15,6 @@ namespace SanderSaveli.GravityMaze
         private void Awake()
         {
             _timeLeft = _updateInterval;
-            QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 60;
         }
 
         private void Update()
