@@ -82,11 +82,14 @@ namespace SanderSaveli.GravityMaze
 
         public override void HideImmediately()
         {
-            if (_rectTransform == null)
+            if(_blocks == null)
             {
                 Intialisze();
             }
-            //_rectTransform.anchoredPosition = GetOffsetPosition(_enterFrom);
+            foreach (var block in _blocks)
+            {
+                block.CanvasGroup.alpha = 0;
+            }
         }
 
         public override void Show(float delay, float duration, Action callback)
@@ -121,7 +124,11 @@ namespace SanderSaveli.GravityMaze
 
         public override void ShowImmediately()
         {
-            transform.localScale = Vector3.one;
+            foreach(var block in _blocks)
+            {
+                block.CanvasGroup.alpha = 1;
+                block.RectTransform.anchoredPosition = block.InitialPosition;
+            }
         }
 
         private void Animate(Vector2 anchoredPosition, float duration, float delay, Ease ease, Action callback)

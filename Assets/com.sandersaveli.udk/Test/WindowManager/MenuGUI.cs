@@ -1,6 +1,4 @@
 using SanderSaveli.UDK.UI;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SanderSaveli.UDK
@@ -10,7 +8,7 @@ namespace SanderSaveli.UDK
         [SerializeField] private MainMenuScreenManager _screenManager;
         public void OpenMenu()
         {
-            _screenManager.OpenScreen(MenuScreenType.Menu);
+            _screenManager.OpenScreen(MenuScreenType.Home);
         }
 
         public void OpenSettings()
@@ -20,7 +18,7 @@ namespace SanderSaveli.UDK
 
         public void OpenFAQ()
         {
-            _screenManager.OpenScreen(MenuScreenType.FAQ);
+            _screenManager.OpenScreen(MenuScreenType.Levels);
         }
     }
 }

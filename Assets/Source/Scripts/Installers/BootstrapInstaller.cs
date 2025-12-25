@@ -1,3 +1,5 @@
+using SanderSaveli.UDK;
+using SanderSaveli.UDK.UI;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +16,8 @@ namespace SanderSaveli.GravityMaze
 
             #region Signals
             Container.DeclareSignal<SignalInputAction>();
+            Container.DeclareSignal<SignalInputClosePopup>();
+            Container.DeclareSignal<SignalInputCloseScreen>();
             #endregion
         }
     }

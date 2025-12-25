@@ -9,6 +9,7 @@ namespace SanderSaveli.UDK.UI
     public class UiScreen : MonoBehaviour
     {
         [SerializeField] protected float ShowTime = 0.5f;
+        [SerializeField] protected float HideTime = 0.5f;
         [SerializeField] protected float DelayTime;
         [SerializeField] protected bool IsDisableWhileHidden = true;
         [SerializeField] protected UiScreen Background;
@@ -50,7 +51,7 @@ namespace SanderSaveli.UDK.UI
         public virtual void Hide(Action callback = null)
         {
             ScreenRect.DOKill();
-            UiScreenAnimator.Hide(DelayTime, ShowTime, () => OnHide(callback));
+            UiScreenAnimator.Hide(DelayTime, HideTime, () => OnHide(callback));
             Background?.Hide();
         }
 

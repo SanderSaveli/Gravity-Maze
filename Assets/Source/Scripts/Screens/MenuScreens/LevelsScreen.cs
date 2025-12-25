@@ -1,9 +1,8 @@
 using SanderSaveli.UDK.UI;
-using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
 {
-    public class HomeScreen : UiScreen
+    public class LevelsScreen : UiScreen
     {
 
     }
