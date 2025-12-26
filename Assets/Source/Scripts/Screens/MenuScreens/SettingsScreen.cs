@@ -9,8 +9,8 @@ namespace SanderSaveli.GravityMaze
     public class SettingsScreen : UiScreen
     {
         [SerializeField] private TMP_InputField _gravityInputField;
-        [SerializeField] private TMP_InputField _frictionInputField;
-        [SerializeField] private TMP_InputField _bouncinessInputField;
+        [SerializeField] private Slider _frictionInputField;
+        [SerializeField] private Slider _bouncinessInputField;
         [SerializeField] private TMP_InputField _rotationInputField;
         private IGameplayConfig _gameplayConfig;
 
@@ -25,10 +25,10 @@ namespace SanderSaveli.GravityMaze
             _gravityInputField.text = _gameplayConfig.GravityForce.ToString();
             _gravityInputField.onValueChanged.AddListener(OnGravityChange);
 
-            _frictionInputField.text = _gameplayConfig.Friction.ToString();
+            _frictionInputField.value = _gameplayConfig.Friction;
             _frictionInputField.onValueChanged.AddListener(OnFrictionChange);
 
-            _bouncinessInputField.text = _gameplayConfig.Bounciness.ToString();
+            _bouncinessInputField.value = _gameplayConfig.Bounciness;
             _bouncinessInputField.onValueChanged.AddListener(OnBouncinessChange);
 
             _rotationInputField.text = _gameplayConfig.RotationSpeed.ToString();
@@ -46,21 +46,15 @@ namespace SanderSaveli.GravityMaze
         }
 
 
-        private void OnFrictionChange(string value)
+        private void OnFrictionChange(float value)
         {
-            if (float.TryParse(value, out float result))
-            {
-                _gameplayConfig.Friction = result;
-                Debug.Log("Friction: " +  result);
-            }
+            _gameplayConfig.Friction = value;
+            Debug.Log("Friction: " + value);
         }
-        private void OnBouncinessChange(string value)
+        private void OnBouncinessChange(float value)
         {
-            if (float.TryParse(value, out float result))
-            {
-                _gameplayConfig.Bounciness = result;
-                Debug.Log("Bounciness: " + result);
-            }
+            _gameplayConfig.Bounciness = value;
+            Debug.Log("Bounciness: " + value);
         }
         private void OnRotationChange(string value)
         {
