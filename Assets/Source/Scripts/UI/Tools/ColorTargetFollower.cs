@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 namespace SanderSaveli.GravityMaze
 {
-    public class NavBarSlider : UITargetFollower
+    public class ColorTargetFollower : UITargetFollower
     {
-        [SerializeField] private NavBarRadioGroup _navBarGroup;
+        [SerializeField] private ColorRadioGroup _colorGroup;
 
         private new async void Start()
         {
@@ -14,23 +14,24 @@ namespace SanderSaveli.GravityMaze
             await UniTask.Yield();
             LayoutRebuilder.ForceRebuildLayoutImmediate(_sliderParent);
             await UniTask.Yield();
-            RectTransform target = _navBarGroup.ActiveElement.GetComponent<RectTransform>();
+            RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
             MoveToImmediately(target);
         }
 
         private void OnEnable()
         {
-            _navBarGroup.OnValueChanged += NewVarianSelect;
+            _colorGroup.OnValueChanged += NewVarianSelect;
         }
 
         private void OnDisable()
         {
-            _navBarGroup.OnValueChanged -= NewVarianSelect;
+            _colorGroup.OnValueChanged -= NewVarianSelect;
         }
 
-        private void NewVarianSelect(NavBarOption value)
+        private void NewVarianSelect(ColorSheme value)
         {
-            RectTransform target = _navBarGroup.ActiveElement.GetComponent<RectTransform>();
+            Debug.Log(value.ToString());
+            RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
             MoveTo(target);
         }
     }
