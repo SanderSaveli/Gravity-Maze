@@ -54,9 +54,7 @@ namespace SanderSaveli.GravityMaze
                 yield break;
             }
 
-            Debug.Log("Snap");
-            Vector3 viewportCenterWorld = GetWorldCenter(_viewport);
-            viewportCenterWorld += (Vector3)_offset;
+            Vector3 viewportCenterWorld = GetViewportCenter();
 
             RectTransform nearest = _content.Cast<RectTransform>()
                 .OrderBy(child => Vector3.SqrMagnitude(GetWorldCenter(child) - viewportCenterWorld))
@@ -65,6 +63,12 @@ namespace SanderSaveli.GravityMaze
             SnapTo(nearest, viewportCenterWorld);
 
             _snapRoutine = null;
+        }
+
+        public void SnapTo(RectTransform target)
+        {
+            Vector3 viewportCenterWorld = GetViewportCenter();
+            SnapTo(target, viewportCenterWorld);
         }
 
         protected virtual void SnapTo(RectTransform target, Vector3 viewportCenterWorld)
@@ -86,6 +90,13 @@ namespace SanderSaveli.GravityMaze
             )
             .SetEase(_ease)
             .SetLink(target.gameObject);
+        }
+
+        protected Vector3 GetViewportCenter()
+        {
+            Vector3 viewportCenterWorld = GetWorldCenter(_viewport);
+            viewportCenterWorld += (Vector3)_offset;
+            return viewportCenterWorld;
         }
 
         protected Vector2 GetTargetAnchoredPosition(RectTransform centerBlock, Vector3 viewportCenterWorld)

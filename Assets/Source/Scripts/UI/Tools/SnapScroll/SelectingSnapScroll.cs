@@ -24,7 +24,7 @@ namespace SanderSaveli.GravityMaze
                     _children[i] = _content.GetChild(i) as RectTransform;
             }
 
-            Vector3 viewportCenterWorld = GetWorldCenter(_viewport) + (Vector3)_offset;
+            Vector3 viewportCenterWorld = GetViewportCenter();
 
             RectTransform nearest = null;
             float minSqrDist = float.MaxValue;
