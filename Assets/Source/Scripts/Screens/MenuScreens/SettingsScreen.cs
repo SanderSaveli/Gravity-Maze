@@ -1,76 +1,69 @@
 using SanderSaveli.UDK.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
     public class SettingsScreen : UiScreen
     {
-        [SerializeField] private TMP_InputField _gravityInputField;
-        [SerializeField] private Slider _frictionInputField;
-        [SerializeField] private Slider _bouncinessInputField;
-        [SerializeField] private TMP_InputField _rotationInputField;
-        private IGameplayConfig _gameplayConfig;
-
-        [Inject]
-        public void Construct(IGameplayConfig gameplayConfig)
-        {
-            _gameplayConfig = gameplayConfig;
-        }
+        [Space]
+        [SerializeField] private Button _soundButton;
+        [SerializeField] private Button _musicButton;
+        [SerializeField] private Button _languageButton;
+        [SerializeField] private Button _scaleUIButton;
+        [SerializeField] private Button _aboutUsButton;
+        [SerializeField] private Button _removeAdsButton;
 
         protected override void SubscribeToEvents()
         {
-            _gravityInputField.text = _gameplayConfig.GravityForce.ToString();
-            _gravityInputField.onValueChanged.AddListener(OnGravityChange);
-
-            _frictionInputField.value = _gameplayConfig.Friction;
-            _frictionInputField.onValueChanged.AddListener(OnFrictionChange);
-
-            _bouncinessInputField.value = _gameplayConfig.Bounciness;
-            _bouncinessInputField.onValueChanged.AddListener(OnBouncinessChange);
-
-            _rotationInputField.text = _gameplayConfig.RotationSpeed.ToString();
-            _rotationInputField.onValueChanged.AddListener(OnRotationChange);
+            _soundButton.onClick.AddListener(HandleChangeSouds);
+            _musicButton.onClick.AddListener(HandleChangeMusic);
+            _languageButton.onClick.AddListener(HandleChangeLanguage);
+            _scaleUIButton.onClick.AddListener(HandleChangeScale);
+            _aboutUsButton.onClick.AddListener(HandleAboutUs);
+            _removeAdsButton.onClick.AddListener(HandleRemoveAds);
             base.SubscribeToEvents();
         }
 
         protected override void UnsubscribeFromEvents()
         {
-            _gravityInputField.onValueChanged.RemoveListener(OnGravityChange);
-            _frictionInputField.onValueChanged.RemoveListener(OnFrictionChange);
-            _bouncinessInputField.onValueChanged.RemoveListener(OnBouncinessChange);
-            _rotationInputField.onValueChanged.RemoveListener(OnRotationChange);
+            _soundButton.onClick.RemoveListener(HandleChangeSouds);
+            _musicButton.onClick.RemoveListener(HandleChangeMusic);
+            _languageButton.onClick.RemoveListener(HandleChangeLanguage);
+            _scaleUIButton.onClick.RemoveListener(HandleChangeScale);
+            _aboutUsButton.onClick.RemoveListener(HandleAboutUs);
+            _removeAdsButton.onClick.RemoveListener(HandleRemoveAds);
             base.UnsubscribeFromEvents();
         }
 
+        private void HandleChangeSouds()
+        {
 
-        private void OnFrictionChange(float value)
-        {
-            _gameplayConfig.Friction = value;
-            Debug.Log("Friction: " + value);
         }
-        private void OnBouncinessChange(float value)
+
+        private void HandleChangeMusic()
         {
-            _gameplayConfig.Bounciness = value;
-            Debug.Log("Bounciness: " + value);
+
         }
-        private void OnRotationChange(string value)
+
+        private void HandleChangeLanguage()
         {
-            if (float.TryParse(value, out float result))
-            {
-                _gameplayConfig.RotationSpeed = result;
-                Debug.Log("Rotation: " + result);
-            }
+
         }
-        private void OnGravityChange(string value)
+
+        private void HandleChangeScale()
         {
-            if (float.TryParse(value, out float result))
-            {
-                _gameplayConfig.GravityForce = result;
-                Debug.Log("Gravity: " + result);
-            }
+
+        }
+
+        private void HandleAboutUs()
+        {
+
+        }
+
+        private void HandleRemoveAds()
+        {
+
         }
     }
 }

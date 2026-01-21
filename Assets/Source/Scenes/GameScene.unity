@@ -223,11 +223,11 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 1.5
   m_Points:
-  - {x: -10.5, y: -21.5}
-  - {x: -10.5, y: 21.5}
-  - {x: 10.5, y: 21.5}
-  - {x: 10.5, y: -21.5}
-  - {x: -10.5, y: -21.5}
+  - {x: -11.22973, y: -21.5}
+  - {x: -11.22973, y: 21.5}
+  - {x: 11.22973, y: 21.5}
+  - {x: 11.22973, y: -21.5}
+  - {x: -11.22973, y: -21.5}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -852,7 +852,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -19.5, z: 0}
-  m_LocalScale: {x: 18, y: 1, z: 1}
+  m_LocalScale: {x: 19.45946, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 64429162}
@@ -2287,7 +2287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7802955912668847673, guid: 8018b8abaf805234dbbc49fbabdd7faf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -416.6667
+      value: -385.4167
       objectReference: {fileID: 0}
     - target: {fileID: 9102125358923417046, guid: 8018b8abaf805234dbbc49fbabdd7faf, type: 3}
       propertyPath: m_AnchorMax.y
