@@ -7,14 +7,17 @@ namespace SanderSaveli.GravityMaze
     {
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private RotationManager _rotationManager;
+        [SerializeField] private StarManager _starManager;
 
         public override void InstallBindings()
         {
             Container.Bind<IInputManager>().FromInstance(_inputManager).AsSingle().NonLazy();
             Container.Bind<IRotationManager>().FromInstance(_rotationManager).AsSingle().NonLazy();
+            Container.Bind<IStarManager>().FromInstance(_starManager).AsSingle().NonLazy();
 
             Container.DeclareSignal<SignalGameEnd>();
             Container.DeclareSignal<SignalPlayerExitContour>();
+            Container.DeclareSignal<SignalStarCollected>();
         }
     }
 

@@ -5,8 +5,8 @@ namespace SanderSaveli.GravityMaze
 {
     public class StaticElement : MonoBehaviour
     {
+        [SerializeField] private bool _isOnlyLockalRotation;
         private IRotationManager _rotationManager;
-
 
         [Inject]
         public void Construct(IRotationManager rotationManager)
@@ -26,7 +26,14 @@ namespace SanderSaveli.GravityMaze
 
         private void ChngeRotatin(float targetRotation)
         {
-            transform.rotation = Quaternion.Euler(0, 0, targetRotation);
+            if(_isOnlyLockalRotation)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, targetRotation);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, targetRotation);
+            }
         }
     }
 }

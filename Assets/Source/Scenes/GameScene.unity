@@ -706,6 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 1337139069}
   _rotationManager: {fileID: 1337139070}
+  _starManager: {fileID: 1337139077}
 --- !u!114 &686725459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1348,6 +1349,7 @@ GameObject:
   - component: {fileID: 1337139074}
   - component: {fileID: 1337139075}
   - component: {fileID: 1337139076}
+  - component: {fileID: 1337139077}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -1459,6 +1461,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMaterial: {fileID: 6200000, guid: 74cf67ffa80b83741a5e7c0dc7c253da, type: 2}
+--- !u!114 &1337139077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337139067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460b5f2bb5017354e95c3838cf119f12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1349594589
 GameObject:
   m_ObjectHideFlags: 0
