@@ -11,13 +11,17 @@ namespace SanderSaveli.GravityMaze
         private SignalBus _signalBus;
         private IInputManager _inputManager;
         private ILevelManager _levelManager;
+        private IStarManager _starManager;
+        private IGameContext _gameContext;
 
         [Inject]
-        public void Construct(SignalBus signalBus, IInputManager inputManager, ILevelManager levelManager)
+        public void Construct(SignalBus signalBus, IInputManager inputManager, ILevelManager levelManager, IStarManager starManager, IGameContext gameContext)
         {
             _signalBus = signalBus;
             _inputManager = inputManager;
             _levelManager = levelManager;
+            _starManager = starManager;
+            _gameContext = gameContext;
         }
 
         private void OnEnable()
@@ -35,7 +39,7 @@ namespace SanderSaveli.GravityMaze
             _inputManager.IsEnabled = false;
 
             _winScreen.Show();
-            _levelManager.CompleteLevel(_levelManager.CurrentLevel + 1);
+            _levelManager.CompleteLevel(_gameContext.LevelNumber, _starManager.IsStarCollect);
         }
     }
 }

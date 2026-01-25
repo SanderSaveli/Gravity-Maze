@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -28,6 +29,14 @@ namespace SanderSaveli.GravityMaze
 
         private LevelData _levelData;
         private List<GameObject> _stars = new();
+        private ILevelManager _levelManager;
+
+        [Inject]
+        public void Construct(ILevelManager levelManager)
+        {
+            _levelManager = levelManager;
+        }
+
 
         private void OnEnable()
         {
@@ -42,16 +51,15 @@ namespace SanderSaveli.GravityMaze
         public void Fill(LevelData value)
         {
             _levelData = value;
+            _levelNumber.text = value.Number.ToString();
             switch (value.Status)
             {
                 case LevelStatus.Complete:
-                    _levelNumber.text = value.Number.ToString();
                     _lockImage.gameObject.SetActive(false);
                     _backgroundImage.color = _completeColor;
                     SetStarCount(value.StarCount);
                     break;
                 case LevelStatus.Current:
-                    _levelNumber.text = value.Number.ToString();
                     _lockImage.gameObject.SetActive(false);
                     _backgroundImage.color = _currentColor;
                     SetStarCount(value.StarCount);
@@ -84,6 +92,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleButtonClick()
         {
+            Debug.Log("Click");
             if(_levelData.Status != LevelStatus.Locked)
             {
                 OnSelectLevel?.Invoke(_levelData);

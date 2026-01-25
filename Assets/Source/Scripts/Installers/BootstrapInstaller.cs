@@ -7,6 +7,7 @@ namespace SanderSaveli.GravityMaze
 {
     public class BootstrapInstaller : MonoInstaller
     {
+        [SerializeField] private DataManager _dataManager;
         [SerializeField] private LevelManager _levelManager;
         [SerializeField] private SOBasedGameplayConfig _gameplayConfig;
 
@@ -18,6 +19,7 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<ILevelManager>().FromInstance(_levelManager).AsSingle().NonLazy();
             Container.Bind<IGameContext>().FromInstance(_gameContext).AsSingle().NonLazy();
             Container.Bind<IGameplayConfig>().FromInstance(_gameplayConfig).AsSingle().NonLazy();
+            Container.Bind<ILevelStorage>().FromInstance(_dataManager.LevelStorage).AsSingle().NonLazy();
 
             #region Signals
             Container.DeclareSignal<SignalInputAction>();

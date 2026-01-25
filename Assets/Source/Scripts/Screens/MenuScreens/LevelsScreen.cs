@@ -1,5 +1,6 @@
 using SanderSaveli.UDK.UI;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -19,25 +20,25 @@ namespace SanderSaveli.GravityMaze
         [Header("Params")]
         [SerializeField] private int _onePageSlotCount;
 
-        private List<LevelData> _levelsDatas;
         private List<LevelsFiller> _pages;
         private ILevelManager _levelManager;
         private DiContainer _container;
         private SignalBus _signalBus;
         private IGameContext _gameContext;
+        private ILevelStorage _levelStorage;
 
         [Inject]
-        public void Construct(ILevelManager levelManager, DiContainer container, SignalBus signalBus, IGameContext gameContext)
+        public void Construct(ILevelManager levelManager, DiContainer container, SignalBus signalBus, IGameContext gameContext, ILevelStorage levelStorage)
         {
             _levelManager = levelManager;
             _container = container;
             _signalBus = signalBus;
             _gameContext = gameContext;
+            _levelStorage = levelStorage;
         }
 
         private void Start()
         {
-            _levelsDatas = CreateLevelData();
             CreateAllPages();
         }
 
@@ -53,34 +54,11 @@ namespace SanderSaveli.GravityMaze
             base.OnDestroy();
         }
 
-        private List<LevelData> CreateLevelData()
-        {
-            List<LevelData> levelsDatas = new List<LevelData>();
-
-            int i = 1;
-            foreach (ILevelProvider level in _levelManager.Levels)
-            {
-                levelsDatas.Add(CreateLevelData(i));
-                i++;
-            }
-            levelsDatas[_levelManager.CurrentLevel].Status = LevelStatus.Current;
-            levelsDatas[_levelManager.CurrentLevel].StarCount = 0;
-            return levelsDatas;
-        }
-
-        private LevelData CreateLevelData(int number)
-        {
-            LevelData data = new LevelData();
-            data.Number = number;
-            data.StarCount = 3;
-            data.Status = (number - 1) <= _levelManager.CurrentLevel ? LevelStatus.Complete : LevelStatus.Locked;
-            return data;
-        }
 
         private void CreateAllPages()
         {
             _pages = new List<LevelsFiller>();
-            List<List<LevelData>> pages = PaginateList(_levelsDatas);
+            List<List<LevelData>> pages = PaginateList(_levelManager.LevelsData.ToList());
             foreach (var page in pages)
             {
                 _pages.Add(CreatePage(page));

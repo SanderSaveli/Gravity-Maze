@@ -65,6 +65,50 @@ MonoBehaviour:
   - {fileID: 7396804538705008946, guid: fb115902e48e968468fc942017c17d4b, type: 3}
   - {fileID: 7396804538705008946, guid: 048c42e9e9ae1ed4690ede0f6c5d561d, type: 3}
   - {fileID: 7396804538705008946, guid: 48603fb1ba983994c8eac49fb0037bdf, type: 3}
+--- !u!1 &1861428552283275053
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4558567476104675221}
+  - component: {fileID: 8300488363230250303}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4558567476104675221
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861428552283275053}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8343236429533980380}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8300488363230250303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861428552283275053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d31858c4b06da245a4e23bd403b5a8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3790221272119752702
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,6 +230,7 @@ Transform:
   m_Children:
   - {fileID: 1159519290443651260}
   - {fileID: 6133127849292538629}
+  - {fileID: 4558567476104675221}
   m_Father: {fileID: 6190226297020830138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1812365539684536093
@@ -200,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c07a7bcc600d2d4192f4cc13e125c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dataManager: {fileID: 8300488363230250303}
   _levelManager: {fileID: 3943144078927675572}
   _gameplayConfig: {fileID: 6830892565886355305}
 --- !u!1 &6438442813342583666

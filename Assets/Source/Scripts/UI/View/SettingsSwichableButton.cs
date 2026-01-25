@@ -19,7 +19,12 @@ namespace SanderSaveli.GravityMaze
         [Space]
         [SerializeField] private Custom_ColorStyle _imageSelectColor;
         [SerializeField] private Custom_ColorStyle _imageDeselectColor;
-        private ColorSettings _colorSettings = ColorSettings.Instance;
+        private ColorSettings _colorSettings;
+
+        private void Awake()
+        {
+            _colorSettings = ColorSettings.Instance;
+        }
 
         protected override void HandleDeselect()
         {

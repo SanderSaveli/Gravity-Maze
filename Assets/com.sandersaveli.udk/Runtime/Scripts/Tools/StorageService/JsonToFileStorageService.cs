@@ -25,18 +25,27 @@ namespace SanderSaveli.UDK
 
         public void Load<T>(string key, Action<T> callback)
         {
-            string path = BuildPath(key);
-
-            using (var fileStream = new StreamReader(path))
+            try
             {
-                string jsonFile = fileStream.ReadToEnd();
-                T data = JsonConvert.DeserializeObject<T>(jsonFile);
+                string path = BuildPath(key);
 
-                callback.Invoke(data);
+                string directory = Path.GetDirectoryName(path);
+
+                using (var fileStream = new StreamReader(path))
+                {
+                    string jsonFile = fileStream.ReadToEnd();
+                    T data = JsonConvert.DeserializeObject<T>(jsonFile);
+
+                    callback.Invoke(data);
+                }
+            }catch (Exception ex)
+            {
+                Debug.LogError(ex.Message);
+                callback?.Invoke(default);
             }
         }
 
         private string BuildPath(string key) =>
-             Path.Combine(Application.persistentDataPath, key);
+             Path.Combine(Application.persistentDataPath, key + ".json");
     }
 }
