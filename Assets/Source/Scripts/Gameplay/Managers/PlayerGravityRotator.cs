@@ -65,7 +65,7 @@ namespace SanderSaveli.GravityMaze
             {
                 gravityDir = Quaternion.Euler(0f, 0f, _targetRotation) * Vector2.down;
             }
-
+            gravityDir.Normalize();
             Vector2 gravityForce = gravityDir * _gravityStrength * _rb.mass;
             _rb.AddForce(gravityForce, ForceMode2D.Force);
         }

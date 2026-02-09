@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
@@ -8,8 +6,7 @@ namespace SanderSaveli.GravityMaze
     {
         private void Awake()
         {
-            QualitySettings.vSyncCount = 0;
-            Application.targetFrameRate = 80;
+            Application.targetFrameRate = 120;
         }
     }
 }
