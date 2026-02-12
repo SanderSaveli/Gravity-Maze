@@ -29,7 +29,7 @@ namespace SanderSaveli.GravityMaze
         {
             float delta = angle - _previousAngle;
 
-            if (delta > 0f)
+            if (delta > 0f && _manager.CurrentRotation != _manager.MaxRotation)
             {
                 UpdateMove(delta);
             }
