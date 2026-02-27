@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 4426806045737278824}
   - component: {fileID: 6480179183465099935}
   - component: {fileID: 8528020613092349980}
+  - component: {fileID: 7882742941735672097}
   m_Layer: 5
   m_Name: NavbarButtion
   m_TagString: Untagged
@@ -193,6 +194,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7882742941735672097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220044944390207768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56589eb81d29d4f41ad987b80933c715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 8528020613092349980}
+  _vibrationType: 1
 --- !u!1 &7776198645023373005
 GameObject:
   m_ObjectHideFlags: 0

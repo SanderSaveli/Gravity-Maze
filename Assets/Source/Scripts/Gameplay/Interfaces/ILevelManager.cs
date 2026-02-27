@@ -10,5 +10,6 @@ namespace SanderSaveli.GravityMaze
         public ILevelProvider GetLevel(int level);
         public ILevelProvider GetCurrentLevel();
         public void CompleteLevel(int level, bool isStarCollected);
+        public void UnlockAllLevels();
     }
 }

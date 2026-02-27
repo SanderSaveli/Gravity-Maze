@@ -3,6 +3,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -21,7 +22,8 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private Custom_ColorStyle _imageDeselectColor;
         private ColorSettings _colorSettings;
 
-        private void Awake()
+        [Inject]
+        public void Construct()
         {
             _colorSettings = ColorSettings.Instance;
         }

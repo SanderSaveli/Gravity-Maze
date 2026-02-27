@@ -1,25 +1,38 @@
 using SanderSaveli.UDK.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
     public class SettingsScreen : UiScreen
     {
         [Space]
-        [SerializeField] private Button _soundButton;
-        [SerializeField] private Button _musicButton;
+        [SerializeField] private SelectButton _soundButton;
+        [SerializeField] private SelectButton _musicButton;
         [SerializeField] private Button _languageButton;
-        [SerializeField] private Button _scaleUIButton;
+        [SerializeField] private SelectButton _vibrationButton;
         [SerializeField] private Button _aboutUsButton;
         [SerializeField] private Button _removeAdsButton;
+        private IAppSettings _appSettings;
+
+        [Inject]
+        public void Construct(IAppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
 
         protected override void SubscribeToEvents()
         {
-            _soundButton.onClick.AddListener(HandleChangeSouds);
-            _musicButton.onClick.AddListener(HandleChangeMusic);
+            _soundButton.SetState(_appSettings.IsSoundOn.Value);
+            _musicButton.SetState(_appSettings.IsMusicOn.Value);
+            _vibrationButton.SetState(_appSettings.IsVibrationOn.Value);
+
+            _soundButton.OnSwitched += HandleChangeSouds;
+            _musicButton.OnSwitched += HandleChangeMusic;
+            _vibrationButton.OnSwitched += HandleChangeVibration;
+
             _languageButton.onClick.AddListener(HandleChangeLanguage);
-            _scaleUIButton.onClick.AddListener(HandleChangeScale);
             _aboutUsButton.onClick.AddListener(HandleAboutUs);
             _removeAdsButton.onClick.AddListener(HandleRemoveAds);
             base.SubscribeToEvents();
@@ -27,23 +40,24 @@ namespace SanderSaveli.GravityMaze
 
         protected override void UnsubscribeFromEvents()
         {
-            _soundButton.onClick.RemoveListener(HandleChangeSouds);
-            _musicButton.onClick.RemoveListener(HandleChangeMusic);
-            _languageButton.onClick.RemoveListener(HandleChangeLanguage);
-            _scaleUIButton.onClick.RemoveListener(HandleChangeScale);
+            _soundButton.OnSwitched -= HandleChangeSouds;
+            _musicButton.OnSwitched -= HandleChangeMusic;
+            _vibrationButton.OnSwitched -= HandleChangeVibration;
+
+            _languageButton.onClick.RemoveListener(HandleChangeLanguage);;
             _aboutUsButton.onClick.RemoveListener(HandleAboutUs);
             _removeAdsButton.onClick.RemoveListener(HandleRemoveAds);
             base.UnsubscribeFromEvents();
         }
 
-        private void HandleChangeSouds()
+        private void HandleChangeSouds(bool isOn)
         {
-
+            _appSettings.IsSoundOn.Value = isOn;
         }
 
-        private void HandleChangeMusic()
+        private void HandleChangeMusic(bool isOn)
         {
-
+            _appSettings.IsMusicOn.Value = isOn;
         }
 
         private void HandleChangeLanguage()
@@ -51,9 +65,9 @@ namespace SanderSaveli.GravityMaze
 
         }
 
-        private void HandleChangeScale()
+        private void HandleChangeVibration(bool isOn)
         {
-
+            _appSettings.IsVibrationOn.Value = isOn;
         }
 
         private void HandleAboutUs()

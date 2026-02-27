@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3918591946104149916}
   - component: {fileID: 4819013156534196060}
   - component: {fileID: 2311356492910444162}
+  - component: {fileID: 36375908498024476}
   m_Layer: 5
   m_Name: LevelSlot
   m_TagString: Untagged
@@ -161,6 +162,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &36375908498024476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036755303470352372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56589eb81d29d4f41ad987b80933c715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 2311356492910444162}
+  _vibrationType: 2
 --- !u!1 &2862873170046023196
 GameObject:
   m_ObjectHideFlags: 0

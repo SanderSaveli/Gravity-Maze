@@ -11,6 +11,8 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private LevelManager _levelManager;
         [SerializeField] private SOBasedGameplayConfig _gameplayConfig;
         [SerializeField] private FirebaseInitializer _analyticManager;
+        [SerializeField] private VibrationManager _vibrationManager;
+        [SerializeField] private AppSettings _appSettings;
 
         private GameContext _gameContext;
         public override void InstallBindings()
@@ -22,6 +24,8 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<IGameplayConfig>().FromInstance(_gameplayConfig).AsSingle().NonLazy();
             Container.Bind<ILevelStorage>().FromInstance(_dataManager.LevelStorage).AsSingle().NonLazy();
             Container.Bind<IAnalyticManager>().FromInstance(_analyticManager).AsSingle().NonLazy();
+            Container.Bind<IVibrationManager>().FromInstance(_vibrationManager).AsSingle().NonLazy();
+            Container.Bind<IAppSettings>().FromInstance(_appSettings).AsSingle().NonLazy();
 
             #region Signals
             Container.DeclareSignal<SignalInputAction>();

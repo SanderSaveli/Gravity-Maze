@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -12,6 +13,14 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private float _animationDuration = 0.5f;
         [SerializeField] private Ease _ease = Ease.Linear;
         [SerializeField] private float _targetScale = 2.5f;
+        [SerializeField] private VibrationType _vibrationType;
+        private IVibrationManager _vibrationManager;
+
+        [Inject]
+        public void Construct(IVibrationManager vibrationManager)
+        {
+            _vibrationManager = vibrationManager;
+        }
 
         private void OnEnable()
         {
@@ -35,6 +44,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleCollect()
         {
+            _vibrationManager.DoVibration(_vibrationType);
             Sequence sequence = DOTween.Sequence();
             sequence
                 .Append(_spriteRenderer.DOFade(0, _animationDuration))
