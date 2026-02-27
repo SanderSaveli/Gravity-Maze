@@ -9,6 +9,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private float _horizontalOffset;
         private ILevelProvider _levelProvider;
         private Camera _camera;
+        private Bounds _bounds;
 
         [Inject]
         public void Construct(ILevelProvider levelProvider)
@@ -25,8 +26,8 @@ namespace SanderSaveli.GravityMaze
 
         private void SetCameraSize()
         {
-            Bounds bounds = GetMaxBounds(_levelProvider.RotablePart);
-            float maxWidth = bounds.size.magnitude + _horizontalOffset *2;
+            _bounds = GetMaxBounds(_levelProvider.RotablePart);
+            float maxWidth = _bounds.size.magnitude + _horizontalOffset *2;
 
             float aspect = _camera.aspect;
 
@@ -47,6 +48,12 @@ namespace SanderSaveli.GravityMaze
             }
 
             return bounds;
+        }
+
+        private void OnDrawGizmos()
+        {
+            //Gizmos.color = Color.green;
+            //Gizmos.DrawCube(_bounds.center, _bounds.size);
         }
     }
 }

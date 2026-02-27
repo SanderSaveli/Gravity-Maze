@@ -57,6 +57,11 @@ namespace SanderSaveli.GravityMaze
             }
         }
 
+        public void UnlockAllLevels()
+        {
+            _storage.CurrentLevel.Value = _storage.Levels.Value.Count -1;
+        }
+
         private void ActualizeData()
         {
             if (_storage.Levels.Value == null)
@@ -93,7 +98,6 @@ namespace SanderSaveli.GravityMaze
         private void UpdateLevelData(LevelData data, int index)
         {
             data.StarCount = _storage.Levels.Value[index].star_count;
-            Debug.Log("StarCount: " + data.StarCount);
             if (index < CurrentLevel)
                 data.Status = LevelStatus.Complete;
             else if (index == CurrentLevel)

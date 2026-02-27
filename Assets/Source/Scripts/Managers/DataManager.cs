@@ -28,9 +28,11 @@ namespace SanderSaveli.GravityMaze
 
         private void OnDataLoaded(AccountData accountData)
         {
+            bool isNeedSave= false;
             if (accountData == null)
             {
                 _accountData = new AccountData();
+                isNeedSave = true;
             }
             else
             {
@@ -44,6 +46,10 @@ namespace SanderSaveli.GravityMaze
             _accountStorage.SetData(_accountData);
 
             _accountStorage.OnUpdate += Save;
+            if(isNeedSave)
+            {
+                Save();
+            }
         }
 
         public void Save()
