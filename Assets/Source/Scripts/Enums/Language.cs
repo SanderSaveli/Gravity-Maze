@@ -2,7 +2,7 @@ namespace SanderSaveli.GravityMaze
 {
     public enum Language
     {
-        En = 0,
-        Ru = 1,
+        en = 0,
+        ru = 1,
     }
 }

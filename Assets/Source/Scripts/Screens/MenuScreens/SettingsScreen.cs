@@ -15,11 +15,13 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private Button _aboutUsButton;
         [SerializeField] private Button _removeAdsButton;
         private IAppSettings _appSettings;
+        private SignalBus _signalBus;
 
         [Inject]
-        public void Construct(IAppSettings appSettings)
+        public void Construct(IAppSettings appSettings, SignalBus signalBus)
         {
             _appSettings = appSettings;
+            _signalBus = signalBus;
         }
 
         protected override void SubscribeToEvents()
@@ -62,7 +64,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleChangeLanguage()
         {
-
+            _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.Language));
         }
 
         private void HandleChangeVibration(bool isOn)
@@ -72,12 +74,12 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleAboutUs()
         {
-
+            _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.AboutUs));
         }
 
         private void HandleRemoveAds()
         {
-
+            _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.RemoveAds));
         }
     }
 }

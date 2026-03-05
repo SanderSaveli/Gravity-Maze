@@ -24,7 +24,7 @@ namespace SanderSaveli.GravityMaze
         private Coroutine _snapRoutine;
         private readonly Vector3[] _corners = new Vector3[4];
 
-        private void Start()
+        private void OnEnable()
         {
             _snapRoutine = StartCoroutine(SnapWhenStopped());
         }
@@ -46,8 +46,8 @@ namespace SanderSaveli.GravityMaze
         private IEnumerator SnapWhenStopped()
         {
             yield return null;
-            yield return new WaitUntil(() => _scrollRect.velocity.sqrMagnitude <= _velocityThreshold * _velocityThreshold);
-
+            yield return new WaitUntil(() => _scrollRect.velocity.magnitude <= _velocityThreshold);
+            _scrollRect.velocity = Vector3.zero;
             if (_content.childCount == 0)
             {
                 _snapRoutine = null;

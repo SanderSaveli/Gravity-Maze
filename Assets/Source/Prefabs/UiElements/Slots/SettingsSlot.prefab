@@ -126,7 +126,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3722322748929298666
 GameObject:
@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 845169912452731855}
   - component: {fileID: 5554321991250596382}
   - component: {fileID: 1614989415558953208}
+  - component: {fileID: 6957262080994208411}
   m_Layer: 5
   m_Name: CustomText
   m_TagString: Untagged
@@ -601,6 +602,19 @@ MonoBehaviour:
   _textStyle: 6
   _textColor: 1
   _textMaterial: 1
+--- !u!114 &6957262080994208411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088859822230473041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07740c2084bd89a4ba0293d539a4722c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _key: 
 --- !u!1 &8414402867908246391
 GameObject:
   m_ObjectHideFlags: 0

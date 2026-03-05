@@ -6,5 +6,8 @@ namespace SanderSaveli.UDK.UI
         Levels = 1,
         Color = 2,
         Settings = 3,
+        Language = 4,
+        AboutUs = 5,
+        RemoveAds = 6,
     }
 }

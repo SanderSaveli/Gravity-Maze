@@ -57,7 +57,7 @@ namespace SanderSaveli.GravityMaze
             sd.is_music_on = true;
             sd.is_sound_on = true;
             sd.is_vibration_on = true;
-            sd.language = GravityMaze.Language.En;
+            sd.language = GravityMaze.Language.en;
             return sd;
         }
 

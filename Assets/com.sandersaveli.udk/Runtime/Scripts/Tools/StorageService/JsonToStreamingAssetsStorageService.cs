@@ -9,7 +9,7 @@ namespace SanderSaveli.UDK
     {
         public void Save(string key, object data, Action<bool> callback = null)
         {
-            string tempPath = BuildTempPath(key);
+            string tempPath = BuildStreamingAssetsPath(key);
             string jsonFile = JsonConvert.SerializeObject(data, Formatting.Indented);
 
             try
@@ -24,17 +24,6 @@ namespace SanderSaveli.UDK
                 {
                     fileStream.Write(jsonFile);
                 }
-
-                string streamingAssetsPath = BuildStreamingAssetsPath(key);
-
-                string streamingAssetsDirectory = Path.GetDirectoryName(streamingAssetsPath);
-                if (!Directory.Exists(streamingAssetsDirectory))
-                {
-                    Directory.CreateDirectory(streamingAssetsDirectory);
-                }
-
-                File.Copy(tempPath, streamingAssetsPath, true);
-                File.Delete(tempPath);
 
                 callback?.Invoke(true);
             }
