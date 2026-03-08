@@ -23,7 +23,7 @@ namespace SanderSaveli.GravityMaze
 
         private void OnDisable()
         {
-            _signalBus.Subscribe<SignalGameEnd>(DoVibration);
+            _signalBus.Unsubscribe<SignalGameEnd>(DoVibration);
         }
 
         private void DoVibration()
