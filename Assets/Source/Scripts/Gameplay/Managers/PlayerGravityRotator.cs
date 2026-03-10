@@ -14,6 +14,7 @@ namespace SanderSaveli.GravityMaze
         private float _gravityStrength = 9.81f;
         private bool _useParentGravity;
         private Transform _parent;
+        private bool _isActive = true;
 
         [Inject]
         public void Construct(IRotationManager rotationManager, IGameplayConfig gameplayConfig)
@@ -22,6 +23,10 @@ namespace SanderSaveli.GravityMaze
             _gravityStrength = gameplayConfig.GravityForce;
         }
 
+        public void SetEnable(bool isActive)
+        {
+            _isActive = isActive;
+        }
 
         public void AttachTo(Transform newParent)
         {
@@ -55,6 +60,10 @@ namespace SanderSaveli.GravityMaze
 
         private void FixedUpdate()
         {
+            if(!_isActive)
+            {
+                return;
+            }
             Vector2 gravityDir;
 
             if (_useParentGravity && _parent != null)
