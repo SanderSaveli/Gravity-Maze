@@ -6,7 +6,15 @@ namespace SanderSaveli.GravityMaze
 {
     public class InputActionManager : MonoBehaviour
     {
+        [SerializeField] private LevelTransitionScreenAnimator _transitionScreenAnimator;
         private SignalBus _signalBus;
+        private IGameContext _gameContext;
+
+        [Inject]
+        public void Construct(IGameContext gameContext)
+        {
+            _gameContext = gameContext;
+        }
 
         private void OnEnable()
         {
@@ -24,7 +32,7 @@ namespace SanderSaveli.GravityMaze
             _signalBus = signalBus;
         }
 
-        private void HandleInputAction(SignalInputAction input)
+        private async void HandleInputAction(SignalInputAction input)
         {
             switch (input.Action)
             {
@@ -36,6 +44,16 @@ namespace SanderSaveli.GravityMaze
                     break;
                 case InputActionType.LoadGame:
                     SceneManager.LoadScene(SceneType.GameScene.ToString());
+                    break;
+                case InputActionType.LoadNextLevel:
+                    await _transitionScreenAnimator.Show(_gameContext.LevelNumber, _gameContext.LevelNumber +1);
+                    SceneManager.LoadScene(SceneType.GameScene.ToString());
+                    await _transitionScreenAnimator.Hide();
+                    break;
+                case InputActionType.LoadLevelFromMenu:
+                    await _transitionScreenAnimator.Show(_gameContext.LevelNumber+1);
+                    SceneManager.LoadScene(SceneType.GameScene.ToString());
+                    await _transitionScreenAnimator.Hide();
                     break;
             }
         }

@@ -11,15 +11,26 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private Collider2D _collider;
         [SerializeField] private float _stopSpeed;
         private Rigidbody2D _playerRb;
+        private bool _isActive;
 
         protected override void StopMove()
         {
+            if(!_isActive)
+            {
+                return;
+            }
+            _isActive = false;
             _collider.enabled = false;
             OnStatusChange?.Invoke(false);
         }
 
         protected override void UpdateMove(float delta)
         {
+            if (_isActive)
+            {
+                return;
+            }
+            _isActive = true;
             _collider.enabled = true;
             OnStatusChange?.Invoke(true);
         }

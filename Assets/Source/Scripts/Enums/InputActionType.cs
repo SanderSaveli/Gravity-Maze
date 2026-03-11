@@ -4,6 +4,8 @@ namespace SanderSaveli.GravityMaze
     {
         ExitGame,
         LoadMenu,
-        LoadGame
+        LoadGame,
+        LoadNextLevel,
+        LoadLevelFromMenu
     }
 }

@@ -42,7 +42,7 @@ namespace SanderSaveli.GravityMaze
             int level = _gameContext.LevelNumber;
             level = Mathf.Clamp(level + 1, 0, _levelManager.Levels.Count-1);
             _gameContext.LevelNumber = level;
-            _signalBus.Fire(new SignalInputAction(InputActionType.LoadGame));
+            _signalBus.Fire(new SignalInputAction(InputActionType.LoadNextLevel));
         }
 
         private void HandleExitToMenu()
