@@ -1,6 +1,7 @@
 using R3;
 using SanderSaveli.UDK;
 using UnityEngine;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -14,6 +15,15 @@ namespace SanderSaveli.GravityMaze
         private const string SETTINGS_SAVE_PATH = "Save/AppSettings";
         private IStorageService _storageService;
         private CompositeDisposable _disposables;
+
+        [Inject]
+        public void Construct()
+        {
+            IsMusicOn = new ReactiveProperty<bool>();
+            IsSoundOn = new ReactiveProperty<bool>();
+            IsVibrationOn = new ReactiveProperty<bool>();
+            Language = new ReactiveProperty<Language>();
+        }
 
         private void Awake()
         {
@@ -45,10 +55,10 @@ namespace SanderSaveli.GravityMaze
                 _storageService.Save(SETTINGS_SAVE_PATH, settingsData);
             }
 
-            IsMusicOn = new ReactiveProperty<bool>(settingsData.is_music_on);
-            IsSoundOn = new ReactiveProperty<bool>(settingsData.is_sound_on);
-            IsVibrationOn = new ReactiveProperty<bool>(settingsData.is_vibration_on);
-            Language = new ReactiveProperty<Language>(settingsData.language);
+            IsMusicOn.Value = settingsData.is_music_on;
+            IsSoundOn.Value = settingsData.is_sound_on;
+            IsVibrationOn.Value = settingsData.is_vibration_on;
+            Language.Value = settingsData.language;
         }
 
         private SettingsData CreateDefaultSettins()

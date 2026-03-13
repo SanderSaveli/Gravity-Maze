@@ -6,6 +6,7 @@ namespace SanderSaveli.UDK
 {
     public enum MenuPopupType
     {
-        ExitConfirm
+        ExitConfirm,
+        AudioDebug
     }
 }
