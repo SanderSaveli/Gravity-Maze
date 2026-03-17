@@ -51,11 +51,10 @@ namespace SanderSaveli.UDK.UI
         {
             if (radioButton == _selectedElement)
             {
-                Debug.Log("this one");
                 return;
             }
 
-            _selectedElement.Deselect();
+            _selectedElement?.Deselect();
             _selectedElement = radioButton;
             radioButton.Select();
             OnValueChanged?.Invoke(Value);

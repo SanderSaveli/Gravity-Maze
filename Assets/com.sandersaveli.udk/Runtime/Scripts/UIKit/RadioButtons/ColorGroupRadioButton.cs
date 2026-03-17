@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace SanderSaveli.GravityMaze
 {
-    public class ColorRadioButton : RadioButton<ColorSheme>
+    public class ColorGroupRadioButton : RadioButton<ColorGroupType>
     {
         [SerializeField] private Button _button;
 
@@ -18,6 +18,11 @@ namespace SanderSaveli.GravityMaze
             _button.onClick.RemoveListener(HandleClick);
         }
 
+        private void HandleClick()
+        {
+            OnSelectInput.Invoke(this);    
+        }
+
         public override void Deselect()
         {
 
@@ -26,11 +31,6 @@ namespace SanderSaveli.GravityMaze
         public override void Select()
         {
 
-        }
-
-        private void HandleClick()
-        {
-            OnSelectInput?.Invoke(this);
         }
     }
 }

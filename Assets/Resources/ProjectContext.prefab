@@ -364,8 +364,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294930487
-  m_fontColor: {r: 0.21568628, g: 0.4392157, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -568,6 +568,123 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicSource: {fileID: 8037507552257899114}
   _soundSource: {fileID: 7805021461018816795}
+--- !u!1 &1556498404609386145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 563628681741300546}
+  - component: {fileID: 7891303725710120300}
+  m_Layer: 0
+  m_Name: ColorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &563628681741300546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556498404609386145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8343236429533980380}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7891303725710120300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556498404609386145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4eda9d66cc41c45aeecb00685ae31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shemeColors:
+  - ColorSheme: 0
+    ColorSet: {fileID: 11400000, guid: 4dad8d946a05e374aa5df61c7b17f206, type: 2}
+  - ColorSheme: 1
+    ColorSet: {fileID: 11400000, guid: aa52404b81de13243a6de795d4213ae2, type: 2}
+  - ColorSheme: 2
+    ColorSet: {fileID: 11400000, guid: 98e399334ca66414cba14e43d6bb73cd, type: 2}
+  - ColorSheme: 3
+    ColorSet: {fileID: 11400000, guid: 6a5d0d5c7329bc441b9951c33c2fa38c, type: 2}
+  - ColorSheme: 4
+    ColorSet: {fileID: 11400000, guid: e9f1fc215a6195c49ba692009e0b86cf, type: 2}
+  - ColorSheme: 5
+    ColorSet: {fileID: 11400000, guid: 623726ae13866f343a13273c63b68953, type: 2}
+  - ColorSheme: 6
+    ColorSet: {fileID: 11400000, guid: a871cab9bd30aaa4e8d844130628e254, type: 2}
+  - ColorSheme: 7
+    ColorSet: {fileID: 11400000, guid: 3b0791a0a74908843be8421ce7584fc0, type: 2}
+  - ColorSheme: 8
+    ColorSet: {fileID: 11400000, guid: 7cde31b84bdc0344290080e3cc30a9f2, type: 2}
+  - ColorSheme: 9
+    ColorSet: {fileID: 11400000, guid: d2e7cc1c1dce21a4e9c4e357567ce2d2, type: 2}
+  - ColorSheme: 10
+    ColorSet: {fileID: 11400000, guid: c6e958eb51a89c447bfcb5730715b851, type: 2}
+  - ColorSheme: 11
+    ColorSet: {fileID: 11400000, guid: 01aa39c52662b3a4a8188533c313c60f, type: 2}
+  - ColorSheme: 12
+    ColorSet: {fileID: 11400000, guid: 58b2dbcd65fa7314ab47a473acbb6cf3, type: 2}
+  - ColorSheme: 13
+    ColorSet: {fileID: 11400000, guid: 3ebf2c018c3d77f4c861a78a181c258c, type: 2}
+  - ColorSheme: 14
+    ColorSet: {fileID: 11400000, guid: e098bd16f5201b244a6ed4dc3ddf3c0e, type: 2}
+  - ColorSheme: 15
+    ColorSet: {fileID: 11400000, guid: a4ac97b51f29587408c49a29e558c810, type: 2}
+  - ColorSheme: 16
+    ColorSet: {fileID: 11400000, guid: 08b1d67454430434393259e416af00ad, type: 2}
+  - ColorSheme: 17
+    ColorSet: {fileID: 11400000, guid: f8cef3d75ea8769408e288a8b4b61def, type: 2}
+  - ColorSheme: 18
+    ColorSet: {fileID: 11400000, guid: c72196065d9f5d14286239e6b30e0fa1, type: 2}
+  - ColorSheme: 19
+    ColorSet: {fileID: 11400000, guid: 25eea1b11c976a2448aed41915ef2133, type: 2}
+  - ColorSheme: 20
+    ColorSet: {fileID: 11400000, guid: 77f46896a5560134399b6d6db68b5ba7, type: 2}
+  - ColorSheme: 21
+    ColorSet: {fileID: 11400000, guid: 94bf1d0bc1769254594ab14e3ed6c062, type: 2}
+  - ColorSheme: 22
+    ColorSet: {fileID: 11400000, guid: 6d8609c1ce41c984587203e7b5ff9e39, type: 2}
+  - ColorSheme: 23
+    ColorSet: {fileID: 11400000, guid: 76dee04827423ad41b68adf9e7947e85, type: 2}
+  - ColorSheme: 24
+    ColorSet: {fileID: 11400000, guid: f6defff2233a04b4a8cbc2d5d25b5478, type: 2}
+  - ColorSheme: 25
+    ColorSet: {fileID: 11400000, guid: 7c0e3216f05d25748b6c1764c859ed76, type: 2}
+  - ColorSheme: 26
+    ColorSet: {fileID: 11400000, guid: ae5c7f271c4d68948b1f9c79e923801d, type: 2}
+  - ColorSheme: 27
+    ColorSet: {fileID: 11400000, guid: 3b51a1ce1acf65e49bc8146bbe9942b2, type: 2}
+  - ColorSheme: 28
+    ColorSet: {fileID: 11400000, guid: d69ec1f5e7bdaad44af6240d5ffed983, type: 2}
+  - ColorSheme: 29
+    ColorSet: {fileID: 11400000, guid: 8271e5ea2476fc346adacf26cc7a79ac, type: 2}
+  - ColorSheme: 30
+    ColorSet: {fileID: 11400000, guid: f24baf5bed830a34183c4b7fd8ebb356, type: 2}
+  - ColorSheme: 31
+    ColorSet: {fileID: 11400000, guid: dfe7be4d3af477048817a55ca6bb8db6, type: 2}
+  - ColorSheme: 32
+    ColorSet: {fileID: 11400000, guid: 9e550086793867048802cbe41a9aacd0, type: 2}
+  - ColorSheme: 33
+    ColorSet: {fileID: 11400000, guid: c77f1bcae1489bd4c8454e688cfc7753, type: 2}
+  - ColorSheme: 34
+    ColorSet: {fileID: 11400000, guid: 4e02f8ece71239b438ea7809fb7147b5, type: 2}
+  - ColorSheme: 35
+    ColorSet: {fileID: 11400000, guid: 7bdf425776527154b8669637d51fde84, type: 2}
 --- !u!1 &1861428552283275053
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,8 +803,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294930487
-  m_fontColor: {r: 0.21568628, g: 0.4392157, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -867,8 +984,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294930487
-  m_fontColor: {r: 0.21568628, g: 0.4392157, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1094,8 +1211,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294930487
-  m_fontColor: {r: 0.21568628, g: 0.4392157, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1195,6 +1312,7 @@ Transform:
   - {fileID: 3528943280082580548}
   - {fileID: 314322352983095541}
   - {fileID: 3829355402252318220}
+  - {fileID: 563628681741300546}
   m_Father: {fileID: 6190226297020830138}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1812365539684536093
@@ -1217,6 +1335,7 @@ MonoBehaviour:
   _appSettings: {fileID: 6666583298023075021}
   _textManager: {fileID: 8683031209871584509}
   _audioManager: {fileID: 214675330610268305}
+  _colorManager: {fileID: 7891303725710120300}
 --- !u!1 &5089864960636780192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1565,8 +1684,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294930487
-  m_fontColor: {r: 0.21568628, g: 0.4392157, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2078,8 +2197,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294930487
-  m_fontColor: {r: 0.21568628, g: 0.4392157, b: 1, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

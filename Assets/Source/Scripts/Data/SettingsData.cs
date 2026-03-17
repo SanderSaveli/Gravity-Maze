@@ -9,5 +9,6 @@ namespace SanderSaveli.GravityMaze
         public bool is_sound_on;
         public bool is_vibration_on;
         public Language language;
+        public ColorSheme color;
     }
 }

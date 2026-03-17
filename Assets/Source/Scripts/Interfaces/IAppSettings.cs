@@ -8,5 +8,6 @@ namespace SanderSaveli.GravityMaze
         public ReactiveProperty<bool> IsSoundOn { get; }
         public ReactiveProperty<bool> IsVibrationOn { get; }
         public ReactiveProperty<Language> Language { get; }
+        public ReactiveProperty<ColorSheme> ColorSheme { get; }
     }
 }

@@ -11,6 +11,7 @@ namespace SanderSaveli.GravityMaze
         public ReactiveProperty<bool> IsSoundOn { get; private set; }
         public ReactiveProperty<bool> IsVibrationOn { get; private set; }
         public ReactiveProperty<Language> Language { get; private set; }
+        public ReactiveProperty<ColorSheme> ColorSheme { get; private set; }
 
         private const string SETTINGS_SAVE_PATH = "Save/AppSettings";
         private IStorageService _storageService;
@@ -23,6 +24,7 @@ namespace SanderSaveli.GravityMaze
             IsSoundOn = new ReactiveProperty<bool>();
             IsVibrationOn = new ReactiveProperty<bool>();
             Language = new ReactiveProperty<Language>();
+            ColorSheme = new ReactiveProperty<ColorSheme>();
         }
 
         private void Awake()
@@ -38,6 +40,7 @@ namespace SanderSaveli.GravityMaze
             IsSoundOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             IsVibrationOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             Language.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
+            ColorSheme.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
         }
 
         private void OnDisable()
@@ -59,6 +62,7 @@ namespace SanderSaveli.GravityMaze
             IsSoundOn.Value = settingsData.is_sound_on;
             IsVibrationOn.Value = settingsData.is_vibration_on;
             Language.Value = settingsData.language;
+            ColorSheme.Value = settingsData.color;
         }
 
         private SettingsData CreateDefaultSettins()
@@ -68,6 +72,7 @@ namespace SanderSaveli.GravityMaze
             sd.is_sound_on = true;
             sd.is_vibration_on = true;
             sd.language = GravityMaze.Language.en;
+            sd.color = GravityMaze.ColorSheme.dark_1;
             return sd;
         }
 
@@ -78,6 +83,7 @@ namespace SanderSaveli.GravityMaze
             sd.is_sound_on = IsSoundOn.Value;
             sd.is_vibration_on = IsVibrationOn.Value;
             sd.language = Language.Value;
+            sd.color = ColorSheme.Value;
             return sd;
         }
 
