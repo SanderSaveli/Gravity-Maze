@@ -9,7 +9,7 @@ namespace SanderSaveli.GravityMaze
     {
         public ColorGroupType Type => _colorGroupType;
 
-        [SerializeField] private ShowHideAnimation _showHideAnimation;
+        [SerializeField] private ShowHideAnimation _leftShowHideAnimation;
         [SerializeField] private List<ColorRadioButton> _colorsInGroup;
 
         [Header("Params")]
@@ -26,23 +26,23 @@ namespace SanderSaveli.GravityMaze
         public void Show()
         {
             gameObject.SetActive(true);
-            _showHideAnimation.Show(0, _showDuration, null);
+            _leftShowHideAnimation.Show(0, _showDuration, null);
         }
 
         public void Hide()
         {
-            _showHideAnimation.Hide(0, _hideDuration, () => gameObject.SetActive(false));
+            _leftShowHideAnimation.Hide(0, _hideDuration, () => gameObject.SetActive(false));
         }
 
         public void ShowImmediately()
         {
             gameObject.SetActive(true);
-            _showHideAnimation.ShowImmediately();
+            _leftShowHideAnimation.ShowImmediately();
         }
 
         public void HideImmediately()
         {
-            _showHideAnimation.HideImmediately();
+            _leftShowHideAnimation.HideImmediately();
             gameObject.SetActive(false);
         }
     }

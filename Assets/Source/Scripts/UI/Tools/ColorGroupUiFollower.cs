@@ -1,13 +1,12 @@
 using Cysharp.Threading.Tasks;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace SanderSaveli.GravityMaze
 {
-    public class ColorTargetFollower : UITargetFollower
+    public class ColorGroupUiFollower : UITargetFollower
     {
-        [SerializeField] private ColorRadioGroup _colorGroup;
+        [SerializeField] private ColorGroupRadioGroup _colorGroup;
 
         private new async void Start()
         {
@@ -16,22 +15,23 @@ namespace SanderSaveli.GravityMaze
             LayoutRebuilder.ForceRebuildLayoutImmediate(_sliderParent);
             await UniTask.Yield();
             RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
-            transform.parent = target;
-            _sliderParent = null;
-            _colorGroup.OnValueChanged += NewVarianSelect;
             MoveToImmediately(target);
         }
 
-        private void OnDestroy()
+        private void OnEnable()
+        {
+            _colorGroup.OnValueChanged += NewVarianSelect;
+        }
+
+        private void OnDisable()
         {
             _colorGroup.OnValueChanged -= NewVarianSelect;
         }
 
-        private void NewVarianSelect(ColorSheme value)
+        private void NewVarianSelect(ColorGroupType value)
         {
+            Debug.Log("New variant");
             RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
-            transform.parent = target;
-            _sliderParent = null;
             MoveTo(target);
         }
     }
