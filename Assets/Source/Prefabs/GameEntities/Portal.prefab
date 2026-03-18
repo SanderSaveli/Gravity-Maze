@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4097326176537155604}
   - component: {fileID: 4360484190515161442}
+  - component: {fileID: 4071589746296202227}
   m_Layer: 0
   m_Name: portalMask
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 27a4640a9e1a689418287afffe0050b7, type: 3}
-  m_Color: {r: 0.21568629, g: 0.43921572, b: 1, a: 1}
+  m_Color: {r: 0.24313727, g: 0.227451, b: 0.98823535, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +85,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4071589746296202227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2939915219601414174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251b3cf75c9f71b4fb58a931ee331369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
+  _image: {fileID: 4360484190515161442}
+  _overrideAlpha: 0
+  _alpha: 1
 --- !u!1 &3564215099640254081
 GameObject:
   m_ObjectHideFlags: 0

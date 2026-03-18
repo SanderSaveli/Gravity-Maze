@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1237912336741888521}
   - component: {fileID: 8434950206986552038}
+  - component: {fileID: 4934454828951789070}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.21568629, g: 0.43921572, b: 1, a: 0.2509804}
+  m_Color: {r: 0.24313727, g: 0.227451, b: 0.98823535, a: 0.25}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -84,6 +85,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4934454828951789070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 408031931006926365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251b3cf75c9f71b4fb58a931ee331369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
+  _image: {fileID: 8434950206986552038}
+  _overrideAlpha: 1
+  _alpha: 0.25
 --- !u!1 &3470063512516793434
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +111,7 @@ GameObject:
   m_Component:
   - component: {fileID: 192790488896166611}
   - component: {fileID: 8487920117669144270}
+  - component: {fileID: 1259215001658598416}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -158,7 +176,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.21568629, g: 0.43921572, b: 1, a: 1}
+  m_Color: {r: 0.24313727, g: 0.227451, b: 0.98823535, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -168,6 +186,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1259215001658598416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3470063512516793434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251b3cf75c9f71b4fb58a931ee331369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
+  _image: {fileID: 8487920117669144270}
+  _overrideAlpha: 0
+  _alpha: 1
 --- !u!1 &3599362609863788390
 GameObject:
   m_ObjectHideFlags: 0

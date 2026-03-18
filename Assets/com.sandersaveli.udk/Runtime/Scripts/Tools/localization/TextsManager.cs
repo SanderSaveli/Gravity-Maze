@@ -33,6 +33,7 @@ namespace SanderSaveli.UDK
             {
                 if (_tableTexts != null && _tableTexts.TryGetValue(key, out var text))
                     return GetCurrentLanguageValue(text);
+                Debug.Log(gameObject.name);
                 Debug.LogError($"[TextsManager] Key '{key}' not found for locale {_language}");
                 return key;
             }

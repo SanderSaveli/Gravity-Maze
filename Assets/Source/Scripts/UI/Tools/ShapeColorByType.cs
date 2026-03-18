@@ -1,30 +1,31 @@
 using CustomText;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.U2D;
 
-namespace SanderSaveli.UDK.UI
+namespace SanderSaveli.GravityMaze
 {
-    [AddComponentMenu("UI/Custom Components/Image Color By Type")]
-    [RequireComponent(typeof(Image))]
-    public class ImageColorByType : MonoBehaviour
+    [RequireComponent(typeof(SpriteShapeRenderer))]
+    public class ShapeColorByType : MonoBehaviour
     {
         public Custom_ColorStyle Color => _type;
 
         [SerializeField] private Custom_ColorStyle _type;
-        [SerializeField] private Image _image;
+        [SerializeField] private SpriteShapeRenderer _image;
 
         private bool _isSubcribed = false;
         private Custom_ColorStyle _selectedColor = Custom_ColorStyle.Default;
 
 
-        private void OnEnable()
-        {
-            ApplyColorSetting();
-        }
+        private void Awake() => ApplyColorSetting();
 
         private void ApplyColorSetting()
         {
+            if(_image == null)
+            {
+                OnDestroy();
+                return;
+            }
             _selectedColor = _type;
             if (ColorSettings.Instance == null) return;
             Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor);
@@ -40,7 +41,7 @@ namespace SanderSaveli.UDK.UI
 
         private void Change()
         {
-            _image = GetComponent<Image>();
+            _image = GetComponent<SpriteShapeRenderer>();
             if (_image == null)
             {
                 Debug.LogError("Image not found in " + gameObject.name);
@@ -66,21 +67,9 @@ namespace SanderSaveli.UDK.UI
         {
             _selectedColor = style;
             if (ColorSettings.Instance == null) return;
-            
+
             _type = _selectedColor;
             Change();
-        }
-
-        public void ChangeColorWithAnimation(Custom_ColorStyle style, float duration = 0.4f)
-        {
-            _selectedColor = style;
-
-            if (ColorSettings.Instance == null) return;
-
-            Color color = ColorSettings.Instance.GetColorByStyle(style);
-            _type = _selectedColor;
-            Change();
-            _image.DOColor(color, duration);
         }
     }
 }

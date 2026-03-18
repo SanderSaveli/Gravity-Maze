@@ -17,9 +17,10 @@ namespace CustomText
 
         private bool _isSubcribed = false;
 
-        protected override void Start()
+        protected override void Awake()
         {
             Init();
+            base.Awake();
         }
 
         public void ChangeStyle(Custom_TextStyle textStyle)
