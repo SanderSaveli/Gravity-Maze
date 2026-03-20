@@ -30,7 +30,7 @@ namespace SanderSaveli.GravityMaze
         private void NewVarianSelect(ColorSheme value)
         {
             RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
-            transform.parent = target;
+            transform.SetParent(target);
             _sliderParent = null;
             MoveTo(target);
         }

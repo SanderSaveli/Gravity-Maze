@@ -69,10 +69,12 @@ namespace SanderSaveli.UDK
         private void HandleResponce(string responce)
         {
             UpdateTexts(responce);
+#if UNITY_EDITOR
             if (_isLocalInBuild)
             {
                 SaveToFile(responce);
             }
+#endif
         }
 
         private void UpdateTexts(string text)

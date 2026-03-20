@@ -23,11 +23,15 @@ namespace SanderSaveli.UDK.UI
             ApplyColorSetting();
         }
 
+        private void Start()
+        {
+            Change();
+        }
+
         private void ApplyColorSetting()
         {
             _selectedColor = _type;
-            if (ColorSettings.Instance == null) return;
-            Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor);
+            Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor); 
             _image.color = color;
         }
 
@@ -53,7 +57,7 @@ namespace SanderSaveli.UDK.UI
                 _isSubcribed = true;
             }
 
-            if (_type != _selectedColor) ApplyColorSetting();
+            ApplyColorSetting();
         }
 
         private void OnDestroy()

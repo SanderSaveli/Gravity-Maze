@@ -22,7 +22,7 @@ namespace SanderSaveli.GravityMaze
 
         private void Awake()
         {
-            _storageService = new JsonToStreamingAssetsStorageService();
+            _storageService = new JsonToResourcesStorageService();
             APIServer.EnableLogging = true;
             ChangeLanguage(_appSettings.Language.Value);
         }
