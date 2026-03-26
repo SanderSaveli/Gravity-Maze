@@ -9,5 +9,6 @@ namespace SanderSaveli.GravityMaze
         public ReactiveProperty<bool> IsVibrationOn { get; }
         public ReactiveProperty<Language> Language { get; }
         public ReactiveProperty<ColorSheme> ColorSheme { get; }
+        public ReactiveProperty<TimeMode> TimeMode { get; }
     }
 }

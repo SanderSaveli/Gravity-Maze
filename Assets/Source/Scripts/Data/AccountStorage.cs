@@ -11,6 +11,8 @@ namespace SanderSaveli.GravityMaze
         public ReactiveProperty<int> CurrentLevel { get; private set; }
         public ReactiveProperty<List<LevelSaveData>> Levels { get; private set; }
 
+        public int StarCount => CalculateStars();
+
         private CompositeDisposable _disposables;
 
         public AccountStorage()
@@ -47,6 +49,16 @@ namespace SanderSaveli.GravityMaze
         {
             _disposables?.Dispose();
             _disposables = null;
+        }
+
+        private int CalculateStars()
+        {
+            int stars = 0;
+            foreach (var level in Levels.Value)
+            {
+                stars += level.star_count;
+            }
+            return stars;
         }
     }
 }

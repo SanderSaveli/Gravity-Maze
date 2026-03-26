@@ -35,7 +35,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleRestrt()
         {
-            _signalBus.Fire(new SignalInputAction(InputActionType.LoadGame));
+            _signalBus.Fire(new SignalInputAction(InputActionType.RestartGame));
         }
 
         private void HandleExitToMenu()

@@ -14,9 +14,10 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private SelectButton _vibrationButton;
         [SerializeField] private Button _aboutUsButton;
         [SerializeField] private Button _removeAdsButton;
+        [SerializeField] private SpeedRadioButtonGroup _speedRadioButtonGroup;
         private IAppSettings _appSettings;
         private SignalBus _signalBus;
-
+        
         [Inject]
         public void Construct(IAppSettings appSettings, SignalBus signalBus)
         {
@@ -33,10 +34,13 @@ namespace SanderSaveli.GravityMaze
             _soundButton.OnSwitched += HandleChangeSouds;
             _musicButton.OnSwitched += HandleChangeMusic;
             _vibrationButton.OnSwitched += HandleChangeVibration;
+            _speedRadioButtonGroup.OnValueChanged += HandleChangeTimeMode;
 
             _languageButton.onClick.AddListener(HandleChangeLanguage);
             _aboutUsButton.onClick.AddListener(HandleAboutUs);
             _removeAdsButton.onClick.AddListener(HandleRemoveAds);
+
+            _speedRadioButtonGroup.SetSelect(_appSettings.TimeMode.Value);
             base.SubscribeToEvents();
         }
 
@@ -45,6 +49,7 @@ namespace SanderSaveli.GravityMaze
             _soundButton.OnSwitched -= HandleChangeSouds;
             _musicButton.OnSwitched -= HandleChangeMusic;
             _vibrationButton.OnSwitched -= HandleChangeVibration;
+            _speedRadioButtonGroup.OnValueChanged -= HandleChangeTimeMode;
 
             _languageButton.onClick.RemoveListener(HandleChangeLanguage);;
             _aboutUsButton.onClick.RemoveListener(HandleAboutUs);
@@ -80,6 +85,12 @@ namespace SanderSaveli.GravityMaze
         private void HandleRemoveAds()
         {
             _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.RemoveAds));
+        }
+
+        private void HandleChangeTimeMode(TimeMode timeMode)
+        {
+            _appSettings.TimeMode.Value = timeMode;
+            Debug.Log(_appSettings.TimeMode.Value);
         }
     }
 }

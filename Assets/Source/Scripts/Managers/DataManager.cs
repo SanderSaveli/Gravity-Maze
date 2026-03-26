@@ -22,7 +22,7 @@ namespace SanderSaveli.GravityMaze
 
         private void Awake()
         {
-            _storageService = new JsonToFileStorageService();
+            _storageService = new EncryptedJsonToFileStorageService();
             _storageService.Load<AccountData>(ACCOUNT_SAVE_PATH, OnDataLoaded);
         }
 
