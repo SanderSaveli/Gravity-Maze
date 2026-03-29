@@ -6,7 +6,7 @@ namespace SanderSaveli.GravityMaze
     public class GameInstaller : MonoInstaller
     {
         [SerializeField] private InputManager _inputManager;
-        [SerializeField] private RotationManager _rotationManager;
+        [SerializeField] private SlowingRotationManager _rotationManager;
         [SerializeField] private StarManager _starManager;
 
         public override void InstallBindings()

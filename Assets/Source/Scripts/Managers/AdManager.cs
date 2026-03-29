@@ -21,7 +21,7 @@ namespace SanderSaveli.GravityMaze
             {
                 RequestConfiguration requestConfiguration = new RequestConfiguration
                 {
-                    TestDeviceIds = new List<string> { "0c7eebe0-fb8d-4054-a508-4ae573cee300", "4729fac9-3274-4976-bfd5-ee5b7ae6c21c" }
+                    TestDeviceIds = new List<string> { "0c7eebe0-fb8d-4054-a508-4ae573cee300", "4729fac9-3274-4976-bfd5-ee5b7ae6c21c", "f529d3ca-ef88-418f-b3cb-5663e42b016c" }
                 };
                 MobileAds.SetRequestConfiguration(requestConfiguration);
 
