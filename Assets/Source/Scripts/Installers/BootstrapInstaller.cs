@@ -16,6 +16,8 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private LockalTextManager _textManager;
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private ColorManager _colorManager;
+        [SerializeField] private AdManager _adManager;
+        [SerializeField] private TimeManager _timeManager;
 
         private GameContext _gameContext;
         public override void InstallBindings()
@@ -33,6 +35,8 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<ILanguageChanger<Language>>().FromInstance(_textManager).AsSingle().NonLazy();
             Container.Bind<IAudioManager>().FromInstance(_audioManager).AsSingle().NonLazy();
             Container.Bind<IColorManager>().FromInstance(_colorManager).AsSingle().NonLazy();
+            Container.Bind<IAdManager>().FromInstance(_adManager).AsSingle().NonLazy();
+            Container.Bind<ITimeManager>().FromInstance(_timeManager).AsSingle().NonLazy();
 
             #region Signals
             Container.DeclareSignal<SignalInputAction>();

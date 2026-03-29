@@ -12,12 +12,15 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private Slider _frictionInputField;
         [SerializeField] private Slider _bouncinessInputField;
         [SerializeField] private TMP_InputField _rotationInputField;
+        [SerializeField] private SpeedRadioButtonGroup _speedRadioButtonGroup;
         private IGameplayConfig _gameplayConfig;
+        private IAppSettings _appSettings;
 
         [Inject]
-        public void Construct(IGameplayConfig gameplayConfig)
+        public void Construct(IGameplayConfig gameplayConfig, IAppSettings appSettings)
         {
             _gameplayConfig = gameplayConfig;
+            _appSettings = appSettings;
         }
 
         protected override void SubscribeToEvents()
@@ -33,6 +36,9 @@ namespace SanderSaveli.GravityMaze
 
             _rotationInputField.text = _gameplayConfig.RotationSpeed.ToString();
             _rotationInputField.onValueChanged.AddListener(OnRotationChange);
+
+            _speedRadioButtonGroup.OnValueChanged += HandleChangeTimeMode;
+            _speedRadioButtonGroup.SetSelect(_appSettings.TimeMode.Value);
             base.SubscribeToEvents();
         }
 
@@ -42,6 +48,7 @@ namespace SanderSaveli.GravityMaze
             _frictionInputField.onValueChanged.RemoveListener(OnFrictionChange);
             _bouncinessInputField.onValueChanged.RemoveListener(OnBouncinessChange);
             _rotationInputField.onValueChanged.RemoveListener(OnRotationChange);
+            _speedRadioButtonGroup.OnValueChanged -= HandleChangeTimeMode;
             base.UnsubscribeFromEvents();
         }
 
@@ -71,6 +78,12 @@ namespace SanderSaveli.GravityMaze
                 _gameplayConfig.GravityForce = result;
                 Debug.Log("Gravity: " + result);
             }
+        }
+
+        private void HandleChangeTimeMode(TimeMode timeMode)
+        {
+            _appSettings.TimeMode.Value = timeMode;
+            Debug.Log(_appSettings.TimeMode.Value);
         }
     }
 }

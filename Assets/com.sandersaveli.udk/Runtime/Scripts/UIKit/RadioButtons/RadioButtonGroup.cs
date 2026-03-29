@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SanderSaveli.GravityMaze;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace SanderSaveli.UDK.UI
         [SerializeField] private int _startSelectedElement;
 
         [SerializeField] private List<RadioButton<T>> _radioButtons;
+        private bool _isSelectInitialized;
+
+        public RadioButton<T> ActiveElement => _selectedElement;
 
         public T Value
         {
@@ -28,7 +32,10 @@ namespace SanderSaveli.UDK.UI
 
         private void Awake()
         {
-            _selectedElement = _radioButtons[_startSelectedElement];
+            if (!_isSelectInitialized)
+            {
+                _selectedElement = _radioButtons[_startSelectedElement];
+            }
         }
 
         private void Start()
@@ -43,6 +50,7 @@ namespace SanderSaveli.UDK.UI
 
         public void SetSelect(T type)
         {
+            _isSelectInitialized = true;
             RadioButton<T> button = _radioButtons.FirstOrDefault(t => t.Value.Equals(type));
             OnSelectInput(button);
         }
