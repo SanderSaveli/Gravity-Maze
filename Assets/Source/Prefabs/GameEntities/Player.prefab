@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 2297328643754077680}
   - component: {fileID: 5097513335588033585}
   - component: {fileID: 6284824353453412463}
+  - component: {fileID: 5256313844821969810}
+  - component: {fileID: 6031460273920481355}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -150,7 +152,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -222,7 +224,7 @@ TrailRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 0
   m_LightProbeUsage: 0
@@ -253,17 +255,17 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.25
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 2.5
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.90008354
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -284,8 +286,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.98823535, g: 0.227451, b: 0.7725491, a: 0.78431374}
+      key1: {r: 0.98823535, g: 0.227451, b: 0.7725491, a: 0.078431375}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -309,21 +311,50 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 90
-    numCapVertices: 90
-    alignment: 0
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 1
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 1
+  m_MinVertexDistance: 1.4
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &5256313844821969810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776918374992160595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ca14567424d5142b8d9f11947c1b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trailRenderer: {fileID: 6284824353453412463}
+  _type: 1
+--- !u!114 &6031460273920481355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776918374992160595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5000c7119a9389e4285e9cc6cceeb4fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedThreshold: 5
+  extraPointSpacing: 0.1
+  teleportDistanceThreshold: 2
 --- !u!1 &7958534863930979811
 GameObject:
   m_ObjectHideFlags: 0
