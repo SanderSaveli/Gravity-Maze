@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 namespace SanderSaveli.UDK
 {
-    public interface IAPIServer
+    public interface IIAPManager
     {
         public static bool EnableLogging { get; set; }
 

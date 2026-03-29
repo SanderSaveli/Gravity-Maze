@@ -10,6 +10,7 @@ namespace SanderSaveli.GravityMaze
         public ReactiveProperty<bool> IsMusicOn { get; private set; }
         public ReactiveProperty<bool> IsSoundOn { get; private set; }
         public ReactiveProperty<bool> IsVibrationOn { get; private set; }
+        public ReactiveProperty<bool> IsAdsRemoved { get; private set; }
         public ReactiveProperty<Language> Language { get; private set; }
         public ReactiveProperty<ColorSheme> ColorSheme { get; private set; }
         public ReactiveProperty<TimeMode> TimeMode { get; private set; }
@@ -24,6 +25,7 @@ namespace SanderSaveli.GravityMaze
             IsMusicOn = new ReactiveProperty<bool>();
             IsSoundOn = new ReactiveProperty<bool>();
             IsVibrationOn = new ReactiveProperty<bool>();
+            IsAdsRemoved = new ReactiveProperty<bool>();
             Language = new ReactiveProperty<Language>();
             ColorSheme = new ReactiveProperty<ColorSheme>();
             TimeMode = new ReactiveProperty<TimeMode>();
@@ -41,6 +43,7 @@ namespace SanderSaveli.GravityMaze
             IsMusicOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             IsSoundOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             IsVibrationOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
+            IsAdsRemoved.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             Language.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             ColorSheme.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
             TimeMode.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
@@ -65,6 +68,7 @@ namespace SanderSaveli.GravityMaze
             IsSoundOn.Value = settingsData.is_sound_on;
             IsVibrationOn.Value = settingsData.is_vibration_on;
             Language.Value = settingsData.language;
+            IsAdsRemoved.Value = settingsData.is_ads_removed;
             ColorSheme.Value = settingsData.color;
             TimeMode.Value = settingsData.time_mode;
         }
@@ -75,6 +79,7 @@ namespace SanderSaveli.GravityMaze
             sd.is_music_on = true;
             sd.is_sound_on = true;
             sd.is_vibration_on = true;
+            sd.is_ads_removed = false;
             sd.language = GravityMaze.Language.en;
             sd.color = GravityMaze.ColorSheme.dark_9;
             sd.time_mode = GravityMaze.TimeMode.normal;
@@ -87,6 +92,7 @@ namespace SanderSaveli.GravityMaze
             sd.is_music_on = IsMusicOn.Value;
             sd.is_sound_on = IsSoundOn.Value;
             sd.is_vibration_on = IsVibrationOn.Value;
+            sd.is_ads_removed |= IsAdsRemoved.Value;
             sd.language = Language.Value;
             sd.color = ColorSheme.Value;
             sd.time_mode = TimeMode.Value;

@@ -44,7 +44,6 @@ namespace SanderSaveli.UDK
         public void ChangeText(string key)
         {
             _key = key;
-            Debug.Log(gameObject.transform.parent.name);
             SetText(_textManager.GetText(_key));
         }
 
