@@ -67,17 +67,14 @@ namespace SanderSaveli.GravityMaze
             Time.timeScale = 0;
 
             AsyncOperation loadOp = SceneManager.LoadSceneAsync(sceneName);
-            Debug.Log("Start Load");
             loadOp.allowSceneActivation = false;
 
-            //await _betweenGameAdShower.ShowAdIfNeeded();
+            await _betweenGameAdShower.ShowAdIfNeeded();
 
             loadOp.allowSceneActivation = true;
 
             await loadOp.ToUniTask();
-            Debug.Log("End Load");
             Time.timeScale = _timeManager.CurrentTimeScale;
-            Debug.Log("Time scale: " + Time.timeScale);
         }
     }
 }

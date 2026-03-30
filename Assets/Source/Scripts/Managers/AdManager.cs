@@ -1,7 +1,9 @@
 using GoogleMobileAds.Api;
+using R3;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -14,6 +16,7 @@ namespace SanderSaveli.GravityMaze
         private const string RewardedAdID = "ca-app-pub-3940256099942544/5224354917";
         private const int _maxErrorCount = 6;
         private int _errorCount;
+        private bool _isShowAd;
 
         private void Awake()
         {
@@ -118,5 +121,7 @@ namespace SanderSaveli.GravityMaze
             _rewardedAd?.Destroy();
             _rewardedAd = ad;
         }
+
+        private void ChangeAdStatus(bool isAdRemoved) => _isShowAd = !isAdRemoved;
     }
 }

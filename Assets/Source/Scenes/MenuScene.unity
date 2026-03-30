@@ -1080,6 +1080,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _key: remove_ads
+--- !u!114 &150430935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4275498830208337110, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+  m_PrefabInstance: {fileID: 310664452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150430929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9f0bc275d28e44f99b6ef346a2dc17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &158499262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3097,6 +3108,22 @@ PrefabInstance:
       propertyPath: m_fontColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3062579418777308313, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062579418777308313, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062579418777308313, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062579418777308313, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3697490177415704967, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
       propertyPath: m_Name
       value: RemoveAdsSlot
@@ -3213,6 +3240,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3697490177415704967, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 941266801}
     - targetCorrespondingSourceObject: {fileID: 8414402867908246391, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
       insertIndex: -1
       addedObject: {fileID: 150430933}
@@ -6369,6 +6399,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 93}
   m_SizeDelta: {x: 176, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &753834283 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6930959301861441083, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+  m_PrefabInstance: {fileID: 310664452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11df7fabae9e2a340ae6ea7802f37e1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &753834284 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3891019382572124877, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+  m_PrefabInstance: {fileID: 310664452}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &773979435
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7346,6 +7398,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _language: 1
+--- !u!1 &941266800 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3697490177415704967, guid: 226d6999d5237f14b8143a0c67b3c766, type: 3}
+  m_PrefabInstance: {fileID: 310664452}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &941266801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941266800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c922ea3b1ec6ec346b0c684a296d1d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 1445623547}
+  _icon: {fileID: 753834284}
+  _imageColor: {fileID: 753834283}
+  _text: {fileID: 150430935}
+  _textByTableKey: {fileID: 150430933}
+  _enabledSprite: {fileID: 21300000, guid: f31b54f7bc536ac48b44200bee610be1, type: 3}
+  _disabledSprite: {fileID: 21300000, guid: 1d1f3be0bc0e60346a45c2e287352526, type: 3}
+  _enabledColor: 1
+  _disabledColor: 7
+  _enabledTextKey: ads_removed
+  _disabledTextKey: remove_ads
 --- !u!1 &945793425
 GameObject:
   m_ObjectHideFlags: 0
