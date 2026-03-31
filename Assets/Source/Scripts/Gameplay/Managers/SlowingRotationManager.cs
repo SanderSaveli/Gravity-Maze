@@ -12,7 +12,11 @@ namespace SanderSaveli.GravityMaze
             private set
             {
                 float clamped = Mathf.Clamp(value, 0, MaxRotation);
-                if (Math.Abs(clamped - _currentRotation) > 0.001f)
+                if(clamped < 0.01)
+                {
+                    clamped = 0;
+                }
+                if (clamped != _currentRotation)
                 {
                     _currentRotation = clamped;
                     OnRotatonChange?.Invoke(_currentRotation);

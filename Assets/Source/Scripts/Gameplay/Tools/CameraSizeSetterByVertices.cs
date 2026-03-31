@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 using System.Collections.Generic;
 using UnityEngine.U2D;
+using Cysharp.Threading.Tasks;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -21,9 +22,10 @@ namespace SanderSaveli.GravityMaze
             _levelProvider = levelProvider;
         }
 
-        private void Start()
+        private async void Start()
         {
             _camera = Camera.main;
+            await UniTask.Yield();
             SetCameraSize();
         }
 

@@ -20,7 +20,13 @@ namespace SanderSaveli.UDK.UI
 
         private void OnEnable()
         {
+            ColorSettings.Instance.OnColorStyleChanged += ApplyColorSetting;
             ApplyColorSetting();
+        }
+
+        private void OnDisable()
+        {
+            ColorSettings.Instance.OnColorStyleChanged -= ApplyColorSetting;
         }
 
         private void Start()
@@ -53,7 +59,6 @@ namespace SanderSaveli.UDK.UI
 
             if (!_isSubcribed)
             {
-                ColorSettings.Instance.OnColorStyleChanged += ApplyColorSetting;
                 _isSubcribed = true;
             }
 
@@ -62,7 +67,6 @@ namespace SanderSaveli.UDK.UI
 
         private void OnDestroy()
         {
-            ColorSettings.Instance.OnColorStyleChanged -= ApplyColorSetting;
             DOTween.Kill(_image);
         }
 

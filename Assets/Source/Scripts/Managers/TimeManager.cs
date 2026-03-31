@@ -39,7 +39,7 @@ namespace SanderSaveli.GravityMaze
             switch (timeMode)
             {
                 case TimeMode.normal:
-                    CurrentTimeScale = 1;
+                    CurrentTimeScale = 1f;
                     break;
                 case TimeMode.fast:
                     CurrentTimeScale = 1.5f;

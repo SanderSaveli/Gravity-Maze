@@ -9,6 +9,7 @@ namespace SanderSaveli.GravityMaze
         private ILevelProvider _levelProvider;
         private Transform _rotationTransform;
         private float _targetRotation;
+        private float _zeroRotation;
 
         [Inject]
         public void Construct(IRotationManager rotationManager, ILevelProvider levelProvider)
@@ -17,13 +18,10 @@ namespace SanderSaveli.GravityMaze
             _levelProvider = levelProvider;
         }
 
-        private void Start()
-        {
-            _rotationTransform = _levelProvider.RotablePart;
-        }
-
         private void OnEnable()
         {
+            _rotationTransform = _levelProvider.RotablePart;
+            _zeroRotation = _rotationManager.CurrentRotation;
             _rotationManager.OnRotatonChange += HandleRotationChange;
         }
 
@@ -34,7 +32,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleRotationChange(float value)
         {
-            _targetRotation = value;
+            _targetRotation = _zeroRotation - value;
             Vector3 rotateVector = new Vector3(0, 0, _targetRotation);
             _rotationTransform.rotation = Quaternion.Euler(rotateVector);
         }

@@ -30,11 +30,9 @@ namespace SanderSaveli.GravityMaze
 
         public void AttachTo(Transform newParent)
         {
-            transform.SetParent(newParent, true);
+            transform.SetParent(newParent);
             _parent = newParent;
             _useParentGravity = true;
-
-            Debug.Log("Change Parent");
         }
 
 
@@ -58,7 +56,7 @@ namespace SanderSaveli.GravityMaze
             _targetRotation = value;
         }
 
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             if(!_isActive)
             {
@@ -74,6 +72,7 @@ namespace SanderSaveli.GravityMaze
             {
                 gravityDir = Quaternion.Euler(0f, 0f, _targetRotation) * Vector2.down;
             }
+
             gravityDir.Normalize();
             Vector2 gravityForce = gravityDir * _gravityStrength * _rb.mass;
             _rb.AddForce(gravityForce, ForceMode2D.Force);

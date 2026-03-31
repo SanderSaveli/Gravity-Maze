@@ -71,12 +71,14 @@ namespace SanderSaveli.GravityMaze
             trail.Clear();
 
             await UniTask.DelayFrame(1);
+            if(gameObject != null)
+            {
+                lastPosition = transform.position;
+                trail.emitting = true;
 
-            lastPosition = transform.position;
-            trail.emitting = true;
-
-            isTeleporting = false;
-            trail.enabled = true;
+                isTeleporting = false;
+                trail.enabled = true;
+            }
         }
     }
 }

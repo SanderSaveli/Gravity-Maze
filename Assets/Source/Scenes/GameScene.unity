@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.98823535, g: 0.227451, b: 0.7725491, a: 1}
+  m_Color: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -405,6 +405,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _borderWidth: 1.5
   _camera: {fileID: 519420031}
+--- !u!1 &219951068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 219951069}
+  - component: {fileID: 219951070}
+  m_Layer: 0
+  m_Name: CameraRotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &219951069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219951068}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1337139068}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &219951070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219951068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 723c4b1aa33ea344e863043b2c0e76e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 720
 --- !u!1 &367471973
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10f569d2a7756a49a9ebbc811633e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _horizontalOffset: 3
+  _horizontalOffset: 5
 --- !u!1001 &548488852
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1141,7 +1186,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.98823535, g: 0.227451, b: 0.7725491, a: 1}
+  m_Color: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1894,13 +1939,13 @@ GameObject:
   - component: {fileID: 1337139069}
   - component: {fileID: 1337139070}
   - component: {fileID: 1337139072}
-  - component: {fileID: 1337139073}
   - component: {fileID: 1337139074}
   - component: {fileID: 1337139075}
   - component: {fileID: 1337139076}
   - component: {fileID: 1337139077}
   - component: {fileID: 1337139078}
   - component: {fileID: 1337139079}
+  - component: {fileID: 1337139080}
   m_Layer: 0
   m_Name: System
   m_TagString: Untagged
@@ -1920,7 +1965,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 219951069}
+  - {fileID: 1518175596}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1337139069
@@ -1961,19 +2008,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _winScreen: {fileID: 367471980}
---- !u!114 &1337139073
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1337139067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 723c4b1aa33ea344e863043b2c0e76e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rotationSpeed: 720
 --- !u!114 &1337139074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2050,8 +2084,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _secondsBeforeMaxSpeed: 0.25
-  _smoothness: 10
-  _decelerationThreshold: 20
+  _smoothness: 20
+  _decelerationThreshold: 0
+--- !u!114 &1337139080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337139067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3dc8acb225504b4cbe117b8758b383a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelRotator: {fileID: 1518175597}
+  _cameraRotator: {fileID: 219951070}
 --- !u!1 &1349594589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2127,6 +2175,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349594589}
   m_CullTransparentMesh: 1
+--- !u!1 &1518175595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1518175596}
+  - component: {fileID: 1518175597}
+  m_Layer: 0
+  m_Name: LevelRotator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1518175596
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518175595}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1337139068}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1518175597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518175595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84643d758d76b884ba7381828dc89277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1673897822
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,7 +2270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.14117648, g: 0.1137255, b: 0.13725491, a: 1}
+  m_Color: {r: 0.11764707, g: 0.14117648, b: 0.10196079, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2413,7 +2505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.98823535, g: 0.227451, b: 0.7725491, a: 1}
+  m_Color: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
