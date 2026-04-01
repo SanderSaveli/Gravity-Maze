@@ -9,7 +9,7 @@ namespace SanderSaveli.GravityMaze
         private const string SavedTimeKey = "metric_saved_time";
 
         private IAnalyticManager _analyticManager;
-        private ILevelManager _levelManager;
+        private IGameContext _gameContext;
         private SignalBus _signalBus;
 
         private float _timeToComplete;
@@ -20,22 +20,24 @@ namespace SanderSaveli.GravityMaze
         public void Construct(
             SignalBus signalBus,
             IAnalyticManager analyticManager,
-            ILevelManager levelManager)
+            IGameContext gameContext)
         {
             _signalBus = signalBus;
             _analyticManager = analyticManager;
-            _levelManager = levelManager;
+            _gameContext = gameContext;
         }
 
         private void Start()
         {
-            _currentLevel = _levelManager.CurrentLevel;
+            _currentLevel = _gameContext.LevelNumber;
 
             int savedLevel = PlayerPrefs.GetInt(SavedLevelKey, -1);
 
             if (savedLevel == _currentLevel)
             {
                 _timeToComplete = PlayerPrefs.GetFloat(SavedTimeKey, 0f);
+                Debug.Log("Loaded from level");
+                Debug.Log(savedLevel);
             }
             else
             {
@@ -101,8 +103,8 @@ namespace SanderSaveli.GravityMaze
 
         private void ClearSavedProgress()
         {
-            PlayerPrefs.DeleteKey(SavedLevelKey);
-            PlayerPrefs.DeleteKey(SavedTimeKey);
+            PlayerPrefs.SetInt(SavedLevelKey, -1);
+            PlayerPrefs.SetFloat(SavedTimeKey, 0);
             PlayerPrefs.Save();
         }
     }

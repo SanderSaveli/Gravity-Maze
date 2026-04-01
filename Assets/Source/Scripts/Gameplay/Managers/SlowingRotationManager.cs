@@ -11,12 +11,9 @@ namespace SanderSaveli.GravityMaze
             get => _currentRotation;
             private set
             {
-                float clamped = Mathf.Clamp(value, 0, MaxRotation);
-                if(clamped < 0.01)
-                {
-                    clamped = 0;
-                }
-                if (clamped != _currentRotation)
+                float clamped = Mathf.Clamp(value, 0f, MaxRotation);
+
+                if (Mathf.Abs(clamped - _currentRotation) > 0.001f)
                 {
                     _currentRotation = clamped;
                     OnRotatonChange?.Invoke(_currentRotation);
@@ -27,20 +24,11 @@ namespace SanderSaveli.GravityMaze
         public Action<float> OnRotatonChange { get; set; }
         public float MaxRotation => 360f;
 
-        [Header("Speed")]
-        [SerializeField] private float _secondsBeforeMaxSpeed = 1f;
-
-        [Header("Smoothing")]
-        [SerializeField] private float _smoothness = 10f;
-
-        [Header("Deceleration")]
-        [SerializeField] private float _decelerationThreshold = 30f;
+        [SerializeField] private float _secondsBeforeMaxSpeed = 0.3f;
 
         private IInputManager _inputManager;
 
-        private float _targetRotation;
         private float _currentRotation;
-
         private float _currentSpeed;
         private float _maxSpeed;
         private float _acceleration;
@@ -69,7 +57,11 @@ namespace SanderSaveli.GravityMaze
 
         private void Update()
         {
-            float targetSpeed = _isHold ? _maxSpeed : 0f;
+            if (CurrentRotation == MaxRotation || CurrentRotation == 0)
+            {
+                _currentSpeed = 0;
+            }
+            float targetSpeed = _isHold ? _maxSpeed : -_maxSpeed;
 
             _currentSpeed = Mathf.MoveTowards(
                 _currentSpeed,
@@ -77,37 +69,7 @@ namespace SanderSaveli.GravityMaze
                 _acceleration * Time.deltaTime
             );
 
-            float distanceToEdge = _currentSpeed > 0
-                ? MaxRotation - _targetRotation
-                : _targetRotation;
-
-            if (distanceToEdge < _decelerationThreshold)
-            {
-                float t = distanceToEdge / _decelerationThreshold;
-                t = Mathf.SmoothStep(0, 1, t);
-                _currentSpeed *= t;
-            }
-
-            if (_isHold)
-            {
-                _targetRotation += _currentSpeed * Time.deltaTime;
-            }
-            else
-            {
-                _targetRotation = Mathf.MoveTowards(
-                    _targetRotation,
-                    0,
-                    _maxSpeed * Time.deltaTime
-                );
-            }
-
-            _targetRotation = Mathf.Clamp(_targetRotation, 0, MaxRotation);
-
-            CurrentRotation = Mathf.LerpAngle(
-                _currentRotation,
-                _targetRotation,
-                _smoothness * Time.deltaTime
-            );
+            CurrentRotation += _currentSpeed * Time.deltaTime;
         }
 
         private void StartRotation(Vector2 pos)

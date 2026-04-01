@@ -44,7 +44,6 @@ namespace SanderSaveli.GravityMaze
         {
             float t = amount / _rotationManager.MaxRotation;
             float currAmount = t * _maxHeight;
-            Debug.Log(amount);
             if (amount == 0)
             {
                 currAmount = -1;

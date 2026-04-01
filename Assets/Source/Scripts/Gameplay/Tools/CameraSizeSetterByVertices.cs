@@ -35,6 +35,7 @@ namespace SanderSaveli.GravityMaze
             float maxWidth = maxDistance + _horizontalOffset * 2f;
 
             _camera.orthographicSize = maxWidth / (2f * _camera.aspect);
+            Debug.Log("SetCamera size: " + _camera.orthographicSize);
         }
 
         private float GetMaxDistance(Transform parent)
