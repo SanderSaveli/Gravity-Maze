@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Purchasing;
 using Unity.Services.Core;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -13,6 +14,13 @@ namespace SanderSaveli.GravityMaze
         private Dictionary<string, Product> _productsDict = new Dictionary<string, Product>();
 
         public event Action<string, string> OnProductPriceUpdated;
+        private IAppSettings _appSettings;
+
+        [Inject]
+        public void Construct(IAppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
 
         private async void Start()
         {
@@ -88,6 +96,7 @@ namespace SanderSaveli.GravityMaze
             if (productId == "com.sandersaveli.gravitymaze.removeads")
             {
                 Debug.Log("Ads removed!");
+                _appSettings.IsAdsRemoved.Value = true;
             }
         }
 
