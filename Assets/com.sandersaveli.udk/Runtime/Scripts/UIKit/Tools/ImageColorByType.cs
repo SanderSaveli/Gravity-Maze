@@ -13,6 +13,7 @@ namespace SanderSaveli.UDK.UI
 
         [SerializeField] private Custom_ColorStyle _type;
         [SerializeField] private Image _image;
+        [SerializeField] private bool _isOverrideAlpha = true;
 
         private bool _isSubcribed = false;
         private Custom_ColorStyle _selectedColor = Custom_ColorStyle.Default;
@@ -37,7 +38,11 @@ namespace SanderSaveli.UDK.UI
         private void ApplyColorSetting()
         {
             _selectedColor = _type;
-            Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor); 
+            Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor);
+            if (!_isOverrideAlpha)
+            {
+                color.a = _image.color.a;
+            }
             _image.color = color;
         }
 

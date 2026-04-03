@@ -102,10 +102,8 @@ namespace SanderSaveli.GravityMaze
             UpdateTPTime();
             LinkedPortal.UpdateTPTime();
 
-            // позиция игрока после телепортации — центр плоскости linkedPortal
-            rb.position = LinkedPortal._controller.PortalNormal.PlanePosition;
+            rb.transform.position = LinkedPortal._controller.PortalNormal.PlanePosition;
 
-            // скорость с поворотом
             Vector2 rotatedVel = Rotate(rb.velocity, deltaAngle);
             float speed = Mathf.Clamp(rotatedVel.magnitude, _minVelocity, _maxVelocity);
             rotatedVel = rotatedVel.normalized * speed;
