@@ -31,7 +31,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 592540406036214688}
-  - {fileID: 4950376828678751526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7396804538705008946
@@ -89,6 +88,7 @@ Transform:
   - {fileID: 6118826951415232704}
   - {fileID: 7346832423941364861}
   - {fileID: 6319916541114380455}
+  - {fileID: 4950376828678751526}
   m_Father: {fileID: 7443355679156065559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3692566343949790143
@@ -97,7 +97,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7443355679156065559}
+    m_TransformParent: {fileID: 592540406036214688}
     m_Modifications:
     - target: {fileID: 220937054254259162, guid: cbe9a168be54a6540a1c23425eb0d2e0, type: 3}
       propertyPath: m_Name
@@ -1391,10 +1391,6 @@ PrefabInstance:
     - target: {fileID: 200351771399758313, guid: 12647c100b212794bb941fb941ad3798, type: 3}
       propertyPath: m_LocalAABB.m_Extent.y
       value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 884747057523856289, guid: 12647c100b212794bb941fb941ad3798, type: 3}
-      propertyPath: m_Creator
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 884747057523856289, guid: 12647c100b212794bb941fb941ad3798, type: 3}
       propertyPath: m_ColliderSegment.Array.data[0].x

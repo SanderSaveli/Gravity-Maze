@@ -10,16 +10,16 @@ namespace SanderSaveli.GravityMaze
 
         public ReactiveProperty<bool> IsSoundOn { get; private set; }
 
-        private IAppSettings _appSettings;
         private CompositeDisposable _compositeDisposable;
 
         [SerializeField] private AudioSource _musicSource;
         [SerializeField] private AudioSource _soundSource;
+        [Space]
+        [SerializeField] private SoundPlayer _soundPlayer;
 
         [Inject]
         public void Construct(IAppSettings appSettings)
         {
-            _appSettings = appSettings;
             IsMusicOn = appSettings.IsMusicOn;
             IsSoundOn = appSettings.IsSoundOn;
         }
@@ -45,7 +45,21 @@ namespace SanderSaveli.GravityMaze
 
         public void PlaySoundByType(SoundTypes type)
         {
+            switch (type)
+            {
+                case SoundTypes.BallHit:
+                    PlaySound(_soundPlayer.PlayHitSound());
+                    break;
+                case SoundTypes.TrampolineActivate:
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        private void PlaySound(AudioClip audioClip)
+        {
+            _soundSource.PlayOneShot(audioClip);
         }
 
         private void HandleChangeMusic(bool isOn)

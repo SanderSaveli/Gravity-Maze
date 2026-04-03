@@ -34,7 +34,7 @@ namespace SanderSaveli.GravityMaze
 
             var products = new List<ProductDefinition>
             {
-                new ProductDefinition("com.SanderSaveli.GravityMaze.removeAds", ProductType.NonConsumable)
+                new ProductDefinition("com.sandersaveli.gravitymaze.removeads", ProductType.NonConsumable)
             };
 
             _storeController.FetchProducts(products);
@@ -85,7 +85,7 @@ namespace SanderSaveli.GravityMaze
 
         private void ProcessProduct(string productId)
         {
-            if (productId == "com.SanderSaveli.GravityMaze.removeAds")
+            if (productId == "com.sandersaveli.gravitymaze.removeads")
             {
                 Debug.Log("Ads removed!");
             }

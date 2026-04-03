@@ -31,7 +31,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 592540406036214688}
-  - {fileID: 4950376828678751526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7396804538705008946
@@ -86,6 +85,7 @@ Transform:
   - {fileID: 1758456678270637061}
   - {fileID: 3147904789364502737}
   - {fileID: 3598993458722886368}
+  - {fileID: 4950376828678751526}
   m_Father: {fileID: 7443355679156065559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &441546869880544919
@@ -1576,6 +1576,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 592540406036214688}
     m_Modifications:
+    - target: {fileID: 7493659445145795847, guid: 4c16261fdf8345942bce53e95c5283fc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559614358893339057, guid: 4c16261fdf8345942bce53e95c5283fc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 8053645044294462768, guid: 4c16261fdf8345942bce53e95c5283fc, type: 3}
       propertyPath: m_Name
       value: PressRotate
@@ -1636,7 +1644,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7443355679156065559}
+    m_TransformParent: {fileID: 592540406036214688}
     m_Modifications:
     - target: {fileID: 220937054254259162, guid: cbe9a168be54a6540a1c23425eb0d2e0, type: 3}
       propertyPath: m_Name

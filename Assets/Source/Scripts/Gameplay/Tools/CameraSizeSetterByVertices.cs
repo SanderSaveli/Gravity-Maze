@@ -1,8 +1,7 @@
-using UnityEngine;
-using Zenject;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.U2D;
-using Cysharp.Threading.Tasks;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -22,10 +21,9 @@ namespace SanderSaveli.GravityMaze
             _levelProvider = levelProvider;
         }
 
-        private async void Start()
+        private void Start()
         {
             _camera = Camera.main;
-            await UniTask.Yield();
             SetCameraSize();
         }
 
@@ -35,7 +33,6 @@ namespace SanderSaveli.GravityMaze
             float maxWidth = maxDistance + _horizontalOffset * 2f;
 
             _camera.orthographicSize = maxWidth / (2f * _camera.aspect);
-            Debug.Log("SetCamera size: " + _camera.orthographicSize);
         }
 
         private float GetMaxDistance(Transform parent)
@@ -57,11 +54,11 @@ namespace SanderSaveli.GravityMaze
                     _points.Add(new Vector2(world.x, world.y));
                 }
             }
-
             if (_points.Count < 2)
                 return 0f;
 
             BuildConvexHull(_points, _hull);
+
             return RotatingCalipersDiameter(_hull);
         }
 
@@ -104,38 +101,16 @@ namespace SanderSaveli.GravityMaze
         #endregion
 
         #region Rotating Calipers (Diameter)
-
-        private float RotatingCalipersDiameter(List<Vector2> hull)
+        float RotatingCalipersDiameter(List<Vector2> hull)
         {
             int n = hull.Count;
-            if (n == 1) return 0f;
-            if (n == 2) return Vector2.Distance(hull[0], hull[1]);
-
             float maxSqr = 0f;
-            int j = 1;
 
             for (int i = 0; i < n; i++)
-            {
-                int nextI = (i + 1) % n;
-
-                while (Area(hull[i], hull[nextI], hull[(j + 1) % n]) >
-                       Area(hull[i], hull[nextI], hull[j]))
-                {
-                    j = (j + 1) % n;
-                }
-
-                float sqr = (hull[i] - hull[j]).sqrMagnitude;
-                if (sqr > maxSqr)
-                    maxSqr = sqr;
-            }
+                for (int j = i + 1; j < n; j++)
+                    maxSqr = Mathf.Max(maxSqr, (hull[i] - hull[j]).sqrMagnitude);
 
             return Mathf.Sqrt(maxSqr);
-        }
-
-        private float Area(Vector2 a, Vector2 b, Vector2 c)
-        {
-            return Mathf.Abs((b.x - a.x) * (c.y - a.y) -
-                             (b.y - a.y) * (c.x - a.x));
         }
 
         #endregion

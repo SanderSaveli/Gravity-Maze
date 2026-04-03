@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 6284824353453412463}
   - component: {fileID: 5256313844821969810}
   - component: {fileID: 6031460273920481355}
+  - component: {fileID: 4910944588491877955}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -355,6 +356,21 @@ MonoBehaviour:
   speedThreshold: 5
   extraPointSpacing: 0.1
   teleportDistanceThreshold: 2
+--- !u!114 &4910944588491877955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3776918374992160595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec8ac3851c67dd438d32df692315793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _angleThreshold: 25
+  _speedThreshold: 2.4
+  _cooldown: 0.1
 --- !u!1 &7958534863930979811
 GameObject:
   m_ObjectHideFlags: 0

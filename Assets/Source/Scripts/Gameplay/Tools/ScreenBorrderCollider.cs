@@ -19,8 +19,7 @@ namespace SanderSaveli.GravityMaze
 
         private async void Start()
         {
-            await UniTask.Yield();
-            await UniTask.Yield();
+            await UniTask.DelayFrame(1);
             BuildBorederCollider();
             Debug.Log("Build Birder size");
         }

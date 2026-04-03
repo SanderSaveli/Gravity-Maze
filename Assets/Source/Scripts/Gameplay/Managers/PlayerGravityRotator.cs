@@ -56,7 +56,7 @@ namespace SanderSaveli.GravityMaze
             _targetRotation = value;
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             if(!_isActive)
             {
