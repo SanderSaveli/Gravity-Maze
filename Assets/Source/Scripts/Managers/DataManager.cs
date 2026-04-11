@@ -8,6 +8,7 @@ namespace SanderSaveli.GravityMaze
     public class DataManager : MonoBehaviour
     {
         public ILevelStorage LevelStorage => _accountStorage;
+        public IAdsPurchasizeStorage AdsPurchasizeStorage => _accountStorage;
         private AccountStorage _accountStorage = new AccountStorage();
         private AccountData _accountData;
         private IStorageService _storageService;

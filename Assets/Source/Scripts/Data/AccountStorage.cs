@@ -1,17 +1,18 @@
 using R3;
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
 {
-    public class AccountStorage : ILevelStorage, IDisposable
+    public class AccountStorage : ILevelStorage, IDisposable, IAdsPurchasizeStorage
     {
         public Action OnUpdate { get; set; }
         public ReactiveProperty<int> CurrentLevel { get; private set; }
         public ReactiveProperty<List<LevelSaveData>> Levels { get; private set; }
 
         public int StarCount => CalculateStars();
+
+        private Dictionary<ColorSheme, int> _watchedAdsPerColor;
 
         private CompositeDisposable _disposables;
 
@@ -20,6 +21,7 @@ namespace SanderSaveli.GravityMaze
             _disposables = new CompositeDisposable();
             CurrentLevel = new ReactiveProperty<int>();
             Levels = new ReactiveProperty<List<LevelSaveData>>();
+            _watchedAdsPerColor = new Dictionary<ColorSheme, int>();
         }
 
         public void SetData(AccountData accountData)
@@ -29,6 +31,8 @@ namespace SanderSaveli.GravityMaze
 
             Levels.Value = accountData.levels;
             Levels.Subscribe(Update).AddTo(_disposables);
+
+            _watchedAdsPerColor = accountData.watchedAdsPerColor;
         }
 
         public AccountData GetActualData()
@@ -36,7 +40,8 @@ namespace SanderSaveli.GravityMaze
             return new AccountData
             {
                 currentLevel = CurrentLevel.Value,
-                levels = new List<LevelSaveData>(Levels.Value)
+                levels = new List<LevelSaveData>(Levels.Value),
+                watchedAdsPerColor = _watchedAdsPerColor
             };
         }
 
@@ -59,6 +64,31 @@ namespace SanderSaveli.GravityMaze
                 stars += level.star_count;
             }
             return stars;
+        }
+
+        public int GetWatchedAdsPerColor(ColorSheme color)
+        {
+            if (_watchedAdsPerColor.ContainsKey(color))
+            {
+                return _watchedAdsPerColor[color];
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public void AddWatch(ColorSheme color)
+        {
+            if (_watchedAdsPerColor.ContainsKey(color))
+            {
+                _watchedAdsPerColor[color] = ++_watchedAdsPerColor[color];
+            }
+            else
+            {
+                _watchedAdsPerColor.Add(color, 1);
+            }
+            OnUpdate?.Invoke();
         }
     }
 }

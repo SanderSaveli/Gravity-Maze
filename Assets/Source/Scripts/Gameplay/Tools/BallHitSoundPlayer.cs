@@ -9,17 +9,20 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private float _angleThreshold = 35f;
         [SerializeField] private float _speedThreshold = 1f;
         [SerializeField] private float _cooldown = 0.1f;
+        [SerializeField] private bool _isMakeVibration = true;
 
         private Rigidbody2D _rb;
         private IAudioManager _audioManager;
 
         private Vector2 _lastVelocity;
         private float _lastSoundTime;
+        private IVibrationManager _vibrationManager;
 
         [Inject]
-        public void Construct(IAudioManager audioManager)
+        public void Construct(IAudioManager audioManager, IVibrationManager vibrationManager)
         {
             _audioManager = audioManager;
+            _vibrationManager = vibrationManager;
         }
 
         private void Awake()
@@ -41,6 +44,10 @@ namespace SanderSaveli.GravityMaze
                 {
                     _lastSoundTime = Time.time;
                     _audioManager.PlaySoundByType(SoundTypes.BallHit);
+                    if(_isMakeVibration)
+                    {
+                        _vibrationManager.DoVibration(VibrationType.Light);
+                    }
                 }
             }
 

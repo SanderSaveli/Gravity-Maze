@@ -67,7 +67,7 @@ namespace SanderSaveli.GravityMaze
             else
             {
                 Debug.LogWarning("Rewarded Ad not ready!");
-                return null;
+                return new RewardAdAdapter();
             }
         }
 

@@ -6,14 +6,14 @@ namespace SanderSaveli.GravityMaze
 {
     public abstract class ColorRadioButton : RadioButton<ColorSheme>
     {
-        [SerializeField] private Button _button;
+        [SerializeField] protected Button _button;
 
-        private void OnEnable()
+        protected void OnEnable()
         {
             _button.onClick.AddListener(HandleClick);
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             _button.onClick.RemoveListener(HandleClick);
         }

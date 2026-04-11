@@ -9,5 +9,7 @@ namespace SanderSaveli.UDK.UI
         Language = 4,
         AboutUs = 5,
         RemoveAds = 6,
+        ColorByStars = 7,
+        ColorByAds = 8,
     }
 }

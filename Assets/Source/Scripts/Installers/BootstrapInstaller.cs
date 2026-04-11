@@ -29,6 +29,7 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<IGameContext>().FromInstance(_gameContext).AsSingle().NonLazy();
             Container.Bind<IGameplayConfig>().FromInstance(_gameplayConfig).AsSingle().NonLazy();
             Container.Bind<ILevelStorage>().FromInstance(_dataManager.LevelStorage).AsSingle().NonLazy();
+            Container.Bind<IAdsPurchasizeStorage>().FromInstance(_dataManager.AdsPurchasizeStorage).AsSingle().NonLazy();
             Container.Bind<IAnalyticManager>().FromInstance(_analyticManager).AsSingle().NonLazy();
             Container.Bind<IVibrationManager>().FromInstance(_vibrationManager).AsSingle().NonLazy();
             Container.Bind<IAppSettings>().FromInstance(_appSettings).AsSingle().NonLazy();
