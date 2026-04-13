@@ -71,6 +71,15 @@ namespace SanderSaveli.GravityMaze
             SnapTo(target, viewportCenterWorld);
         }
 
+        public void SnapImmediatley(RectTransform target)
+        {
+            StopCoroutine(_snapRoutine);
+            _scrollRect.StopMovement();
+            Vector3 viewportCenterWorld = GetViewportCenter();
+            Vector2 newAnchoredPos = GetTargetAnchoredPosition(target, viewportCenterWorld);
+            _content.anchoredPosition = newAnchoredPos;
+        }
+
         protected virtual void SnapTo(RectTransform target, Vector3 viewportCenterWorld)
         {
             _scrollRect.StopMovement();
