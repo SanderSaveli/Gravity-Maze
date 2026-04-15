@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GoogleMobileAds.Api;
+using SanderSaveli.UDK.UI;
 using System.Drawing;
 using TMPro;
 using UnityEngine;
@@ -24,13 +25,15 @@ namespace SanderSaveli.GravityMaze
 
         private ColorSheme _currSheme;
         private int _needCount;
+        private SignalBus _signalBus;
 
         [Inject]
-        public void Construct(IAdsPurchasizeStorage adsPurchasizeStorage, IColorManager colorManager, IAdManager adManager)
+        public void Construct(IAdsPurchasizeStorage adsPurchasizeStorage, IColorManager colorManager, IAdManager adManager, SignalBus signalBus)
         {
             _adsPurchasizeStorage = adsPurchasizeStorage;
             _adManager = adManager;
             _colorManager = colorManager;
+            _signalBus = signalBus;
         }
 
         public void Init(ColorSheme color, int needCount)
@@ -55,11 +58,13 @@ namespace SanderSaveli.GravityMaze
 
         private void WatchAd()
         {
-            IAdAdapter adAdapter = _adManager.ShowRewardedAd(IncreaseAds);
-            if (!adAdapter.IsSuccsessShow)
-            {
-                //Show Error Screen
-            }
+            //IAdAdapter adAdapter = _adManager.ShowRewardedAd(IncreaseAds);
+            //if (!adAdapter.IsSuccsessShow)
+            //{
+            //    _signalBus.Fire(new SignalInputOpenMenuPopup(UDK.MenuPopupType.AdError));
+
+            //}
+            _signalBus.Fire(new SignalInputOpenMenuPopup(UDK.MenuPopupType.AdError));
         }
 
         protected void UpdateView()

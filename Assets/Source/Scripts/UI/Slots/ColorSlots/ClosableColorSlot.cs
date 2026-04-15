@@ -15,7 +15,6 @@ namespace SanderSaveli.GravityMaze
         private new void OnEnable()
         {
             bool isOpened = IsOpened();
-            _view.SetActive(isOpened);
             _closeGroup.SetActive(!isOpened);
             base.OnEnable();
         }

@@ -10,8 +10,10 @@ namespace SanderSaveli.GravityMaze
     public class ColorSetSO : ScriptableObject
     {
         [SerializeField] private List<ColorParams> _colors;
+        [SerializeField] private List<ColorOverrides> _overrides;
 
         public List<ColorParams> Colors => _colors;
+        public List<ColorOverrides> Overrides => _overrides;
 
         private void OnEnable()
         {
@@ -38,6 +40,18 @@ namespace SanderSaveli.GravityMaze
                 colorParams.Name = color.ToString();
                 _colors.Add(colorParams);
             }
+        }
+    }
+
+    [Serializable]
+    public class ColorOverrides
+    {
+        public ColorSheme Theme;
+        public Color Override;
+
+        public ColorOverrides()
+        {
+            Override = Color.white;
         }
     }
 }

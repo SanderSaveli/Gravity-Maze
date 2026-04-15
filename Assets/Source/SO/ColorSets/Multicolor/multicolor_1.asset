@@ -18,28 +18,28 @@ MonoBehaviour:
     Color: {r: 1, g: 1, b: 1, a: 1}
   - Name: ActiveColor
     TextColorType: 1
-    Color: {r: 0.7254902, g: 0.16862746, b: 0.20000002, a: 1}
+    Color: {r: 1, g: 0.7137255, b: 0.31764707, a: 1}
   - Name: Bg
     TextColorType: 2
-    Color: {r: 0.15294118, g: 0.21176472, b: 0.3803922, a: 1}
+    Color: {r: 0.21176472, g: 0.227451, b: 0.29803923, a: 1}
   - Name: FrontBg
     TextColorType: 3
-    Color: {r: 0.18431373, g: 0.2627451, b: 0.49803925, a: 1}
+    Color: {r: 0.21176472, g: 0.3137255, b: 0.654902, a: 1}
   - Name: Buttons
     TextColorType: 4
-    Color: {r: 0.18431373, g: 0.2627451, b: 0.49803925, a: 1}
+    Color: {r: 0.21176472, g: 0.3137255, b: 0.654902, a: 1}
   - Name: NavBarButtons
     TextColorType: 5
-    Color: {r: 0.18431373, g: 0.2627451, b: 0.49803925, a: 1}
+    Color: {r: 0.19215688, g: 0.20392159, b: 0.27058825, a: 1}
   - Name: ActiveNavBarButton
     TextColorType: 6
-    Color: {r: 0.18431373, g: 0.2627451, b: 0.49803925, a: 1}
+    Color: {r: 0.21176472, g: 0.3137255, b: 0.654902, a: 1}
   - Name: ButtonIcon
     TextColorType: 7
     Color: {r: 1, g: 1, b: 1, a: 1}
   - Name: NavBarIcon
     TextColorType: 8
-    Color: {r: 0.7254902, g: 0.16862746, b: 0.20000002, a: 1}
+    Color: {r: 1, g: 1, b: 1, a: 1}
   - Name: ActiveNavBarIcon
     TextColorType: 9
     Color: {r: 1, g: 1, b: 1, a: 1}
@@ -51,13 +51,13 @@ MonoBehaviour:
     Color: {r: 1, g: 1, b: 1, a: 1}
   - Name: LevelBG
     TextColorType: 12
-    Color: {r: 0.15294118, g: 0.21176472, b: 0.3803922, a: 1}
+    Color: {r: 0.21176472, g: 0.227451, b: 0.29803923, a: 1}
   - Name: LevelText
     TextColorType: 13
     Color: {r: 1, g: 1, b: 1, a: 1}
   - Name: LevelTextActive
     TextColorType: 14
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 1, g: 0.7137255, b: 0.31764707, a: 1}
   - Name: LevelStroke
     TextColorType: 15
     Color: {r: 1, g: 1, b: 1, a: 1}
@@ -70,3 +70,6 @@ MonoBehaviour:
   - Name: TitleColor
     TextColorType: 18
     Color: {r: 1, g: 1, b: 1, a: 1}
+  _overrides:
+  - Theme: 35
+    Override: {r: 0.43137258, g: 0.20784315, b: 0.9568628, a: 1}

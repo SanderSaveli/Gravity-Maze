@@ -2,6 +2,7 @@ using CustomText;
 using R3;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -12,7 +13,10 @@ namespace SanderSaveli.GravityMaze
     {
         public ReactiveProperty<ColorSheme> ActiveSheme { get; private set; }
 
+        public IReadOnlyList<ColorOverrides> ColorOverrides => _activeeShemeSO.Overrides;
+
         [SerializeField] private List<ShemeColorPairs> _shemeColors;
+        private ColorSetSO _activeeShemeSO;
         private ColorSettings _colorSettings;
         private CompositeDisposable _compositeDisposable;
 
@@ -43,7 +47,8 @@ namespace SanderSaveli.GravityMaze
                 Debug.LogError($"There is no sheme for color {color}");
                 return;
             }
-            _colorSettings.SetNewColors(pair.ColorSet.Colors);
+            _activeeShemeSO = pair.ColorSet;
+            _colorSettings.SetNewColors(_activeeShemeSO.Colors);
         }
 
         [Serializable]

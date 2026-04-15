@@ -55,7 +55,6 @@ namespace SanderSaveli.UDK.UI
             ScreenRect.DOKill();
             UiScreenAnimator.Hide(DelayTime, HideTime, () => OnHide(callback));
             Background?.Hide();
-            if (IsDisableWhileHidden) gameObject.SetActive(false);
         }
 
         public virtual void HideImmediately()
