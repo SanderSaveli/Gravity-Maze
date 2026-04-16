@@ -15,7 +15,6 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<IRotationManager>().FromInstance(_rotationManager).AsSingle().NonLazy();
             Container.Bind<IStarManager>().FromInstance(_starManager).AsSingle().NonLazy();
 
-            Container.DeclareSignal<SignalGameEnd>();
             Container.DeclareSignal<SignalPlayerExitContour>();
             Container.DeclareSignal<SignalStarCollected>();
         }

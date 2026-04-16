@@ -14,11 +14,13 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private Button _buyButton;
 
         private SignalBus _signalBus;
+        private IAnalyticManager _analyticManager;
 
         [Inject]
-        public void Construct(SignalBus signalBus)
+        public void Construct(SignalBus signalBus, IAnalyticManager analyticManager)
         {
             _signalBus = signalBus;
+            _analyticManager = analyticManager;
         }
 
         protected override void SubscribeToEvents()
@@ -49,7 +51,7 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleBuy()
         {
-
+            _analyticManager.SendRemoveAdsClickedEvent();
         }
     }
 }

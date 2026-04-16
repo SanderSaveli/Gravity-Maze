@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.98823535, g: 0.89019614, b: 0.5372549, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.909804, g: 0.27450982, b: 0.26666668, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -227,6 +227,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColorByStarRadioButton Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2507898725089518410, guid: 556a3edd4985b5d44864dbaf0ec7d841, type: 3}
+      propertyPath: _colorRadioButton
+      value: 
+      objectReference: {fileID: 1443374435636281547}
     - target: {fileID: 3940003767189222622, guid: 556a3edd4985b5d44864dbaf0ec7d841, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

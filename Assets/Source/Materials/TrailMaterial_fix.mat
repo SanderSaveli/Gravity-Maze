@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_PortalClipSprite_Inverse
-  m_Shader: {fileID: 4800000, guid: f86f790f8b7b63c47a8313f63dc4311e, type: 3}
+  m_Name: TrailMaterial_fix
+  m_Shader: {fileID: 4800000, guid: d19f89d08054d1b49a27a9786ab2ae09, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,14 +23,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
+    - _AlphaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _ClipEnabled: 1
+    m_Floats: []
     m_Colors:
-    - _PortalNormal: {r: 1, g: -0.00000205636, b: 0, a: 0}
-    - _PortalPos: {r: -1.5000014, g: 6.4999886, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.5}
   m_BuildTextureStacks: []

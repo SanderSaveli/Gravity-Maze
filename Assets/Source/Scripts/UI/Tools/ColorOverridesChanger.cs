@@ -44,9 +44,12 @@ namespace SanderSaveli.GravityMaze
             IReadOnlyList<ColorOverrides> overrides = _colorManager.ColorOverrides;
             Color color = _originalColor;
 
-            if (overrides.Select(t => t.Theme).Contains(_colorRadioButton.Value))
+            if(overrides != null)
             {
-                color = overrides.ToList().Find(t => t.Theme == _colorRadioButton.Value).Override;
+                if (overrides.Select(t => t.Theme).Contains(_colorRadioButton.Value))
+                {
+                    color = overrides.ToList().Find(t => t.Theme == _colorRadioButton.Value).Override;
+                }
             }
 
             _color.color = color;

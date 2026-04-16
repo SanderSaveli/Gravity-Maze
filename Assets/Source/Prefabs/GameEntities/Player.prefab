@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 1}
+  m_Color: {r: 0.9803922, g: 0.28627452, b: 0.28627452, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -235,7 +235,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c1a58d3ef0591ac49910f0a755b26162, type: 2}
+  - {fileID: 2100000, guid: 5ee044a7d6baf484b88c897782529b82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -287,8 +287,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 0.78431374}
-      key1: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 0.078431375}
+      key0: {r: 0.9803922, g: 0.28627452, b: 0.28627452, a: 0.78431374}
+      key1: {r: 0.9803922, g: 0.28627452, b: 0.28627452, a: 0.09803922}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -303,7 +303,7 @@ TrailRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 15977
       atime1: 65535
       atime2: 0
       atime3: 0
@@ -371,6 +371,7 @@ MonoBehaviour:
   _angleThreshold: 25
   _speedThreshold: 2.4
   _cooldown: 0.1
+  _isMakeVibration: 1
 --- !u!1 &7958534863930979811
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +448,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.60784316, g: 0.7686275, b: 0.16078432, a: 1}
+  m_Color: {r: 0.9803922, g: 0.28627452, b: 0.28627452, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -10,6 +10,9 @@ namespace SanderSaveli.GravityMaze
 
         private IAnalyticManager _analyticManager;
         private IGameContext _gameContext;
+        private IColorManager _colorManager;
+        private ILevelManager _levelManager;
+        private IStarManager _starManager;
         private SignalBus _signalBus;
 
         private float _timeToComplete;
@@ -20,11 +23,17 @@ namespace SanderSaveli.GravityMaze
         public void Construct(
             SignalBus signalBus,
             IAnalyticManager analyticManager,
-            IGameContext gameContext)
+            IGameContext gameContext, 
+            IColorManager colorManager, 
+            ILevelManager levelManager,
+            IStarManager starManager)
         {
             _signalBus = signalBus;
             _analyticManager = analyticManager;
             _gameContext = gameContext;
+            _colorManager = colorManager;
+            _levelManager = levelManager;
+            _starManager = starManager;
         }
 
         private void Start()
@@ -84,7 +93,14 @@ namespace SanderSaveli.GravityMaze
             _isRunning = false;
             if (ctx.IsWin)
             {
-                _analyticManager.SendLevelCompleteEvent(_currentLevel +1, _timeToComplete);
+                if(_levelManager.CurrentLevel == _gameContext.LevelNumber)
+                {
+                    _analyticManager.SendLevelFirstTimeComoleteEvent(_currentLevel + 1, _timeToComplete, _colorManager.ActiveSheme.Value, _starManager.CollectedStars.Count);
+                }
+                else
+                {
+                    _analyticManager.SendLevelCompleteEvent(_currentLevel + 1, _timeToComplete, _colorManager.ActiveSheme.Value, _starManager.CollectedStars.Count);
+                }
 
                 ClearSavedProgress();
             }

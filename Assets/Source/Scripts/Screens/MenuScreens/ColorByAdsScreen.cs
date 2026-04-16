@@ -22,18 +22,20 @@ namespace SanderSaveli.GravityMaze
         private IAdsPurchasizeStorage _adsPurchasizeStorage;
         private IAdManager _adManager;
         private IColorManager _colorManager;
+        private IAnalyticManager _analyticManager;
 
         private ColorSheme _currSheme;
         private int _needCount;
         private SignalBus _signalBus;
 
         [Inject]
-        public void Construct(IAdsPurchasizeStorage adsPurchasizeStorage, IColorManager colorManager, IAdManager adManager, SignalBus signalBus)
+        public void Construct(IAdsPurchasizeStorage adsPurchasizeStorage, IColorManager colorManager, IAdManager adManager, SignalBus signalBus, IAnalyticManager analyticManager)
         {
             _adsPurchasizeStorage = adsPurchasizeStorage;
             _adManager = adManager;
             _colorManager = colorManager;
             _signalBus = signalBus;
+            _analyticManager = analyticManager;
         }
 
         public void Init(ColorSheme color, int needCount)
@@ -58,13 +60,15 @@ namespace SanderSaveli.GravityMaze
 
         private void WatchAd()
         {
-            //IAdAdapter adAdapter = _adManager.ShowRewardedAd(IncreaseAds);
-            //if (!adAdapter.IsSuccsessShow)
-            //{
-            //    _signalBus.Fire(new SignalInputOpenMenuPopup(UDK.MenuPopupType.AdError));
-
-            //}
-            _signalBus.Fire(new SignalInputOpenMenuPopup(UDK.MenuPopupType.AdError));
+            IAdAdapter adAdapter = _adManager.ShowRewardedAd(IncreaseAds);
+            if (!adAdapter.IsSuccsessShow)
+            {
+                _signalBus.Fire(new SignalInputOpenMenuPopup(UDK.MenuPopupType.AdError));
+            }
+            else
+            {
+                _analyticManager.SendAdWatchedEvent(_currSheme);
+            }
         }
 
         protected void UpdateView()
@@ -86,6 +90,7 @@ namespace SanderSaveli.GravityMaze
 
             if (_adsPurchasizeStorage.GetWatchedAdsPerColor(_currSheme) >= _needCount)
             {
+                _analyticManager.SendUnlockColorForAdEvent(_currSheme);
                 await UniTask.WaitForSeconds(_fillDelay + _fillDuration);
                 _colorManager.ActiveSheme.Value = _currSheme;
                 HandleBack();

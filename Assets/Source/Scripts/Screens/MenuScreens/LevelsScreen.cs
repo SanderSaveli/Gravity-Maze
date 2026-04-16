@@ -75,7 +75,6 @@ namespace SanderSaveli.GravityMaze
             LevelsFiller filler = Pages[pageNumber];
 
             _scroll.SnapImmediatley(filler.transform as RectTransform);
-            Debug.Log("Page Number " + pageNumber);
         }
 
         private List<List<LevelData>> PaginateList(List<LevelData> allLevels)
