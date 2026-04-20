@@ -12,6 +12,7 @@ namespace SanderSaveli.GravityMaze
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _image;
+        [SerializeField] private RawImage _rawImage;
         [SerializeField] private TextByTableKey _textByTableKey;
 
         [Header("Properties")]
@@ -40,7 +41,14 @@ namespace SanderSaveli.GravityMaze
             _text.DOColor(textColor, _animationDuration).SetLink(gameObject);
 
             Color imageColor = _colorSettings.GetColorByStyle(_imageDeselectColor);
-            _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            if (_image != null)
+            {
+                _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
+            if(_rawImage != null)
+            {
+                _rawImage.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
 
             _textByTableKey.ChangeText(_deselectTextKey);
         }
@@ -52,7 +60,14 @@ namespace SanderSaveli.GravityMaze
             _text.DOColor(textColor, _animationDuration).SetLink(gameObject);
 
             Color imageColor = _colorSettings.GetColorByStyle(_imageSelectColor);
-            _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            if (_image != null)
+            {
+                _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
+            if (_rawImage != null)
+            {
+                _rawImage.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
 
             _textByTableKey.ChangeText(_selectedTextKey);
         }

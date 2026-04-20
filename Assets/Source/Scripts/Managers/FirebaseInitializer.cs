@@ -40,10 +40,10 @@ namespace SanderSaveli.GravityMaze
         {
             FirebaseAnalytics.LogEvent(
                 "level_complete",
-                new Parameter("level_number", levelNumber),
+                new Parameter("level_number", levelNumber.ToString()),
                 new Parameter("completion_time", seconds),
-                new Parameter("active_color ", activeSheme.ToString()),
-                new Parameter("collected_stars ", starCount)
+                new Parameter("active_color", activeSheme.ToString()),
+                new Parameter("collected_stars", starCount)
             );
 
             Debug.Log($"Send analytic Event level_complete, number: {levelNumber}, seconds: {seconds}, color: {activeSheme}, stars: {starCount}");
@@ -53,9 +53,10 @@ namespace SanderSaveli.GravityMaze
         {
             FirebaseAnalytics.LogEvent(
                 "level_first_time_complete",
-                new Parameter("level_number", levelNumber),
+                new Parameter("level_number", levelNumber.ToString()),
                 new Parameter("completion_time", seconds),
-                new Parameter("active_color ", activeSheme.ToString())
+                new Parameter("active_color", activeSheme.ToString()),
+                new Parameter("collected_stars", starCount)
             );
 
             Debug.Log($"Send analytic Event level_first_time_complete, number: {levelNumber}, seconds: {seconds}, color: {activeSheme}, stars: {starCount}");
