@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GoogleMobileAds.Api;
 using SanderSaveli.UDK.UI;
-using System.Drawing;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +13,14 @@ namespace SanderSaveli.GravityMaze
     public class ColorByAdsScreen : ClosableUIScreen
     {
         [SerializeField] private Image _progressImage;
+        [SerializeField] private Button _previewButton;
+        [SerializeField] private Image _previewImage;
         [SerializeField] private TMP_Text _starText;
         [SerializeField] private string _format = "{0}/{1}";
         [SerializeField] private Button _watchAdsButtpn;
         [SerializeField] private float _fillDuration = 0.5f;
         [SerializeField] private float _fillDelay = 0.5f;
+
 
         private IAdsPurchasizeStorage _adsPurchasizeStorage;
         private IAdManager _adManager;
@@ -26,6 +29,8 @@ namespace SanderSaveli.GravityMaze
 
         private ColorSheme _currSheme;
         private int _needCount;
+        private ColorSheme _colorSheme;
+        private bool _isPreviewActive;
         private SignalBus _signalBus;
 
         [Inject]
@@ -43,19 +48,44 @@ namespace SanderSaveli.GravityMaze
             _currSheme = color;
             _needCount = needCount;
             _progressImage.fillAmount = 0;
+            _previewImage.color = _colorManager.GetActiveColorOfSheme(_colorSheme);
             UpdateView();
         }
-
         protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
+            _previewButton.onClick.AddListener(HandlePreview);
             _watchAdsButtpn.onClick.AddListener(WatchAd);
         }
 
         protected override void UnsubscribeFromEvents()
         {
             base.UnsubscribeFromEvents();
+            _previewButton.onClick.RemoveListener(HandlePreview);
             _watchAdsButtpn.onClick.RemoveListener(WatchAd);
+        }
+        public override void Hide(Action callback = null)
+        {
+            if (_isPreviewActive)
+            {
+                _colorManager.ShowActiveSheme();
+                _isPreviewActive = false;
+            }
+            base.Hide(callback);
+        }
+
+        private void HandlePreview()
+        {
+            if (!_isPreviewActive)
+            {
+                _colorManager.PreviewSheme(_colorSheme);
+                _isPreviewActive = true;
+            }
+            else
+            {
+                _colorManager.ShowActiveSheme();
+                _isPreviewActive = false;
+            }
         }
 
         private void WatchAd()

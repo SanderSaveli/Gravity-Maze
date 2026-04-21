@@ -38,7 +38,7 @@ namespace SanderSaveli.GravityMaze
         protected override void OpenPreview()
         {
             _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.ColorByStars));
-            _colorByStarScreen.Init(_needStarsToUnlock);
+            _colorByStarScreen.Init(_needStarsToUnlock, Value);
         }
 
         protected override bool IsOpened() => _levelStorage.StarCount >= _needStarsToUnlock;

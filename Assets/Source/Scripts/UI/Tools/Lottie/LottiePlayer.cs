@@ -41,17 +41,24 @@ public class LottiePlayer : MonoBehaviour
         if (_animation == null || !_isPlaying)
             return;
 
+        _animation.Update(speed);
+
         if ((!loop && CurrentFrame >= TotalFrames - 1) || _previousFrame > CurrentFrame)
         {
-            _animation.DrawOneFrame(TotalFrames -1);
+            _animation.DrawOneFrame(_previousFrame);
+            Debug.Log("Draw One Frame! " + _previousFrame);
+            _previousFrame = CurrentFrame;
             Stop();
             return;
         }
 
+        if (_previousFrame == CurrentFrame)
+        {
+            return;
+        }
+        
         _previousFrame = CurrentFrame;
         _animation.DrawOneFrame(CurrentFrame);
-        _animation.Update(speed);
-
     }
 
     public void Pause()

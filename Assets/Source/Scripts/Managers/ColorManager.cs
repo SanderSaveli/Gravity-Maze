@@ -2,7 +2,6 @@ using CustomText;
 using R3;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -41,7 +40,7 @@ namespace SanderSaveli.GravityMaze
 
         private void ChangeColor(ColorSheme color)
         {
-            ShemeColorPairs pair = _shemeColors.FirstOrDefault(t => t.ColorSheme == color);
+            ShemeColorPairs pair = GetPair(color);
             if (pair == null)
             {
                 Debug.LogError($"There is no sheme for color {color}");
@@ -49,6 +48,35 @@ namespace SanderSaveli.GravityMaze
             }
             _activeeShemeSO = pair.ColorSet;
             _colorSettings.SetNewColors(_activeeShemeSO.Colors);
+        }
+
+        public void PreviewSheme(ColorSheme color)
+        {
+            ShemeColorPairs pair = GetPair(color);
+            if (pair == null)
+            {
+                Debug.LogError($"There is no sheme for color {color}");
+                return;
+            }
+            _colorSettings.SetNewColors(pair.ColorSet.Colors);
+        }
+
+        private ShemeColorPairs GetPair(ColorSheme color) => _shemeColors.FirstOrDefault(t => t.ColorSheme == color);
+
+        public void ShowActiveSheme()
+        {
+            ChangeColor(ActiveSheme.Value);
+        }
+
+        public Color GetActiveColorOfSheme(ColorSheme sheme)
+        {
+            ShemeColorPairs pair = GetPair(sheme);
+            if (pair == null)
+            {
+                Debug.LogError($"There is no sheme for color {sheme}");
+                return Color.white;
+            }
+            return pair.ColorSet.Colors.Find(t => t.TextColorType == Custom_ColorStyle.ActiveColor).Color;
         }
 
         [Serializable]

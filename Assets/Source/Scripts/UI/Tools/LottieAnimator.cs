@@ -1,16 +1,37 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using System;
+using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
 {
     [RequireComponent(typeof(LottiePlayer))]
     public class LottieAnimator : MonoBehaviour, ISelectable
     {
+        public Action OnStopPlay;
+
         [SerializeField] private LottiePlayer _lottiePlayer;
         [Header("Animations")]
         [SerializeField] private TextAsset _onAnimation;
         [SerializeField] private TextAsset _offAnimation;
 
         public bool IsSelected { get; private set; }
+        private bool _isPlaying = false;    
+
+        private async void Update()
+        {
+            if (_isPlaying)
+            {
+                if (!_lottiePlayer.IsPlaying)
+                {
+                    await UniTask.Yield();
+                    if (!_lottiePlayer.IsPlaying && _isPlaying)
+                    {
+                        _isPlaying = false;
+                        //OnStopPlay?.Invoke();
+                    }
+                }
+            }
+        }
 
         private void Awake()
         {
@@ -21,6 +42,7 @@ namespace SanderSaveli.GravityMaze
         public void Select()
         {
             if (IsSelected) return;
+            _isPlaying = true;
             IsSelected = true;
             PlayOn();
         }
@@ -28,13 +50,13 @@ namespace SanderSaveli.GravityMaze
         public void Deselect()
         {
             if (!IsSelected) return;
+            _isPlaying = true;
             IsSelected = false;
             PlayOff();
         }
 
         private void PlayOn()
         {
-            Debug.Log("On");
             if (_onAnimation == null) return;
 
             _lottiePlayer.Stop();
