@@ -10,7 +10,7 @@ namespace SanderSaveli.UDK.UI
     {
         [SerializeField] private int _startSelectedElement;
 
-        [SerializeField] private List<RadioButton<T>> _radioButtons;
+        [SerializeField] protected List<RadioButton<T>> _radioButtons;
         private bool _isSelectInitialized;
 
         public RadioButton<T> ActiveElement => _selectedElement;
@@ -32,13 +32,13 @@ namespace SanderSaveli.UDK.UI
 
         private void Awake()
         {
-            if (!_isSelectInitialized)
+            if (!_isSelectInitialized && _radioButtons.Count >0)
             {
                 _selectedElement = _radioButtons[_startSelectedElement];
             }
         }
 
-        private void Start()
+        protected void Start()
         {
             foreach (var radioButton in _radioButtons)
             {

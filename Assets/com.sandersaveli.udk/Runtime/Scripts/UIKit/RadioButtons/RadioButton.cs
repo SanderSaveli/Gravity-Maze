@@ -5,7 +5,7 @@ namespace SanderSaveli.UDK.UI
 {
     public abstract class RadioButton<TValue> : MonoBehaviour
     {
-        [SerializeField] private TValue _value;
+        [SerializeField] protected TValue _value;
 
         public TValue Value => _value;
         public Action<RadioButton<TValue>> OnSelectInput { get; set; }

@@ -1,13 +1,11 @@
-using SanderSaveli.UDK.UI;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
-    public abstract class ClosableColorSlot : ColorRadioButton
+    public abstract class ClosableColorSlot : ColorSlot
     {
+
         [Header("Components")]
         [SerializeField] private GameObject _closeGroup;
         [SerializeField] private GameObject _view;
@@ -19,7 +17,10 @@ namespace SanderSaveli.GravityMaze
             base.OnEnable();
         }
 
-        protected abstract void OpenPreview();
+        protected virtual void OpenPreview()
+        {
+            OnOpenPreview?.Invoke(ColorContext);
+        }
 
         protected abstract bool IsOpened();
 

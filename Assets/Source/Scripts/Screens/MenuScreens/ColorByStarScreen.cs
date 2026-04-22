@@ -27,12 +27,12 @@ namespace SanderSaveli.GravityMaze
             _colorManager = colorManager;
         }
 
-        public void Init(int needCount, ColorSheme colorSheme)
+        public void Init(ColorContext colorContext)
         {
-            _colorSheme = colorSheme;
-            _starText.text = string.Format(_format, _levelStorage.StarCount, needCount);
+            _colorSheme = colorContext.ColorSheme;
+            _starText.text = string.Format(_format, _levelStorage.StarCount, colorContext.StarToUnlock);
             _previewImage.color = _colorManager.GetActiveColorOfSheme(_colorSheme);
-            _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(colorSheme));
+            _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(_colorSheme));
         }
 
         protected override void SubscribeToEvents()

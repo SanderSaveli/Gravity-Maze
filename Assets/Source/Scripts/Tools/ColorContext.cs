@@ -6,6 +6,7 @@ namespace SanderSaveli.GravityMaze
     [Serializable]
     public class ColorContext
     {
+
         public int StarToUnlock => _starToUnlock;
         public int AdsToUnlock => _adsToUnlock;
         public ColorSheme ColorSheme => _colorSheme;
