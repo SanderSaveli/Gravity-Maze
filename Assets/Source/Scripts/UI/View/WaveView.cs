@@ -27,5 +27,10 @@ namespace SanderSaveli.GravityMaze
                 .SetLink(gameObject)
                 .OnComplete(()=> Destroy(gameObject));
         }
+
+        public void SetColor(Color color)
+        {
+            _image.color = color;
+        }
     }
 }

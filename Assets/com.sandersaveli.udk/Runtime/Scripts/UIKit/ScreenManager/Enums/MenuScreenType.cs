@@ -11,5 +11,6 @@ namespace SanderSaveli.UDK.UI
         RemoveAds = 6,
         ColorByStars = 7,
         ColorByAds = 8,
+        OpenColor = 9,
     }
 }

@@ -12,12 +12,17 @@ namespace SanderSaveli.GravityMaze
 {
     public class ColorByAdsScreen : ClosableUIScreen
     {
+        [Header("Components")]
         [SerializeField] private Image _progressImage;
         [SerializeField] private Button _previewButton;
         [SerializeField] private Image _previewImage;
         [SerializeField] private TMP_Text _starText;
-        [SerializeField] private string _format = "{0}/{1}";
         [SerializeField] private Button _watchAdsButtpn;
+        [SerializeField] private UnlockColorScreen _unlockScreen;
+        [SerializeField] private WaveSpawner _waveSpawner;
+
+        [Header("Params")]
+        [SerializeField] private string _format = "{0}/{1}";
         [SerializeField] private float _fillDuration = 0.5f;
         [SerializeField] private float _fillDelay = 0.5f;
 
@@ -49,6 +54,7 @@ namespace SanderSaveli.GravityMaze
             _needCount = needCount;
             _progressImage.fillAmount = 0;
             _previewImage.color = _colorManager.GetActiveColorOfSheme(_colorSheme);
+            _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(color));
             UpdateView();
         }
         protected override void SubscribeToEvents()
@@ -90,6 +96,8 @@ namespace SanderSaveli.GravityMaze
 
         private void WatchAd()
         {
+            IncreaseAds(new Reward());
+            return;
             IAdAdapter adAdapter = _adManager.ShowRewardedAd(IncreaseAds);
             if (!adAdapter.IsSuccsessShow)
             {
@@ -113,18 +121,22 @@ namespace SanderSaveli.GravityMaze
                 .Append(_progressImage.DOFillAmount(fill, _fillDuration).SetLink(_progressImage.gameObject));
         }
 
-        private async void IncreaseAds(Reward reward)
+        private void IncreaseAds(Reward reward)
         {
             _adsPurchasizeStorage.AddWatch(_currSheme);
             UpdateView();
 
             if (_adsPurchasizeStorage.GetWatchedAdsPerColor(_currSheme) >= _needCount)
             {
-                _analyticManager.SendUnlockColorForAdEvent(_currSheme);
-                await UniTask.WaitForSeconds(_fillDelay + _fillDuration);
-                _colorManager.ActiveSheme.Value = _currSheme;
-                HandleBack();
+                ColorUnlocked();
             }
+        }
+
+        private void ColorUnlocked()
+        {
+            _analyticManager.SendUnlockColorForAdEvent(_currSheme);
+            _unlockScreen.Init(_colorSheme);
+            _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.OpenColor));
         }
     }
 }

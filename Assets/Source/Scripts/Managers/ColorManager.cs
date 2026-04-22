@@ -14,7 +14,22 @@ namespace SanderSaveli.GravityMaze
 
         public IReadOnlyList<ColorOverrides> ColorOverrides => _activeeShemeSO.Overrides;
 
+        public IReadOnlyList<ColorContext> LightColors => _lightColors;
+
+        public IReadOnlyList<ColorContext> DarkColors => _darkColors;
+
+        public IReadOnlyList<ColorContext> MulticolorColors => _multicolorColors;
+
+        [Header("ColorParams")]
         [SerializeField] private List<ShemeColorPairs> _shemeColors;
+
+        [Header("Light Colors")]
+        [SerializeField] private List<ColorContext> _lightColors;
+        [Header("Dark Colors")]
+        [SerializeField] private List<ColorContext> _darkColors;
+        [Header("Dark Colors")]
+        [SerializeField] private List<ColorContext> _multicolorColors;
+
         private ColorSetSO _activeeShemeSO;
         private ColorSettings _colorSettings;
         private CompositeDisposable _compositeDisposable;

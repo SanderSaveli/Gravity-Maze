@@ -1,8 +1,6 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -24,10 +22,11 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] protected float _emitorMaxScale;
 
         private Coroutine _coroutine;
+        private Color _waveColor;
 
         private void OnEnable()
         {
-            if(_coroutine != null)
+            if (_coroutine != null)
             {
                 StopCoroutine(_coroutine);
             }
@@ -41,6 +40,11 @@ namespace SanderSaveli.GravityMaze
                 StopCoroutine(_coroutine);
             }
             _coroutine = null;
+        }
+
+        public void SetWaveColor(Color color)
+        {
+            _waveColor = color;
         }
 
         private IEnumerator SpawnRoutine()
@@ -61,8 +65,15 @@ namespace SanderSaveli.GravityMaze
                 .SetEase(_emitorScaleUpEase)
                 .Append(_emitor.DOScale(1, _emitorScaleDownDuration)
                 .SetEase(_emitorScaleDownEase)
-                .OnComplete(() => Instantiate(_waveView, _waveParent)))
+                .OnComplete(() => CreateWave()))
                 .SetLink(gameObject);
+        }
+
+        private WaveView CreateWave()
+        {
+            WaveView wave = Instantiate(_waveView, _waveParent).GetComponent<WaveView>();
+            wave.SetColor(_waveColor);
+            return wave;
         }
     }
 }

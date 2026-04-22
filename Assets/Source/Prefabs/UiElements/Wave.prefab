@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6357779908653036590}
   - component: {fileID: 4235961394396726308}
   - component: {fileID: 8181253913963871565}
-  - component: {fileID: 6660263643004618227}
   - component: {fileID: 6607061051590270059}
   m_Layer: 5
   m_Name: Wave
@@ -61,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.24313727, g: 0.227451, b: 0.98823535, a: 1}
+  m_Color: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -93,21 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffade7edb5b1df45a6c3642149606c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6660263643004618227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5491495634852177320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11df7fabae9e2a340ae6ea7802f37e1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _type: 1
-  _image: {fileID: 4235961394396726308}
-  _isOverrideAlpha: 1
 --- !u!114 &6607061051590270059
 MonoBehaviour:
   m_ObjectHideFlags: 0

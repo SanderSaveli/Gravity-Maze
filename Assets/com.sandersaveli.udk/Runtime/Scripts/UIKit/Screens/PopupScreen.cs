@@ -7,7 +7,7 @@ namespace SanderSaveli.UDK
 {
     public class PopupScreen : UiScreen
     {
-        [SerializeField] private Button _closeButton;
+        [SerializeField] protected Button _closeButton;
 
         protected SignalBus _signalBus;
 
