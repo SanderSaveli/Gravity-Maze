@@ -49,6 +49,7 @@ namespace SanderSaveli.GravityMaze
             Container.DeclareSignal<SignalInputAction>();
             Container.DeclareSignal<SignalInputClosePopup>();
             Container.DeclareSignal<SignalInputCloseScreen>();
+            Container.DeclareSignal<SignalStarCountIncrease>();
             #endregion
         }
     }

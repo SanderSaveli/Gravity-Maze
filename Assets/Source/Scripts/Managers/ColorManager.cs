@@ -13,6 +13,11 @@ namespace SanderSaveli.GravityMaze
         public ReactiveProperty<ColorSheme> ActiveSheme { get; private set; }
 
         public IReadOnlyList<ColorOverrides> ColorOverrides => _activeeShemeSO.Overrides;
+        public IReadOnlyList<ColorContext> ColorContexts => 
+            _lightColors
+            .Concat(_darkColors)
+            .Concat(_multicolorColors)
+            .ToList();
 
         public IReadOnlyList<ColorContext> LightColors => _lightColors;
 

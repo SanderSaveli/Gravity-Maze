@@ -16,11 +16,13 @@ namespace SanderSaveli.GravityMaze
         private List<LevelData> _levelsData;
         private ILevelStorage _storage;
         private CompositeDisposable _disposables;
+        private SignalBus _signalBus;
 
         [Inject]
-        public void Construct(ILevelStorage levelStorage)
+        public void Construct(ILevelStorage levelStorage, SignalBus signalBus)
         {
             _storage = levelStorage;
+            _signalBus = signalBus;
         }
 
         private void Awake()
@@ -54,6 +56,7 @@ namespace SanderSaveli.GravityMaze
             {
                 _storage.Levels.Value[level].star_count = 1;
                 _storage.Levels.ForceNotify();
+                _signalBus.Fire(new SignalStarCountIncrease(_storage.StarCount));
             }
         }
 
