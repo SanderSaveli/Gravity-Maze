@@ -97,10 +97,7 @@ namespace SanderSaveli.GravityMaze
                 {
                     _analyticManager.SendLevelFirstTimeComoleteEvent(_currentLevel + 1, _timeToComplete, _colorManager.ActiveSheme.Value, _starManager.CollectedStars.Count);
                 }
-                else
-                {
-                    _analyticManager.SendLevelCompleteEvent(_currentLevel + 1, _timeToComplete, _colorManager.ActiveSheme.Value, _starManager.CollectedStars.Count);
-                }
+                _analyticManager.SendLevelCompleteEvent(_currentLevel + 1, _timeToComplete, _colorManager.ActiveSheme.Value, _starManager.CollectedStars.Count);
 
                 ClearSavedProgress();
             }

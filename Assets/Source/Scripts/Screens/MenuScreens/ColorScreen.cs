@@ -13,9 +13,12 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] protected ColorGroupRadioGroup _colorGroup;
         [SerializeField] private ColorByAdsScreen _colorByAdsScreen;
         [SerializeField] private ColorByStarScreen _colorByStarsScreen;
+        [SerializeField] private SelectingSnapScroll _selectingSnapScroll;
+
         private IColorManager _colorManager;
         private ColorGroup _activeGroup;
         private SignalBus _signalBus;
+        private bool _isColorsInited;
 
         [Inject]
         public void Construct(IColorManager colorManager, SignalBus signalBus)
@@ -32,32 +35,26 @@ namespace SanderSaveli.GravityMaze
                 group.Init();
                 colorSlots.AddRange(group.ColorSlots);
             }
+            _isColorsInited = true;
             _radioGroup.SetButtons(colorSlots, _colorManager.ActiveSheme.Value);
+            ScrollToActive();
+            SubscribeToPreviewEvents();
         }
 
-        protected override async void SubscribeToEvents()
+        protected override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
             _radioGroup.OnValueChanged += UpdateSelection;
             _colorGroup.OnValueChanged += ChangeActiveGroup;
 
-            await UniTask.Yield();
-            foreach (var colorGroup in _colorGroups)
+            if(_activeGroup != null)
             {
-                foreach (ColorSlot item in colorGroup.ColorSlots)
-                {
-                    item.OnOpenPreview += OnOpenPreview;
-                }
-                if (colorGroup.HasColorInGroup(_colorManager.ActiveSheme.Value, out _))
-                {
-                    _activeGroup = colorGroup;
-                    _colorGroup.SetSelect(colorGroup.Type);
-                    colorGroup.Show();
-                }
-                else
-                {
-                    colorGroup.HideImmediately();
-                }
+                _selectingSnapScroll.SnapTo(_activeGroup.transform as RectTransform);
+            }
+
+            if(_isColorsInited)
+            {
+                SubscribeToPreviewEvents();
             }
         }
 
@@ -73,7 +70,25 @@ namespace SanderSaveli.GravityMaze
                     item.OnOpenPreview -= OnOpenPreview;
                 }
             }
+        }
 
+        private void ScrollToActive()
+        {
+            ColorSheme activeSheme = _colorManager.ActiveSheme.Value;
+            foreach (var colorGroup in _colorGroups)
+            {
+                if (colorGroup.HasColorInGroup(activeSheme, out _))
+                {
+                    _activeGroup = colorGroup;
+                    _colorGroup.SetSelect(colorGroup.Type);
+                    colorGroup.Select();
+                }
+                else
+                {
+                    colorGroup.Deselect();
+                }
+            }
+            _selectingSnapScroll.SnapTo(_activeGroup.transform as RectTransform);
         }
 
         private void UpdateSelection(ColorSheme colorSheme)
@@ -85,9 +100,20 @@ namespace SanderSaveli.GravityMaze
         {
             if (_activeGroup == null || _activeGroup.Type != type)
             {
-                _activeGroup.Hide();
+                _activeGroup.Deselect();
                 _activeGroup = _colorGroups.Find(c => c.Type == type);
-                _activeGroup.Show();
+                _activeGroup.Select();
+            }
+        }
+
+        private void SubscribeToPreviewEvents()
+        {
+            foreach (var colorGroup in _colorGroups)
+            {
+                foreach (ColorSlot item in colorGroup.ColorSlots)
+                {
+                    item.OnOpenPreview += OnOpenPreview;
+                }
             }
         }
 

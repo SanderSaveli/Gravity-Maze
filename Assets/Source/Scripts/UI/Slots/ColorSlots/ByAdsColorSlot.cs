@@ -14,6 +14,7 @@ namespace SanderSaveli.GravityMaze
             _adsPurchasizeStorage = adsPurchasizeStorage;
         }
 
-        protected override bool IsOpened() => _adsPurchasizeStorage.GetWatchedAdsPerColor(Value) >= ColorContext.AdsToUnlock;
+        protected override bool IsOpened() =>
+            _adsPurchasizeStorage.GetWatchedAdsPerColor(Value) >= ColorContext.AdsToUnlock;
     }
 }

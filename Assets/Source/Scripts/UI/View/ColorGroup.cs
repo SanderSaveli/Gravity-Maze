@@ -1,6 +1,3 @@
-using CustomText;
-using SanderSaveli.UDK.UI;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,14 +5,18 @@ using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
-    public class ColorGroup : MonoBehaviour
+    public class ColorGroup : MonoBehaviour, ISelectable
     {
         public ColorGroupType Type => _colorGroupType;
         public List<ColorSlot> ColorSlots => _colorsInGroup;
 
-        [SerializeField] private ShowHideAnimation _leftShowHideAnimation;
+        public bool IsSelected { get; private set; }
+
+        [SerializeField] private SelectingSnapScroll _snapScroll;
         [SerializeField] private ColorFiller _colorFiller;
         [SerializeField] private Transform _colorParent;
+        [SerializeField] private RectTransform _selfTransform;
+        [SerializeField] private ColorGroupRadioGroup _radioGroup;
 
         [Header("Params")]
         [SerializeField] private ColorGroupType _colorGroupType;
@@ -54,27 +55,22 @@ namespace SanderSaveli.GravityMaze
             }
         }
 
-        public void Show()
+        public void Select()
         {
-            gameObject.SetActive(true);
-            _leftShowHideAnimation.Show(0, _showDuration, null);
+            IsSelected = true;
+            if (_radioGroup.Value != Type)
+            {
+                _radioGroup.SetSelect(Type);
+            }
+            else if (!_snapScroll.IsSpapping)
+            {
+                _snapScroll.SnapTo(_selfTransform);
+            }
         }
 
-        public void Hide()
+        public void Deselect()
         {
-            _leftShowHideAnimation.Hide(0, _hideDuration, () => gameObject.SetActive(false));
-        }
-
-        public void ShowImmediately()
-        {
-            gameObject.SetActive(true);
-            _leftShowHideAnimation.ShowImmediately();
-        }
-
-        public void HideImmediately()
-        {
-            _leftShowHideAnimation.HideImmediately();
-            gameObject.SetActive(false);
+            IsSelected = false;
         }
     }
 }

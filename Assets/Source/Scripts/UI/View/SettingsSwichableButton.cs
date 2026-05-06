@@ -43,7 +43,7 @@ namespace SanderSaveli.GravityMaze
             Color imageColor = _colorSettings.GetColorByStyle(_imageDeselectColor);
             if (_image != null)
             {
-                _image.color = imageColor; // DOColor(imageColor, _animationDuration).SetLink(gameObject);
+                _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
             }
             if(_rawImage != null)
             {
@@ -62,7 +62,7 @@ namespace SanderSaveli.GravityMaze
             Color imageColor = _colorSettings.GetColorByStyle(_imageSelectColor);
             if (_image != null)
             {
-                _image.color = imageColor;
+                _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
             }
             if (_rawImage != null)
             {

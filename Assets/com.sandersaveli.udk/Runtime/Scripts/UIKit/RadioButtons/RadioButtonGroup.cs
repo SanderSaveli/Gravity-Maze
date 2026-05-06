@@ -48,7 +48,7 @@ namespace SanderSaveli.UDK.UI
             _selectedElement.Select();
         }
 
-        public void SetSelect(T type)
+        public virtual void SetSelect(T type)
         {
             _isSelectInitialized = true;
             RadioButton<T> button = _radioButtons.FirstOrDefault(t => t.Value.Equals(type));

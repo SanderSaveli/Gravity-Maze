@@ -7,7 +7,7 @@ namespace SanderSaveli.GravityMaze
         private ILevelStorage _levelStorage;
 
         [Inject]
-        public void Construct(ILevelStorage levelStorage, SignalBus signalBus)
+        public void Construct(ILevelStorage levelStorage)
         {
             _levelStorage = levelStorage;
         }

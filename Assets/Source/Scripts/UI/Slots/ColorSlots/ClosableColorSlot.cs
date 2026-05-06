@@ -1,20 +1,20 @@
-using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
 {
     public abstract class ClosableColorSlot : ColorSlot
     {
-
         [Header("Components")]
         [SerializeField] private GameObject _closeGroup;
         [SerializeField] private GameObject _view;
 
-        private new void OnEnable()
+        private new async void OnEnable()
         {
+            base.OnEnable();
+            await UniTask.Yield();
             bool isOpened = IsOpened();
             _closeGroup.SetActive(!isOpened);
-            base.OnEnable();
         }
 
         protected virtual void OpenPreview()

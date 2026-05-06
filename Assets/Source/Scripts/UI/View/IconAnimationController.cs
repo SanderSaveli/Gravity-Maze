@@ -22,6 +22,14 @@ namespace SanderSaveli.GravityMaze
             _animator.OnStopPlay += ApplySprite;
             _lastStatus = _button.IsSelected;
             ApplySprite();
+            if (_lastStatus)
+            {
+                _animator.Select();
+            }
+            else
+            {
+                _animator.Deselect();
+            }
         }
 
         private void OnDisable()
@@ -47,6 +55,8 @@ namespace SanderSaveli.GravityMaze
 
         private void ApplySprite()
         {
+            _image.gameObject.SetActive(true);
+            _animator.gameObject.SetActive(false);
             if (_lastStatus)
             {
                 _image.sprite = _onSprite;
@@ -55,8 +65,6 @@ namespace SanderSaveli.GravityMaze
             {
                 _image.sprite = _offSprite;
             }
-            _image.gameObject.SetActive(true);
-            _animator.gameObject.SetActive(false);
         }
     }
 }

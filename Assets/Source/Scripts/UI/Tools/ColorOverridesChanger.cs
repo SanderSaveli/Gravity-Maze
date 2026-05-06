@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using R3;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,6 @@ namespace SanderSaveli.GravityMaze
             _colorManager = colorManager;
         }
 
-        private void Awake()
-        {
-            _originalColor = _color.color;
-        }
-
         private void OnEnable()
         {
             _compositeDisposable = new CompositeDisposable();
@@ -41,6 +37,7 @@ namespace SanderSaveli.GravityMaze
 
         private void ApplyColorSetting(ColorSheme sheme)
         {
+            _originalColor = _colorManager.GetActiveColorOfSheme(_colorRadioButton.Value);
             IReadOnlyList<ColorOverrides> overrides = _colorManager.ColorOverrides;
             Color color = _originalColor;
 

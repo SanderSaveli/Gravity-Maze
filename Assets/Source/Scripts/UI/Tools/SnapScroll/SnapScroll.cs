@@ -9,6 +9,7 @@ namespace SanderSaveli.GravityMaze
 {
     public class SnapScroll : MonoBehaviour, IEndDragHandler, IBeginDragHandler
     {
+        public bool IsSpapping { get; private set; }
         [Header("Components")]
         [SerializeField] protected ScrollRect _scrollRect;
         [SerializeField] protected RectTransform _viewport;
@@ -91,6 +92,7 @@ namespace SanderSaveli.GravityMaze
 
         protected void MoveTo(RectTransform target, Vector2 newAnchoredPos)
         {
+            IsSpapping = true;
             DOTween.To(
                 () => target.anchoredPosition,
                 v => target.anchoredPosition = v,
@@ -98,7 +100,8 @@ namespace SanderSaveli.GravityMaze
                 _snapDuration
             )
             .SetEase(_ease)
-            .SetLink(target.gameObject);
+            .SetLink(target.gameObject)
+            .OnComplete(() => IsSpapping = false);
         }
 
         protected Vector3 GetViewportCenter()
