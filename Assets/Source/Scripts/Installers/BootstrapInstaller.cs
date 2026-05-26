@@ -10,7 +10,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private DataManager _dataManager;
         [SerializeField] private LevelManager _levelManager;
         [SerializeField] private SOBasedGameplayConfig _gameplayConfig;
-        [SerializeField] private FirebaseInitializer _analyticManager;
+        [SerializeField] private GameAnalyticsManager _analyticManager;
         [SerializeField] private VibrationManager _vibrationManager;
         [SerializeField] private AppSettings _appSettings;
         [SerializeField] private LockalTextManager _textManager;
@@ -29,6 +29,7 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<ILevelManager>().FromInstance(_levelManager).AsSingle().NonLazy();
             Container.Bind<IGameContext>().FromInstance(_gameContext).AsSingle().NonLazy();
             Container.Bind<IGameplayConfig>().FromInstance(_gameplayConfig).AsSingle().NonLazy();
+            Container.Bind<DataManager>().FromInstance(_dataManager).AsSingle().NonLazy();
             Container.Bind<ILevelStorage>().FromInstance(_dataManager.LevelStorage).AsSingle().NonLazy();
             Container.Bind<IAdsPurchasizeStorage>().FromInstance(_dataManager.AdsPurchasizeStorage).AsSingle().NonLazy();
             Container.Bind<IAnalyticManager>().FromInstance(_analyticManager).AsSingle().NonLazy();

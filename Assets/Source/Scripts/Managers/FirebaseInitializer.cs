@@ -102,5 +102,10 @@ namespace SanderSaveli.GravityMaze
 
             Debug.Log($"Send analytic Event unlocked_color, Color: {forSheme}");
         }
+
+        public void SendLevelStartEvent(int levelNumber)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -21,5 +21,6 @@
         Line = 16,
         LevelCouterText = 17,
         TitleColor = 18,
+        BallColor = 19,
     }
 }

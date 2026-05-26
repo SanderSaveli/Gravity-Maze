@@ -19,7 +19,7 @@ namespace SanderSaveli.UDK.UI
         {
             get
             {
-                if (_selectedElement != null && !Equals(_selectedElement.Value, default(T)))
+                if (_selectedElement != null)
                     return _selectedElement.Value;
 
                 return _radioButtons[_startSelectedElement].Value;

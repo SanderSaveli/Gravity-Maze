@@ -26,6 +26,11 @@ namespace SanderSaveli.GravityMaze
 
         private void OnEnable()
         {
+            for(int i =0; i < _waveParent.childCount; i++)
+            {
+                Destroy(_waveParent.GetChild(i).gameObject);
+            }
+
             if (_coroutine != null)
             {
                 StopCoroutine(_coroutine);

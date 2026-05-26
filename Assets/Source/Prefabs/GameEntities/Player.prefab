@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 12
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
+  m_Color: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251b3cf75c9f71b4fb58a931ee331369, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
+  _type: 19
   _image: {fileID: 654921055300982328}
   _overrideAlpha: 0
   _alpha: 1
@@ -287,8 +287,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.41960788, b: 0.41960788, a: 0.78431374}
-      key1: {r: 1, g: 0.41960788, b: 0.41960788, a: 0.09803922}
+      key0: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 0.78431374}
+      key1: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 0.09803922}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _trailRenderer: {fileID: 6284824353453412463}
-  _type: 1
+  _type: 19
 --- !u!114 &6031460273920481355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
+  m_Color: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

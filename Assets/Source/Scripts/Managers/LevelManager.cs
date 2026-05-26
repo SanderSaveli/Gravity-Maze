@@ -63,6 +63,12 @@ namespace SanderSaveli.GravityMaze
         public void UnlockAllLevels()
         {
             _storage.CurrentLevel.Value = _storage.Levels.Value.Count -1;
+            foreach (var level in _storage.Levels.Value)
+            {
+                level.star_count = 1;
+            }
+            _storage.Levels.ForceNotify();
+            _signalBus.Fire(new SignalStarCountIncrease(_storage.StarCount));
         }
 
         private void ActualizeData()

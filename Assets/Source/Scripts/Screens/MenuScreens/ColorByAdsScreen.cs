@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GoogleMobileAds.Api;
 using SanderSaveli.UDK.UI;
@@ -32,7 +31,6 @@ namespace SanderSaveli.GravityMaze
         private IColorManager _colorManager;
         private IAnalyticManager _analyticManager;
 
-        private ColorSheme _currSheme;
         private int _needCount;
         private ColorSheme _colorSheme;
         private bool _isPreviewActive;
@@ -50,11 +48,11 @@ namespace SanderSaveli.GravityMaze
 
         public void Init(ColorContext colorContext)
         {
-            _currSheme = colorContext.ColorSheme;
+            _colorSheme = colorContext.ColorSheme;
             _needCount = colorContext.AdsToUnlock;
             _progressImage.fillAmount = 0;
             _previewImage.color = _colorManager.GetActiveColorOfSheme(_colorSheme);
-            _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(_currSheme));
+            _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(_colorSheme));
             UpdateView();
         }
         protected override void SubscribeToEvents()
@@ -84,6 +82,7 @@ namespace SanderSaveli.GravityMaze
         {
             if (!_isPreviewActive)
             {
+                Debug.Log("Preview: " + _colorSheme);
                 _colorManager.PreviewSheme(_colorSheme);
                 _isPreviewActive = true;
             }
@@ -105,13 +104,13 @@ namespace SanderSaveli.GravityMaze
             }
             else
             {
-                _analyticManager.SendAdWatchedEvent(_currSheme);
+                _analyticManager.SendAdWatchedEvent(_colorSheme);
             }
         }
 
         protected void UpdateView()
         {
-            int currWatchCount = _adsPurchasizeStorage.GetWatchedAdsPerColor(_currSheme);
+            int currWatchCount = _adsPurchasizeStorage.GetWatchedAdsPerColor(_colorSheme);
             _starText.text = string.Format(_format, currWatchCount, _needCount);
             float fill = (float)currWatchCount / (float)_needCount;
 
@@ -123,10 +122,10 @@ namespace SanderSaveli.GravityMaze
 
         private void IncreaseAds(Reward reward)
         {
-            _adsPurchasizeStorage.AddWatch(_currSheme);
+            _adsPurchasizeStorage.AddWatch(_colorSheme);
             UpdateView();
 
-            if (_adsPurchasizeStorage.GetWatchedAdsPerColor(_currSheme) >= _needCount)
+            if (_adsPurchasizeStorage.GetWatchedAdsPerColor(_colorSheme) >= _needCount)
             {
                 ColorUnlocked();
             }
@@ -134,7 +133,7 @@ namespace SanderSaveli.GravityMaze
 
         private void ColorUnlocked()
         {
-            _analyticManager.SendUnlockColorForAdEvent(_currSheme);
+            _analyticManager.SendUnlockColorForAdEvent(_colorSheme);
             _unlockScreen.Init(_colorSheme);
             _signalBus.Fire(new SignalInputOpenMenuScreen(MenuScreenType.OpenColor));
         }

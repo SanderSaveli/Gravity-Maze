@@ -56,14 +56,24 @@ namespace SanderSaveli.GravityMaze
 
         private void Move()
         {
-            Vector2 target = Vector2.Lerp(_position1, _position2, _t);
-            _rb.MovePosition(target);
+            Vector2 localTarget =
+                Vector2.Lerp(_position1, _position2, _t);
+
+            Vector2 worldTarget =
+                transform.parent.TransformPoint(localTarget);
+
+            _rb.MovePosition(worldTarget);
         }
 
         private void Rotate()
         {
-            float rot = Mathf.LerpAngle(_rotation1, _rotation2, _t);
-            _rb.MoveRotation(rot);
+            float localRot =
+                Mathf.LerpAngle(_rotation1, _rotation2, _t);
+
+            float worldRot =
+                transform.parent.eulerAngles.z + localRot;
+
+            _rb.MoveRotation(worldRot);
         }
 
         public void RecordPoint1()

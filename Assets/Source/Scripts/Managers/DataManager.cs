@@ -21,6 +21,13 @@ namespace SanderSaveli.GravityMaze
             _levelManager = levelManager;
         }
 
+        public void DeleteAllData()
+        {
+            _accountData = new AccountData();
+            _accountStorage.SetData(_accountData);
+            _storageService.Save(ACCOUNT_SAVE_PATH, _accountData);
+        }
+
         private void Awake()
         {
             _storageService = new EncryptedJsonToFileStorageService();

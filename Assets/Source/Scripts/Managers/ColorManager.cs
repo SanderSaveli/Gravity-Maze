@@ -90,6 +90,7 @@ namespace SanderSaveli.GravityMaze
 
         public Color GetActiveColorOfSheme(ColorSheme sheme)
         {
+            Debug.Log(sheme.ToString());
             ShemeColorPairs pair = GetPair(sheme);
             if (pair == null)
             {
