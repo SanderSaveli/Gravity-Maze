@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace SanderSaveli.UDK
@@ -13,80 +15,139 @@ namespace SanderSaveli.UDK
         private const string SALT = "9qSxMF6lV2svjyF54Pf6Fg==";
         private const string HMAC_KEY = "SAjXbYKAKVFbCXQmtH/unIMrNs/Tuclr0K29oUe+fec=";
 
+        private readonly SynchronizationContext _unityContext;
+
+        public EncryptedJsonToFileStorageService()
+        {
+            _unityContext = SynchronizationContext.Current;
+        }
+
         public void Save(string key, object data, Action<bool> callback = null)
         {
-            try
-            {
-                string path = BuildPath(key);
-                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            string path = BuildPath(key);
 
-                string json = JsonConvert.SerializeObject(data);
-                byte[] encrypted = Encrypt(json);
-
-                byte[] hmac = ComputeHMAC(encrypted);
-
-                using (var fs = new FileStream(path, FileMode.Create))
-                {
-                    fs.Write(hmac, 0, hmac.Length);      
-                    fs.Write(encrypted, 0, encrypted.Length);
-                }
-
-                callback?.Invoke(true);
-                Debug.Log("Save succsess " + path);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError(ex);
-                callback?.Invoke(false);
-            }
+            _ = SaveAsync(path, data, callback);
         }
 
         public void Load<T>(string key, Action<T> callback)
         {
-            try
+            string path = BuildPath(key);
+
+            _ = LoadAsync(path, callback);
+        }
+
+        public async Task<bool> SaveAsync(string key, object data)
+        {
+            string path = BuildPath(key);
+            return await SaveInternalAsync(path, data);
+        }
+
+        public async Task<T> LoadAsync<T>(string key)
+        {
+            string path = BuildPath(key);
+            return await LoadInternalAsync<T>(path);
+        }
+
+        private async Task SaveAsync(string path, object data, Action<bool> callback)
+        {
+            bool result = await SaveInternalAsync(path, data);
+            InvokeOnMainThread(() => callback?.Invoke(result));
+        }
+
+        private async Task LoadAsync<T>(string path, Action<T> callback)
+        {
+            T result = await LoadInternalAsync<T>(path);
+            InvokeOnMainThread(() => callback?.Invoke(result));
+        }
+
+        private Task<bool> SaveInternalAsync(string path, object data)
+        {
+            return Task.Run(() =>
             {
-                string path = BuildPath(key);
-
-                if (!File.Exists(path))
+                try
                 {
-                    callback?.Invoke(default);
-                    return;
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+                    string json = JsonConvert.SerializeObject(data);
+                    byte[] encrypted = Encrypt(json);
+                    byte[] hmac = ComputeHMAC(encrypted);
+
+                    using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+                    {
+                        fs.Write(hmac, 0, hmac.Length);
+                        fs.Write(encrypted, 0, encrypted.Length);
+                    }
+
+                    Debug.Log("Save success " + path);
+                    return true;
                 }
-
-                byte[] fileBytes = File.ReadAllBytes(path);
-
-                byte[] storedHmac = new byte[32]; 
-                byte[] encrypted = new byte[fileBytes.Length - 32];
-
-                Array.Copy(fileBytes, 0, storedHmac, 0, 32);
-                Array.Copy(fileBytes, 32, encrypted, 0, encrypted.Length);
-
-                byte[] computedHmac = ComputeHMAC(encrypted);
-
-                if (!CompareBytes(storedHmac, computedHmac))
+                catch (Exception ex)
                 {
-                    Debug.LogError("Save file tampered!");
-                    callback?.Invoke(default);
-                    return;
+                    Debug.LogError(ex);
+                    return false;
                 }
+            });
+        }
 
-                string json = Decrypt(encrypted);
-                T data = JsonConvert.DeserializeObject<T>(json);
-
-                callback?.Invoke(data);
-            }
-            catch (Exception ex)
+        private Task<T> LoadInternalAsync<T>(string path)
+        {
+            return Task.Run(() =>
             {
-                Debug.LogError(ex);
-                callback?.Invoke(default);
-            }
+                try
+                {
+                    if (!File.Exists(path))
+                        return default;
+
+                    byte[] fileBytes = File.ReadAllBytes(path);
+
+                    if (fileBytes.Length < 32)
+                    {
+                        Debug.LogError("Save file corrupted!");
+                        return default;
+                    }
+
+                    byte[] storedHmac = new byte[32];
+                    byte[] encrypted = new byte[fileBytes.Length - 32];
+
+                    Array.Copy(fileBytes, 0, storedHmac, 0, 32);
+                    Array.Copy(fileBytes, 32, encrypted, 0, encrypted.Length);
+
+                    byte[] computedHmac = ComputeHMAC(encrypted);
+
+                    if (!CompareBytes(storedHmac, computedHmac))
+                    {
+                        Debug.LogError("Save file tampered!");
+                        return default;
+                    }
+
+                    string json = Decrypt(encrypted);
+                    return JsonConvert.DeserializeObject<T>(json);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
+                    return default;
+                }
+            });
+        }
+
+        private void InvokeOnMainThread(Action action)
+        {
+            if (_unityContext != null)
+                _unityContext.Post(_ => action?.Invoke(), null);
+            else
+                action?.Invoke();
         }
 
         private byte[] Encrypt(string plainText)
         {
             using (Aes aes = Aes.Create())
             {
-                var key = new Rfc2898DeriveBytes(SECRET_KEY, Encoding.UTF8.GetBytes(SALT), 10000);
+                var key = new Rfc2898DeriveBytes(
+                    SECRET_KEY,
+                    Encoding.UTF8.GetBytes(SALT),
+                    10000
+                );
 
                 aes.Key = key.GetBytes(32);
                 aes.IV = key.GetBytes(16);
@@ -109,7 +170,11 @@ namespace SanderSaveli.UDK
         {
             using (Aes aes = Aes.Create())
             {
-                var key = new Rfc2898DeriveBytes(SECRET_KEY, Encoding.UTF8.GetBytes(SALT), 10000);
+                var key = new Rfc2898DeriveBytes(
+                    SECRET_KEY,
+                    Encoding.UTF8.GetBytes(SALT),
+                    10000
+                );
 
                 aes.Key = key.GetBytes(32);
                 aes.IV = key.GetBytes(16);
@@ -138,13 +203,16 @@ namespace SanderSaveli.UDK
                 return false;
 
             int result = 0;
+
             for (int i = 0; i < a.Length; i++)
                 result |= a[i] ^ b[i];
 
             return result == 0;
         }
 
-        private string BuildPath(string key) =>
-            Path.Combine(Application.persistentDataPath, key + ".dat");
+        private string BuildPath(string key)
+        {
+            return Path.Combine(Application.persistentDataPath, key + ".dat");
+        }
     }
 }

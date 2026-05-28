@@ -97,7 +97,7 @@ namespace SanderSaveli.GravityMaze
                 Debug.LogError($"There is no sheme for color {sheme}");
                 return Color.white;
             }
-            return pair.ColorSet.Colors.Find(t => t.TextColorType == Custom_ColorStyle.ActiveColor).Color;
+            return pair.ColorSet.Colors.Find(t => t.TextColorType == Custom_ColorStyle.Default).Color;
         }
 
         [Serializable]

@@ -58,6 +58,8 @@ namespace SanderSaveli.GravityMaze
 
         private int CalculateStars()
         {
+            if(Levels.Value == null) return 0;
+
             int stars = 0;
             foreach (var level in Levels.Value)
             {

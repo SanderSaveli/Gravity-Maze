@@ -1,4 +1,6 @@
 using SanderSaveli.UDK;
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -7,6 +9,7 @@ namespace SanderSaveli.GravityMaze
 {
     public class LanguageListElement : MonoBehaviour, ISelectable
     {
+        public Action<bool> OnSelected { get; set; }
         public Language Language => _language;
         public bool IsSelected => _selected;
 
@@ -44,11 +47,13 @@ namespace SanderSaveli.GravityMaze
         public void Deselect()
         {
             _selected = false;
+            OnSelected?.Invoke(_selected);                       
         }
 
         public void Select()
         {
             _selected = true;
+            OnSelected?.Invoke(_selected);
             _languageChanger.ChangeLanguage(_language);
             _appSettings.Language.Value = _language;
         }

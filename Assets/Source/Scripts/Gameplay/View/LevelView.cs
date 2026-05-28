@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace SanderSaveli.GravityMaze
@@ -21,6 +22,7 @@ namespace SanderSaveli.GravityMaze
         private void Start()
         {
             _levelText.text = GetString(_gameContext.LevelNumber + 1);
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform);
         }
 
         public string GetString(int number)

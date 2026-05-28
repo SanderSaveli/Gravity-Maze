@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4891763416754558056}
   - component: {fileID: 7219903258289531490}
   - component: {fileID: 4144645766208427991}
+  - component: {fileID: 2736796526046149547}
   m_Layer: 5
   m_Name: LanguageSlot
   m_TagString: Untagged
@@ -98,6 +99,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2736796526046149547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3113250489469327374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b7d6dede4f394f4ca72041e8d3b39e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _languageListElement: {fileID: 7219903258289531490}
+  _customText: {fileID: 2557011236675354182}
+  _activeColor: 11
+  _pasiveColor: 10
 --- !u!1 &7239414508896158353
 GameObject:
   m_ObjectHideFlags: 0

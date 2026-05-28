@@ -24,6 +24,9 @@ namespace SanderSaveli.GravityMaze
         [Header("Color")]
         [SerializeField] private Custom_ColorStyle _enabledColor;
         [SerializeField] private Custom_ColorStyle _disabledColor;
+        [Header("Color")]
+        [SerializeField] private Custom_ColorStyle _enabledTextColor;
+        [SerializeField] private Custom_ColorStyle _disabledTextColor;
         [Header("Text")]
         [SerializeField] private string _enabledTextKey;
         [SerializeField] private string _disabledTextKey;
@@ -55,7 +58,7 @@ namespace SanderSaveli.GravityMaze
 
             _icon.sprite = isAdsRemoved ? _enabledSprite : _disabledSprite;
             _textByTableKey.ChangeText(isAdsRemoved ? _enabledTextKey : _disabledTextKey);
-            _text.ChangeColor(isAdsRemoved ? _enabledColor : _disabledColor);
+            _text.ChangeColor(isAdsRemoved ? _enabledTextColor : _disabledTextColor);
             _imageColor.ChangeColor(isAdsRemoved ? _enabledColor : _disabledColor);
         }
     }

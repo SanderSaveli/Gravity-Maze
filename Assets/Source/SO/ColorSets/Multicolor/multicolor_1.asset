@@ -15,7 +15,7 @@ MonoBehaviour:
   _colors:
   - Name: Default
     TextColorType: 0
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 1, g: 0.7137255, b: 0.31764707, a: 1}
   - Name: ActiveColor
     TextColorType: 1
     Color: {r: 1, g: 0.7137255, b: 0.31764707, a: 1}
@@ -73,6 +73,9 @@ MonoBehaviour:
   - Name: BallColor
     TextColorType: 19
     Color: {r: 1, g: 0.7137255, b: 0.31764707, a: 1}
+  - Name: InactiveColor
+    TextColorType: 20
+    Color: {r: 1, g: 1, b: 1, a: 1}
   _overrides:
   - Theme: 35
     Override: {r: 0.43137258, g: 0.20784315, b: 0.9568628, a: 1}
