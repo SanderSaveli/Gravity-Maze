@@ -1,7 +1,5 @@
 using CustomText;
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
@@ -33,7 +31,15 @@ namespace SanderSaveli.GravityMaze
             }
 
             _selectedColor = _type;
-            Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor);
+            Color color;
+            try
+            {
+                color = ColorSettings.Instance.GetColorByStyle(_selectedColor);
+            }
+            catch
+            {
+                return;
+            }
             Gradient gradient = _trailRenderer.colorGradient;
 
             var colorKeys = gradient.colorKeys;
