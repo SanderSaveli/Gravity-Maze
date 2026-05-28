@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -7,6 +10,9 @@ namespace SanderSaveli.GravityMaze
     {
         [Tooltip("Threshold in pixels - if the movement is greater, it is considered drag")]
         [SerializeField] private float _dragThresholdPixels = 10f;
+        [SerializeField] private GraphicRaycaster _uiRaycaster;
+
+        private readonly List<RaycastResult> _uiRaycastResults = new();
 
         public Action<Vector2> OnPointerDown { get; set; }
         public Action<Vector2> OnPointerUp { get; set; }
@@ -14,15 +20,17 @@ namespace SanderSaveli.GravityMaze
         public Action<Vector2> OnBeginDrag { get; set; }
         public Action<Vector2> OnDrag { get; set; }
         public Action<Vector2> OnEndDrag { get; set; }
-        public bool IsEnabled { get => _isEnabled; 
-            set 
+        public bool IsEnabled
+        {
+            get => _isEnabled;
+            set
             {
                 if (_pointerDown)
                 {
                     ProcessPointerUp(_currPos);
                 }
                 _isEnabled = value;
-            } 
+            }
         }
         private bool _isEnabled;
         private bool _pointerDown;
@@ -51,6 +59,10 @@ namespace SanderSaveli.GravityMaze
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 pos = Input.mousePosition;
+
+                if (IsPointerOverUI(pos))
+                    return;
+
                 ProcessPointerDown(pos);
             }
 
@@ -69,7 +81,8 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleTouch()
         {
-            if (Input.touchCount == 0) return;
+            if (Input.touchCount == 0)
+                return;
 
             Touch touch = Input.GetTouch(0);
             Vector2 pos = touch.position;
@@ -77,6 +90,9 @@ namespace SanderSaveli.GravityMaze
             switch (touch.phase)
             {
                 case TouchPhase.Began:
+                    if (IsPointerOverUI(pos))
+                        return;
+
                     _activeTouchId = touch.fingerId;
                     ProcessPointerDown(pos);
                     break;
@@ -143,6 +159,26 @@ namespace SanderSaveli.GravityMaze
             _pointerDown = false;
             _isDragging = false;
             _activeTouchId = -1;
+        }
+
+        private bool IsPointerOverUI(Vector2 screenPosition)
+        {
+            _uiRaycastResults.Clear();
+
+            PointerEventData eventData = new(EventSystem.current)
+            {
+                position = screenPosition
+            };
+
+            _uiRaycaster.Raycast(eventData, _uiRaycastResults);
+
+            foreach (var result in _uiRaycastResults)
+            {
+                if (result.gameObject.GetComponent<Button>() != null)
+                    return true;
+            }
+
+            return false;
         }
     }
 
