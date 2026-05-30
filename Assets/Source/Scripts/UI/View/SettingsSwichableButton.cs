@@ -36,6 +36,7 @@ namespace SanderSaveli.GravityMaze
 
         protected override void HandleDeselect()
         {
+            KillColorTweens();
             _text.text = "off";
             Color textColor = _colorSettings.GetColorByStyle(_testDeselectColor);
             _text.DOColor(textColor, _animationDuration).SetLink(gameObject);
@@ -55,6 +56,7 @@ namespace SanderSaveli.GravityMaze
 
         protected override void HandleSelect()
         {
+            KillColorTweens();
             _text.text = "on";
             Color textColor = _colorSettings.GetColorByStyle(_textSelectColor);
             _text.DOColor(textColor, _animationDuration).SetLink(gameObject);
@@ -70,6 +72,13 @@ namespace SanderSaveli.GravityMaze
             }
 
             _textByTableKey.ChangeText(_selectedTextKey);
+        }
+
+        private void KillColorTweens()
+        {
+            _text?.DOKill();
+            _image?.DOKill();
+            _rawImage?.DOKill();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -16,6 +17,7 @@ namespace SanderSaveli.UDK
         private const string HMAC_KEY = "SAjXbYKAKVFbCXQmtH/unIMrNs/Tuclr0K29oUe+fec=";
 
         private readonly SynchronizationContext _unityContext;
+        private readonly ConcurrentDictionary<string, SemaphoreSlim> _fileLocks = new();
 
         public EncryptedJsonToFileStorageService()
         {
@@ -60,75 +62,101 @@ namespace SanderSaveli.UDK
             InvokeOnMainThread(() => callback?.Invoke(result));
         }
 
-        private Task<bool> SaveInternalAsync(string path, object data)
+        private async Task<bool> SaveInternalAsync(string path, object data)
         {
-            return Task.Run(() =>
+            SemaphoreSlim semaphore = _fileLocks.GetOrAdd(path, _ => new SemaphoreSlim(1, 1));
+
+            await semaphore.WaitAsync();
+
+            try
             {
-                try
+                return await Task.Run(() =>
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-
-                    string json = JsonConvert.SerializeObject(data);
-                    byte[] encrypted = Encrypt(json);
-                    byte[] hmac = ComputeHMAC(encrypted);
-
-                    using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+                    try
                     {
-                        fs.Write(hmac, 0, hmac.Length);
-                        fs.Write(encrypted, 0, encrypted.Length);
-                    }
+                        Directory.CreateDirectory(Path.GetDirectoryName(path));
 
-                    Debug.Log("Save success " + path);
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError(ex);
-                    return false;
-                }
-            });
+                        string json = JsonConvert.SerializeObject(data);
+                        byte[] encrypted = Encrypt(json);
+                        byte[] hmac = ComputeHMAC(encrypted);
+
+                        using (var fs = new FileStream(
+                            path,
+                            FileMode.Create,
+                            FileAccess.Write,
+                            FileShare.None))
+                        {
+                            fs.Write(hmac, 0, hmac.Length);
+                            fs.Write(encrypted, 0, encrypted.Length);
+                        }
+
+                        Debug.Log("Save success " + path);
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex);
+                        return false;
+                    }
+                });
+            }
+            finally
+            {
+                semaphore.Release();
+            }
         }
 
-        private Task<T> LoadInternalAsync<T>(string path)
+        private async Task<T> LoadInternalAsync<T>(string path)
         {
-            return Task.Run(() =>
+            SemaphoreSlim semaphore = _fileLocks.GetOrAdd(path, _ => new SemaphoreSlim(1, 1));
+
+            await semaphore.WaitAsync();
+
+            try
             {
-                try
+                return await Task.Run(() =>
                 {
-                    if (!File.Exists(path))
-                        return default;
-
-                    byte[] fileBytes = File.ReadAllBytes(path);
-
-                    if (fileBytes.Length < 32)
+                    try
                     {
-                        Debug.LogError("Save file corrupted!");
+                        if (!File.Exists(path))
+                            return default;
+
+                        byte[] fileBytes = File.ReadAllBytes(path);
+
+                        if (fileBytes.Length < 32)
+                        {
+                            Debug.LogError("Save file corrupted!");
+                            return default;
+                        }
+
+                        byte[] storedHmac = new byte[32];
+                        byte[] encrypted = new byte[fileBytes.Length - 32];
+
+                        Array.Copy(fileBytes, 0, storedHmac, 0, 32);
+                        Array.Copy(fileBytes, 32, encrypted, 0, encrypted.Length);
+
+                        byte[] computedHmac = ComputeHMAC(encrypted);
+
+                        if (!CompareBytes(storedHmac, computedHmac))
+                        {
+                            Debug.LogError("Save file tampered!");
+                            return default;
+                        }
+
+                        string json = Decrypt(encrypted);
+                        return JsonConvert.DeserializeObject<T>(json);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError(ex);
                         return default;
                     }
-
-                    byte[] storedHmac = new byte[32];
-                    byte[] encrypted = new byte[fileBytes.Length - 32];
-
-                    Array.Copy(fileBytes, 0, storedHmac, 0, 32);
-                    Array.Copy(fileBytes, 32, encrypted, 0, encrypted.Length);
-
-                    byte[] computedHmac = ComputeHMAC(encrypted);
-
-                    if (!CompareBytes(storedHmac, computedHmac))
-                    {
-                        Debug.LogError("Save file tampered!");
-                        return default;
-                    }
-
-                    string json = Decrypt(encrypted);
-                    return JsonConvert.DeserializeObject<T>(json);
-                }
-                catch (Exception ex)
-                {
-                    Debug.LogError(ex);
-                    return default;
-                }
-            });
+                });
+            }
+            finally
+            {
+                semaphore.Release();
+            }
         }
 
         private void InvokeOnMainThread(Action action)

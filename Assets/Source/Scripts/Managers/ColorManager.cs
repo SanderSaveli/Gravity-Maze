@@ -60,6 +60,7 @@ namespace SanderSaveli.GravityMaze
 
         private void ChangeColor(ColorSheme color)
         {
+            Debug.Log("Colors Changed: " + color);
             ShemeColorPairs pair = GetPair(color);
             if (pair == null)
             {

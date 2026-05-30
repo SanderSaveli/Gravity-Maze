@@ -17,7 +17,7 @@ namespace SanderSaveli.UDK.UI
 
         private bool _isSubcribed = false;
         private Custom_ColorStyle _selectedColor = Custom_ColorStyle.Default;
-
+        private Tween _tween;
 
         private void OnEnable()
         {
@@ -37,6 +37,7 @@ namespace SanderSaveli.UDK.UI
 
         private void ApplyColorSetting()
         {
+            KillColorTween();
             _selectedColor = _type;
             Color color = ColorSettings.Instance.GetColorByStyle(_selectedColor);
             if (!_isOverrideAlpha)
@@ -72,7 +73,7 @@ namespace SanderSaveli.UDK.UI
 
         private void OnDestroy()
         {
-            DOTween.Kill(_image);
+            KillColorTween();
         }
 
         public void ChangeColor(Custom_ColorStyle style)
@@ -81,19 +82,37 @@ namespace SanderSaveli.UDK.UI
             if (ColorSettings.Instance == null) return;
             
             _type = _selectedColor;
+            KillColorTween();
             Change();
         }
 
         public void ChangeColorWithAnimation(Custom_ColorStyle style, float duration = 0.4f)
         {
-            _selectedColor = style;
-
             if (ColorSettings.Instance == null) return;
 
-            Color color = ColorSettings.Instance.GetColorByStyle(style);
-            _type = _selectedColor;
-            Change();
-            _image.DOColor(color, duration);
+            _selectedColor = style;
+            _type = style;
+
+            KillColorTween();
+
+            Color targetColor = ColorSettings.Instance.GetColorByStyle(style);
+
+            if (!_isOverrideAlpha)
+                targetColor.a = _image.color.a;
+
+            _tween = _image
+                .DOColor(targetColor, duration)
+                .OnComplete(() => _tween = null)
+                .SetLink(_image.gameObject);
+        }
+
+        private void KillColorTween()
+        {
+            if (_image != null)
+                _image.DOKill();
+
+            _tween?.Kill();
+            _tween = null;
         }
     }
 }

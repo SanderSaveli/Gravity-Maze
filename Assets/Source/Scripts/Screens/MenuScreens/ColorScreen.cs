@@ -27,7 +27,7 @@ namespace SanderSaveli.GravityMaze
             _signalBus = signalBus;
         }
 
-        private void Start()
+        private async void Start()
         {
             List<ColorSlot> colorSlots = new List<ColorSlot>();
             foreach (var group in _colorGroups)
@@ -37,11 +37,10 @@ namespace SanderSaveli.GravityMaze
             }
             _isColorsInited = true;
             _radioGroup.SetButtons(colorSlots, _colorManager.ActiveSheme.Value);
-            ScrollToActive();
             SubscribeToPreviewEvents();
         }
 
-        protected override void SubscribeToEvents()
+        protected async override void SubscribeToEvents()
         {
             base.SubscribeToEvents();
             _radioGroup.OnValueChanged += UpdateSelection;
@@ -56,6 +55,9 @@ namespace SanderSaveli.GravityMaze
             {
                 SubscribeToPreviewEvents();
             }
+
+            await UniTask.Yield();
+            ScrollToActive();
         }
 
         protected override void UnsubscribeFromEvents()
