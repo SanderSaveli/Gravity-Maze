@@ -6,10 +6,21 @@ namespace SanderSaveli.GravityMaze
     {
         private ISelectable _currentSelected;
         private RectTransform[] _children;
+        private bool _isSelectionPaused;
 
         private void Update()
         {
+            if (_isSelectionPaused)
+                return;
+
             UpdateCurrentSelection();
+        }
+
+        public void SnapToWithoutSelection(RectTransform target)
+        {
+            _isSelectionPaused = true;
+            StopSnapRoutine();
+            SnapTo(target);
         }
 
         public void UpdateCurrentSelection()
@@ -58,6 +69,11 @@ namespace SanderSaveli.GravityMaze
 
             selectable.Select();
             _currentSelected = selectable;
+        }
+
+        protected override void OnSnapComplete()
+        {
+            _isSelectionPaused = false;
         }
     }
 }

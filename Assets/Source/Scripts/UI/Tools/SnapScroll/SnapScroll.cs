@@ -22,7 +22,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] protected float _velocityThreshold = 150f;
         [SerializeField] protected bool _isDebugEnable = false;
 
-        private Coroutine _snapRoutine;
+        protected Coroutine _snapRoutine;
         private readonly Vector3[] _corners = new Vector3[4];
 
         private void OnEnable()
@@ -30,16 +30,24 @@ namespace SanderSaveli.GravityMaze
             _snapRoutine = StartCoroutine(SnapWhenStopped());
         }
 
+        private void OnDisable()
+        {
+            StopSnapRoutine();
+
+            if (_content != null)
+                DOTween.Kill(_content);
+
+            IsSpapping = false;
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (_snapRoutine != null)
-                StopCoroutine(_snapRoutine);
+            StopSnapRoutine();
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (_snapRoutine != null)
-                StopCoroutine(_snapRoutine);
+            StopSnapRoutine();
 
             _snapRoutine = StartCoroutine(SnapWhenStopped());
         }
@@ -74,11 +82,20 @@ namespace SanderSaveli.GravityMaze
 
         public void SnapImmediatley(RectTransform target)
         {
-            StopCoroutine(_snapRoutine);
+            StopSnapRoutine();
             _scrollRect.StopMovement();
             Vector3 viewportCenterWorld = GetViewportCenter();
             Vector2 newAnchoredPos = GetTargetAnchoredPosition(target, viewportCenterWorld);
             _content.anchoredPosition = newAnchoredPos;
+        }
+
+        protected void StopSnapRoutine()
+        {
+            if (_snapRoutine == null)
+                return;
+
+            StopCoroutine(_snapRoutine);
+            _snapRoutine = null;
         }
 
         protected virtual void SnapTo(RectTransform target, Vector3 viewportCenterWorld)
@@ -101,7 +118,15 @@ namespace SanderSaveli.GravityMaze
             )
             .SetEase(_ease)
             .SetLink(target.gameObject)
-            .OnComplete(() => IsSpapping = false);
+            .OnComplete(() =>
+            {
+                IsSpapping = false;
+                OnSnapComplete();
+            });
+        }
+
+        protected virtual void OnSnapComplete()
+        {
         }
 
         protected Vector3 GetViewportCenter()

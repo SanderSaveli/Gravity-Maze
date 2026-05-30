@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using SanderSaveli.UDK.UI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace SanderSaveli.GravityMaze
@@ -46,17 +47,13 @@ namespace SanderSaveli.GravityMaze
             _radioGroup.OnValueChanged += UpdateSelection;
             _colorGroup.OnValueChanged += ChangeActiveGroup;
 
-            if(_activeGroup != null)
-            {
-                _selectingSnapScroll.SnapTo(_activeGroup.transform as RectTransform);
-            }
-
             if(_isColorsInited)
             {
                 SubscribeToPreviewEvents();
             }
 
             await UniTask.Yield();
+            Canvas.ForceUpdateCanvases();
             ScrollToActive();
         }
 
@@ -90,7 +87,8 @@ namespace SanderSaveli.GravityMaze
                     colorGroup.Deselect();
                 }
             }
-            _selectingSnapScroll.SnapTo(_activeGroup.transform as RectTransform);
+            _radioGroup.SetSelect(activeSheme);
+            _selectingSnapScroll.SnapToWithoutSelection(_activeGroup.transform as RectTransform);
         }
 
         private void UpdateSelection(ColorSheme colorSheme)
