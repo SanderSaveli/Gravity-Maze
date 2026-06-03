@@ -16,6 +16,11 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private AudioSource _soundSource;
         [Space]
         [SerializeField] private SoundPlayer _soundPlayer;
+        [Space]
+        [Header("Audio Clips")]
+        [SerializeField] private AudioClip _starCollected;
+        [SerializeField] private AudioClip _trampoline;
+        [SerializeField] private AudioClip _winGame;
 
         [Inject]
         public void Construct(IAppSettings appSettings)
@@ -51,6 +56,13 @@ namespace SanderSaveli.GravityMaze
                     PlaySound(_soundPlayer.PlayHitSound());
                     break;
                 case SoundTypes.TrampolineActivate:
+                    PlaySound(_trampoline);
+                    break;
+                case SoundTypes.StarCollected:
+                    PlaySound(_starCollected);
+                    break;
+                case SoundTypes.WinGame:
+                    PlaySound(_winGame);
                     break;
                 default:
                     break;

@@ -4,5 +4,12 @@ namespace SanderSaveli.UDK
     {
         EN,
         RU,
+        FR,
+        IT,
+        DE,
+        ES,
+        JA,
+        KO,
+        PT
     }
 }

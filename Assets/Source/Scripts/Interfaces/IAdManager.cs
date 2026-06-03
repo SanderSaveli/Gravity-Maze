@@ -1,4 +1,3 @@
-using GoogleMobileAds.Api;
 using System;
 
 namespace SanderSaveli.GravityMaze
@@ -6,6 +5,6 @@ namespace SanderSaveli.GravityMaze
     public interface IAdManager
     {
         public IAdAdapter ShowBetweenScreenAd();
-        public IAdAdapter ShowRewardedAd(Action<Reward> onRewardEarned);
+        public IAdAdapter ShowRewardedAd(Action<AdReward> onRewardEarned);
     }
 }

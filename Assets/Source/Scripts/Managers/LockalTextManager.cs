@@ -35,6 +35,20 @@ namespace SanderSaveli.GravityMaze
                     return texts.en;
                 case Language.ru:
                     return texts.ru;
+                case Language.it:
+                    return texts.it;
+                case Language.de:
+                    return texts.de;
+                case Language.fr:
+                    return texts.fr;
+                case Language.ja:
+                    return texts.ja;
+                case Language.ko:
+                    return texts.ko;
+                case Language.pt:
+                    return texts.pt;
+                case Language.es:
+                    return texts.es;
                 default:
                     throw new Exception($"There is no case for language type: {Language}");
             }

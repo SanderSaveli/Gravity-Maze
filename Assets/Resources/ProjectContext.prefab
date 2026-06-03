@@ -140,7 +140,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 575f01dbee1bc634c81899e289085727, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 30e8c7fdc5a540046bd00c7fbb5817c5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.6
   m_Pitch: 1
@@ -408,8 +408,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -670,6 +670,9 @@ MonoBehaviour:
   _musicSource: {fileID: 8037507552257899114}
   _soundSource: {fileID: 7805021461018816795}
   _soundPlayer: {fileID: 7486839023527791223}
+  _starCollected: {fileID: 8300000, guid: 0e01173825b70de468ca50fec86876be, type: 3}
+  _trampoline: {fileID: 8300000, guid: 8f0cee146c12acf4fb86ecaf78479685, type: 3}
+  _winGame: {fileID: 8300000, guid: 34197173048dbac489b9a6435207664e, type: 3}
 --- !u!114 &7486839023527791223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,8 +1076,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1254,8 +1257,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1692,8 +1695,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2174,8 +2177,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2400,7 +2403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7843138, b: 0.5372549, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2664,7 +2667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19215688, g: 0.16078432, b: 0.32156864, a: 1}
+  m_Color: {r: 0.9607844, g: 0.9607844, b: 0.9607844, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2819,8 +2822,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3067,6 +3070,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e5e652aad4d0374d86dde440ce9f6ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _androidGameId: 800002347
+  _iosGameId: 
+  _testMode: 1
+  _androidInterstitialAdUnitId: Interstitial_Android
+  _iosInterstitialAdUnitId: Interstitial_iOS
+  _androidRewardedAdUnitId: Rewarded_Android
+  _iosRewardedAdUnitId: Rewarded_iOS
+  _maxLoadErrorCount: 6
+  _reloadDelay: 5
 --- !u!114 &2250582534927350259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,8 +3211,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284826035
-  m_fontColor: {r: 0.7019608, g: 0.25490198, b: 0.39607847, a: 1}
+    rgba: 4285230079
+  m_fontColor: {r: 1, g: 0.41960788, b: 0.41960788, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

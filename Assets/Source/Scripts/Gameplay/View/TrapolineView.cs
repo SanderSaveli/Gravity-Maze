@@ -11,12 +11,14 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private float _timeBeforeMaxScale;
         [SerializeField] private VibrationType _vibrationType;
         private IVibrationManager _vibrationManager;
+        private IAudioManager _audioManager;
         private float _normalScale;
 
         [Inject]
-        public void Construct(IVibrationManager vibrationManager)
+        public void Construct(IVibrationManager vibrationManager, IAudioManager audioManager)
         {
             _vibrationManager = vibrationManager;
+            _audioManager = audioManager;
         }
 
         private void OnEnable()
@@ -33,6 +35,7 @@ namespace SanderSaveli.GravityMaze
         private void AnimateReload()
         {
             _vibrationManager.DoVibration(_vibrationType);
+            _audioManager.PlaySoundByType(SoundTypes.TrampolineActivate);
             Sequence sequence = DOTween.Sequence();
             sequence
                 .Append(transform.DOScaleY(_maxScale, _timeBeforeMaxScale))

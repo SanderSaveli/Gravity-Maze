@@ -15,11 +15,13 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private float _targetScale = 2.5f;
         [SerializeField] private VibrationType _vibrationType;
         private IVibrationManager _vibrationManager;
+        private IAudioManager _audioManager;
 
         [Inject]
-        public void Construct(IVibrationManager vibrationManager)
+        public void Construct(IVibrationManager vibrationManager, IAudioManager audioManager)
         {
             _vibrationManager = vibrationManager;
+            _audioManager = audioManager;
         }
 
         private void OnEnable()
@@ -45,6 +47,7 @@ namespace SanderSaveli.GravityMaze
         private void HandleCollect()
         {
             _vibrationManager.DoVibration(_vibrationType);
+            _audioManager.PlaySoundByType(SoundTypes.StarCollected);
             Sequence sequence = DOTween.Sequence();
             sequence
                 .Append(_spriteRenderer.DOFade(0, _animationDuration))

@@ -1,6 +1,3 @@
-using GoogleMobileAds.Api;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +29,7 @@ namespace SanderSaveli.GravityMaze
         private void OnDisable()
         {
             _button.onClick.RemoveListener(ShowAd);
-            _rewardButton.onClick.AddListener(ShowReward);
+            _rewardButton.onClick.RemoveListener(ShowReward);
         }
 
         private void ShowAd()
@@ -45,7 +42,7 @@ namespace SanderSaveli.GravityMaze
             _adManager.ShowRewardedAd(HandleReward);
         }
 
-        private void HandleReward(Reward reward)
+        private void HandleReward(AdReward reward)
         {
             Debug.Log($"GetReward  with type {reward.Type} and amount: {reward.Amount}");
             couter++;

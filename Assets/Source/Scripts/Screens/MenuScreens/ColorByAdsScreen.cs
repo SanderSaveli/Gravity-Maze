@@ -1,5 +1,4 @@
 using DG.Tweening;
-using GoogleMobileAds.Api;
 using SanderSaveli.UDK.UI;
 using System;
 using TMPro;
@@ -95,8 +94,6 @@ namespace SanderSaveli.GravityMaze
 
         private void WatchAd()
         {
-            IncreaseAds(new Reward());
-            return;
             IAdAdapter adAdapter = _adManager.ShowRewardedAd(IncreaseAds);
             if (!adAdapter.IsSuccsessShow)
             {
@@ -120,7 +117,7 @@ namespace SanderSaveli.GravityMaze
                 .Append(_progressImage.DOFillAmount(fill, _fillDuration).SetLink(_progressImage.gameObject));
         }
 
-        private void IncreaseAds(Reward reward)
+        private void IncreaseAds(AdReward reward)
         {
             _adsPurchasizeStorage.AddWatch(_colorSheme);
             UpdateView();
