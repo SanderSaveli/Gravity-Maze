@@ -39,6 +39,7 @@ namespace SanderSaveli.GravityMaze
         {
             base.SubscribeToEvents();
             _previewButton.onClick.AddListener(HandlePreview);
+            _waveSpawner.StartSpawn();
         }
 
         protected override void UnsubscribeFromEvents()

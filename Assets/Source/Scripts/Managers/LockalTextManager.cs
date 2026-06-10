@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using R3;
 using SanderSaveli.UDK;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private string _url;
         [SerializeField] private string _path;
         private IAppSettings _appSettings;
+        private CompositeDisposable _disposables;
 
         [Inject]
         public void Construct(IAppSettings appSettings)
@@ -24,7 +26,18 @@ namespace SanderSaveli.GravityMaze
         {
             _storageService = new JsonToResourcesStorageService();
             APIServer.EnableLogging = true;
-            ChangeLanguage(_appSettings.Language.Value);
+        }
+
+        private void OnEnable()
+        {
+            _disposables = new CompositeDisposable();
+            _appSettings.Language.Subscribe(ChangeLanguage).AddTo(_disposables);
+        }
+
+        private void OnDisable()
+        {
+            _disposables?.Dispose();
+            _disposables = null;
         }
 
         public override string GetCurrentLanguageValue(LanguageStringData texts)

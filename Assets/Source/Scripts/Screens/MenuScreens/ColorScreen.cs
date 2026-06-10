@@ -1,8 +1,8 @@
 using Cysharp.Threading.Tasks;
 using SanderSaveli.UDK.UI;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace SanderSaveli.GravityMaze
@@ -20,24 +20,27 @@ namespace SanderSaveli.GravityMaze
         private ColorGroup _activeGroup;
         private SignalBus _signalBus;
         private bool _isColorsInited;
+        private INotifficationManager _notifficationManager;
+        private List<ColorSlot> _colorSlots;
 
         [Inject]
-        public void Construct(IColorManager colorManager, SignalBus signalBus)
+        public void Construct(IColorManager colorManager, SignalBus signalBus, INotifficationManager notifficationManager)
         {
             _colorManager = colorManager;
             _signalBus = signalBus;
+            _notifficationManager = notifficationManager;
         }
 
-        private async void Start()
+        private void Start()
         {
-            List<ColorSlot> colorSlots = new List<ColorSlot>();
+            _colorSlots = new List<ColorSlot>();
             foreach (var group in _colorGroups)
             {
                 group.Init();
-                colorSlots.AddRange(group.ColorSlots);
+                _colorSlots.AddRange(group.ColorSlots);
             }
             _isColorsInited = true;
-            _radioGroup.SetButtons(colorSlots, _colorManager.ActiveSheme.Value);
+            _radioGroup.SetButtons(_colorSlots, _colorManager.ActiveSheme.Value);
             SubscribeToPreviewEvents();
         }
 
@@ -47,7 +50,7 @@ namespace SanderSaveli.GravityMaze
             _radioGroup.OnValueChanged += UpdateSelection;
             _colorGroup.OnValueChanged += ChangeActiveGroup;
 
-            if(_isColorsInited)
+            if (_isColorsInited)
             {
                 SubscribeToPreviewEvents();
             }
@@ -55,6 +58,11 @@ namespace SanderSaveli.GravityMaze
             await UniTask.Yield();
             Canvas.ForceUpdateCanvases();
             ScrollToActive();
+            if (_notifficationManager.HasUnshownColors.Value)
+            {
+                ScrollToLastAdded();
+                NotifyAll();
+            }
         }
 
         protected override void UnsubscribeFromEvents()
@@ -74,12 +82,26 @@ namespace SanderSaveli.GravityMaze
         private void ScrollToActive()
         {
             ColorSheme activeSheme = _colorManager.ActiveSheme.Value;
+            ScroolTo(activeSheme, true);
+        }
+
+        private void ScrollToLastAdded()
+        {
+            ColorSheme activeSheme = _notifficationManager.UnshownColors.First();
+            ScroolTo(activeSheme, false);
+        }
+
+        private void ScroolTo(ColorSheme sceme, bool isForceSelect)
+        {
             foreach (var colorGroup in _colorGroups)
             {
-                if (colorGroup.HasColorInGroup(activeSheme, out _))
+                if (colorGroup.HasColorInGroup(sceme, out _))
                 {
                     _activeGroup = colorGroup;
-                    _colorGroup.SetSelect(colorGroup.Type);
+                    if(isForceSelect)
+                    {
+                        _colorGroup.SetSelect(colorGroup.Type);
+                    }
                     colorGroup.Select();
                 }
                 else
@@ -87,7 +109,10 @@ namespace SanderSaveli.GravityMaze
                     colorGroup.Deselect();
                 }
             }
-            _radioGroup.SetSelect(activeSheme);
+            if (isForceSelect)
+            {
+                _radioGroup.SetSelect(sceme);
+            }
             _selectingSnapScroll.SnapToWithoutSelection(_activeGroup.transform as RectTransform);
         }
 
@@ -134,6 +159,15 @@ namespace SanderSaveli.GravityMaze
                 default:
                     break;
             }
+        }
+
+        private void NotifyAll()
+        {
+            foreach (var item in _notifficationManager.UnshownColors)
+            {
+                _colorSlots.Find(t => t.Value == item).Notify();
+            }
+            _notifficationManager.OnAllColorsShowed();
         }
     }
 }

@@ -1,6 +1,4 @@
-using SanderSaveli.UDK;
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -19,13 +17,11 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private RectTransform _selfTransform;
 
         private bool _selected;
-        private ILanguageChanger<Language> _languageChanger;
         private IAppSettings _appSettings;
 
         [Inject]
-        public void Construct(ILanguageChanger<Language> languageChanger, IAppSettings appSettings)
+        public void Construct(IAppSettings appSettings)
         {
-            _languageChanger = languageChanger;
             _appSettings = appSettings;
         }
 
@@ -54,7 +50,6 @@ namespace SanderSaveli.GravityMaze
         {
             _selected = true;
             OnSelected?.Invoke(_selected);
-            _languageChanger.ChangeLanguage(_language);
             _appSettings.Language.Value = _language;
         }
 

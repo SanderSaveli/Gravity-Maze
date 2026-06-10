@@ -12,6 +12,7 @@ namespace SanderSaveli.GravityMaze
         public Action<ColorContext> OnOpenPreview { get; set; }
         public ColorContext ColorContext { get; private set; }
         [SerializeField] private List<Image> _activeColorElements;
+        [SerializeField] private WaveSpawner _waveSpawner;
         protected IColorManager _colorManager;
 
         [Inject]
@@ -30,6 +31,19 @@ namespace SanderSaveli.GravityMaze
                 Color col = element.color;
                 element.color = new Color(activeColor.r, activeColor.g, activeColor.b, col.a);
             }
+        }
+
+        public void Notify()
+        {
+            Color activeColor = _colorManager.GetActiveColorOfSheme(_value);
+            _waveSpawner.SetWaveColor(activeColor);
+            _waveSpawner.StartSpawn();
+        }
+
+        public override void Select()
+        {
+            _waveSpawner.StopSpawn();
+            base.Select();
         }
     }
 }

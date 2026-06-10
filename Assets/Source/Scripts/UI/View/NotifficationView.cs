@@ -18,6 +18,7 @@ namespace SanderSaveli.GravityMaze
 
         private Vector2 _normalPos;
         private Vector2 _initialPos;
+
         private void OnEnable()
         {
             _canvasGroup.alpha = 0;
@@ -29,10 +30,12 @@ namespace SanderSaveli.GravityMaze
             _normalPos = _rectTransform.anchoredPosition;
             _initialPos = _normalPos;
             _initialPos.y += _verticalOffset;
+            gameObject.SetActive(false);
         }
 
         public void ShowNewColor(Color color)
         {
+            gameObject.SetActive(true);
             _previewImage.color = color;
 
             LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
@@ -47,7 +50,8 @@ namespace SanderSaveli.GravityMaze
                 .AppendInterval(_showTime)
                 .Append(_canvasGroup.DOFade(0, _animationDuration))
                 .Join(_rectTransform.DOAnchorPos(_initialPos, _animationDuration))
-                .SetLink(gameObject);
+                .SetLink(gameObject)
+                .OnComplete(() => gameObject.SetActive(false));
         }
     }
 }

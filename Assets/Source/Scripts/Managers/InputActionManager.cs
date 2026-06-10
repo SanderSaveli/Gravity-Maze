@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using SanderSaveli.UDK.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -9,6 +10,7 @@ namespace SanderSaveli.GravityMaze
     {
         [SerializeField] private LevelTransitionScreenAnimator _transitionScreenAnimator;
         [SerializeField] private BetweenGameAdShower _betweenGameAdShower;
+        [SerializeField] private UiScreen _comingSoonScreen;
         private SignalBus _signalBus;
         private IGameContext _gameContext;
         private ITimeManager _timeManager;
@@ -53,6 +55,9 @@ namespace SanderSaveli.GravityMaze
                     await _transitionScreenAnimator.Show(_gameContext.LevelNumber+1);
                     SceneManager.LoadScene(SceneType.GameScene.ToString());
                     await _transitionScreenAnimator.Hide();
+                    break;
+                case InputActionType.ShowComingSoon:
+                    _comingSoonScreen.Show();
                     break;
             }
         }

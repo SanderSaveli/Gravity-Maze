@@ -31,6 +31,7 @@ namespace SanderSaveli.GravityMaze
         private void UpdateSheme(ColorSheme colorSheme)
         {
             _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(colorSheme));
+            _waveSpawner.StartSpawn();
         }
     }
 }

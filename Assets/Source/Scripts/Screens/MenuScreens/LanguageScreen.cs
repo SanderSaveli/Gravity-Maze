@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using SanderSaveli.UDK;
 using UnityEngine;
 using Zenject;
@@ -29,7 +30,7 @@ namespace SanderSaveli.GravityMaze
             base.UnsubscribeFromEvents();
         }
 
-        private void SnapToCurrentSelect()
+        private async void SnapToCurrentSelect()
         {
             LanguageListElement[] languageListElements = _content.GetComponentsInChildren<LanguageListElement>();
             RectTransform transform = null;
@@ -41,7 +42,8 @@ namespace SanderSaveli.GravityMaze
                     break;
                 }
             }
-            _languageSnapScrol.SnapTo(transform);
+            await UniTask.Yield();
+            _languageSnapScrol.SnapImmediatley(transform);
         }
     }
 }

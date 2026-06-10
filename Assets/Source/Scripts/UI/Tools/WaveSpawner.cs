@@ -23,10 +23,26 @@ namespace SanderSaveli.GravityMaze
 
         private Coroutine _coroutine;
         private Color _waveColor;
+        private bool _islActive;
 
         private void OnEnable()
         {
-            for(int i =0; i < _waveParent.childCount; i++)
+            if (_islActive)
+            {
+                StartSpawn();
+            }
+        }
+
+        private void OnDisable()
+        {
+            bool activeStatus = _islActive;
+            StopSpawn();
+            _islActive = activeStatus;
+        }
+
+        public void StartSpawn()
+        {
+            for (int i = 0; i < _waveParent.childCount; i++)
             {
                 Destroy(_waveParent.GetChild(i).gameObject);
             }
@@ -38,7 +54,7 @@ namespace SanderSaveli.GravityMaze
             _coroutine = StartCoroutine(SpawnRoutine());
         }
 
-        private void OnDisable()
+        public void StopSpawn()
         {
             if (_coroutine != null)
             {

@@ -40,9 +40,18 @@ namespace SanderSaveli.GravityMaze
         {
             _inputManager.IsEnabled = false;
 
-            _winScreen.Show();
             _levelManager.CompleteLevel(_gameContext.LevelNumber, _starManager.IsStarCollect);
             _audioManager.PlaySoundByType(SoundTypes.WinGame);
+
+            Debug.Log(_gameContext.LevelNumber + " " + _levelManager.Levels.Count);
+            if(_gameContext.LevelNumber < _levelManager.Levels.Count -1)
+            {
+                _winScreen.Show();
+            }
+            else
+            {
+                _signalBus.Fire(new SignalInputAction(InputActionType.ShowComingSoon));
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace SanderSaveli.GravityMaze
         private const string SETTINGS_SAVE_PATH = "Save/AppSettings";
         private IStorageService _storageService;
         private CompositeDisposable _disposables;
+        private bool _isApplyingLoadedData;
 
         [Inject]
         public void Construct()
@@ -40,13 +41,13 @@ namespace SanderSaveli.GravityMaze
         private void OnEnable()
         {
             _disposables = new CompositeDisposable();
-            IsMusicOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
-            IsSoundOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
-            IsVibrationOn.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
-            IsAdsRemoved.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
-            Language.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
-            ColorSheme.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
-            TimeMode.Skip(1).Subscribe(_ => SaveCurrentData()).AddTo(_disposables);
+            IsMusicOn.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
+            IsSoundOn.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
+            IsVibrationOn.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
+            IsAdsRemoved.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
+            Language.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
+            ColorSheme.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
+            TimeMode.Skip(1).Subscribe(_ => HandleSettingsChanged()).AddTo(_disposables);
         }
 
         private void OnDisable()
@@ -63,6 +64,7 @@ namespace SanderSaveli.GravityMaze
                 settingsData = CreateDefaultSettins();
                 _storageService.Save(SETTINGS_SAVE_PATH, settingsData);
             }
+            _isApplyingLoadedData = true;
 
             IsMusicOn.Value = settingsData.is_music_on;
             IsSoundOn.Value = settingsData.is_sound_on;
@@ -71,6 +73,9 @@ namespace SanderSaveli.GravityMaze
             IsAdsRemoved.Value = settingsData.is_ads_removed;
             ColorSheme.Value = settingsData.color;
             TimeMode.Value = settingsData.time_mode;
+
+            _isApplyingLoadedData = false;
+            Debug.Log("Language Setted: " + Language.Value);
         }
 
         private SettingsData CreateDefaultSettins()
@@ -94,6 +99,7 @@ namespace SanderSaveli.GravityMaze
             sd.is_vibration_on = IsVibrationOn.Value;
             sd.is_ads_removed |= IsAdsRemoved.Value;
             sd.language = Language.Value;
+            Debug.Log("Language: " + Language.Value);
             sd.color = ColorSheme.Value;
             sd.time_mode = TimeMode.Value;
             return sd;
@@ -103,6 +109,14 @@ namespace SanderSaveli.GravityMaze
         {
             Debug.Log("Save Settings");
             _storageService.Save(SETTINGS_SAVE_PATH, GetCurrentData());
+        }
+
+        private void HandleSettingsChanged()
+        {
+            if (_isApplyingLoadedData)
+                return;
+
+            SaveCurrentData();
         }
     }
 }

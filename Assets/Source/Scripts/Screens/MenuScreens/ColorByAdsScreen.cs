@@ -52,6 +52,7 @@ namespace SanderSaveli.GravityMaze
             _progressImage.fillAmount = 0;
             _previewImage.color = _colorManager.GetActiveColorOfSheme(_colorSheme);
             _waveSpawner.SetWaveColor(_colorManager.GetActiveColorOfSheme(_colorSheme));
+            _waveSpawner.StartSpawn();
             UpdateView();
         }
         protected override void SubscribeToEvents()

@@ -20,6 +20,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private TimeManager _timeManager;
         [SerializeField] private IAPManager _iapManager;
         [SerializeField] private TutorialManager _tutorialManager;
+        [SerializeField] private NotifficationManager _notifficationManager;
 
         private GameContext _gameContext;
         public override void InstallBindings()
@@ -43,6 +44,7 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<ITimeManager>().FromInstance(_timeManager).AsSingle().NonLazy();
             Container.Bind<IIAPManager>().FromInstance(_iapManager).AsSingle().NonLazy();
             Container.Bind<ITutorialManager>().FromInstance(_tutorialManager).AsSingle().NonLazy();
+            Container.Bind<INotifficationManager>().FromInstance(_notifficationManager).AsSingle().NonLazy();
 
             #region Signals
             Container.DeclareSignal<SignalGameEnd>();

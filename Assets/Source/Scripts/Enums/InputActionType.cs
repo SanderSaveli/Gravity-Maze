@@ -6,6 +6,7 @@ namespace SanderSaveli.GravityMaze
         LoadMenu,
         RestartGame,
         LoadNextLevel,
-        LoadLevelFromMenu
+        LoadLevelFromMenu,
+        ShowComingSoon
     }
 }
