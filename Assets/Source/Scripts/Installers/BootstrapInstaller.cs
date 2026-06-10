@@ -16,7 +16,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private LockalTextManager _textManager;
         [SerializeField] private AudioManager _audioManager;
         [SerializeField] private ColorManager _colorManager;
-        [SerializeField] private AdManager _adManager;
+        [SerializeField] private AppodealAdManager _adManager;
         [SerializeField] private TimeManager _timeManager;
         [SerializeField] private IAPManager _iapManager;
         [SerializeField] private TutorialManager _tutorialManager;
