@@ -51,7 +51,10 @@ namespace SanderSaveli.GravityMaze
             {
                 StopCoroutine(_coroutine);
             }
-            _coroutine = StartCoroutine(SpawnRoutine());
+            if (gameObject.activeInHierarchy)
+            {
+                _coroutine = StartCoroutine(SpawnRoutine());
+            }
         }
 
         public void StopSpawn()
