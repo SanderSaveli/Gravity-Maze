@@ -2069,7 +2069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76672260dcd69634d8ffdaccbff4ab1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startSelectedElement: 0
+  _startSelectedElement: -1
   _radioButtons: []
 --- !u!114 &233563823
 MonoBehaviour:
@@ -2466,7 +2466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTime: 0.5
-  HideTime: 0.5
+  HideTime: 0.1
   DelayTime: 0
   IsDisableWhileHidden: 1
   Background: {fileID: 1592288926}
@@ -4660,7 +4660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTime: 0.5
-  HideTime: 0.5
+  HideTime: 0.1
   DelayTime: 0
   IsDisableWhileHidden: 1
   Background: {fileID: 1592288926}
