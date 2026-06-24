@@ -8,6 +8,7 @@ namespace SanderSaveli.GravityMaze
     public class DataManager : MonoBehaviour
     {
         public ILevelStorage LevelStorage => _accountStorage;
+        public IAdsPurchasizeStorage AdsPurchasizeStorage => _accountStorage;
         private AccountStorage _accountStorage = new AccountStorage();
         private AccountData _accountData;
         private IStorageService _storageService;
@@ -20,17 +21,26 @@ namespace SanderSaveli.GravityMaze
             _levelManager = levelManager;
         }
 
+        public void DeleteAllData()
+        {
+            _accountData = new AccountData();
+            _accountStorage.SetData(_accountData);
+            _storageService.Save(ACCOUNT_SAVE_PATH, _accountData);
+        }
+
         private void Awake()
         {
-            _storageService = new JsonToFileStorageService();
+            _storageService = new EncryptedJsonToFileStorageService();
             _storageService.Load<AccountData>(ACCOUNT_SAVE_PATH, OnDataLoaded);
         }
 
         private void OnDataLoaded(AccountData accountData)
         {
+            bool isNeedSave= false;
             if (accountData == null)
             {
                 _accountData = new AccountData();
+                isNeedSave = true;
             }
             else
             {
@@ -44,6 +54,10 @@ namespace SanderSaveli.GravityMaze
             _accountStorage.SetData(_accountData);
 
             _accountStorage.OnUpdate += Save;
+            if(isNeedSave)
+            {
+                Save();
+            }
         }
 
         public void Save()

@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,23 +16,22 @@ namespace SanderSaveli.GravityMaze
             LayoutRebuilder.ForceRebuildLayoutImmediate(_sliderParent);
             await UniTask.Yield();
             RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
+            transform.parent = target;
+            _sliderParent = null;
+            _colorGroup.OnValueChanged += NewVarianSelect;
             MoveToImmediately(target);
         }
 
-        private void OnEnable()
-        {
-            _colorGroup.OnValueChanged += NewVarianSelect;
-        }
-
-        private void OnDisable()
+        private void OnDestroy()
         {
             _colorGroup.OnValueChanged -= NewVarianSelect;
         }
 
         private void NewVarianSelect(ColorSheme value)
         {
-            Debug.Log(value.ToString());
             RectTransform target = _colorGroup.ActiveElement.GetComponent<RectTransform>();
+            transform.SetParent(target);
+            _sliderParent = null;
             MoveTo(target);
         }
     }

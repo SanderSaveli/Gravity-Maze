@@ -10,6 +10,17 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private DataManager _dataManager;
         [SerializeField] private LevelManager _levelManager;
         [SerializeField] private SOBasedGameplayConfig _gameplayConfig;
+        [SerializeField] private GameAnalyticsManager _analyticManager;
+        [SerializeField] private VibrationManager _vibrationManager;
+        [SerializeField] private AppSettings _appSettings;
+        [SerializeField] private LockalTextManager _textManager;
+        [SerializeField] private AudioManager _audioManager;
+        [SerializeField] private ColorManager _colorManager;
+        [SerializeField] private AppodealAdManager _adManager;
+        [SerializeField] private TimeManager _timeManager;
+        [SerializeField] private IAPManager _iapManager;
+        [SerializeField] private TutorialManager _tutorialManager;
+        [SerializeField] private NotifficationManager _notifficationManager;
 
         private GameContext _gameContext;
         public override void InstallBindings()
@@ -19,12 +30,29 @@ namespace SanderSaveli.GravityMaze
             Container.Bind<ILevelManager>().FromInstance(_levelManager).AsSingle().NonLazy();
             Container.Bind<IGameContext>().FromInstance(_gameContext).AsSingle().NonLazy();
             Container.Bind<IGameplayConfig>().FromInstance(_gameplayConfig).AsSingle().NonLazy();
+            Container.Bind<DataManager>().FromInstance(_dataManager).AsSingle().NonLazy();
             Container.Bind<ILevelStorage>().FromInstance(_dataManager.LevelStorage).AsSingle().NonLazy();
+            Container.Bind<IAdsPurchasizeStorage>().FromInstance(_dataManager.AdsPurchasizeStorage).AsSingle().NonLazy();
+            Container.Bind<IAnalyticManager>().FromInstance(_analyticManager).AsSingle().NonLazy();
+            Container.Bind<IVibrationManager>().FromInstance(_vibrationManager).AsSingle().NonLazy();
+            Container.Bind<IAppSettings>().FromInstance(_appSettings).AsSingle().NonLazy();
+            Container.Bind<ITextManager>().FromInstance(_textManager).AsSingle().NonLazy();
+            Container.Bind<ILanguageChanger<Language>>().FromInstance(_textManager).AsSingle().NonLazy();
+            Container.Bind<IAudioManager>().FromInstance(_audioManager).AsSingle().NonLazy();
+            Container.Bind<IColorManager>().FromInstance(_colorManager).AsSingle().NonLazy();
+            Container.Bind<IAdManager>().FromInstance(_adManager).AsSingle().NonLazy();
+            Container.Bind<ITimeManager>().FromInstance(_timeManager).AsSingle().NonLazy();
+            Container.Bind<IIAPManager>().FromInstance(_iapManager).AsSingle().NonLazy();
+            Container.Bind<ITutorialManager>().FromInstance(_tutorialManager).AsSingle().NonLazy();
+            Container.Bind<INotifficationManager>().FromInstance(_notifficationManager).AsSingle().NonLazy();
 
             #region Signals
+            Container.DeclareSignal<SignalGameEnd>();
+
             Container.DeclareSignal<SignalInputAction>();
             Container.DeclareSignal<SignalInputClosePopup>();
             Container.DeclareSignal<SignalInputCloseScreen>();
+            Container.DeclareSignal<SignalStarCountIncrease>();
             #endregion
         }
     }

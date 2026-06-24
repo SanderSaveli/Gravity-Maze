@@ -19,20 +19,24 @@ namespace SanderSaveli.GravityMaze
 
         public void MoveTo(RectTransform target)
         {
-            Debug.Log("Move " + gameObject.name);
             Vector2 localPoint = GetLockalPoint(target);
+            Debug.Log("Move to" + localPoint);
             _rectTransform.DOAnchorPos(localPoint, _targetSpeed);
         }
 
         public void MoveToImmediately(RectTransform target)
         {
-            Debug.Log("Move Immediately " + gameObject.name);
             Vector2 localPoint = GetLockalPoint(target);
             _rectTransform.anchoredPosition = localPoint;
         }
 
         private Vector2 GetLockalPoint(RectTransform target)
         {
+            if(_sliderParent == null)
+            {
+                _rectTransform = GetComponent<RectTransform>();
+                _sliderParent = _rectTransform.parent as RectTransform;
+            }
             Vector2 localPoint;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 _sliderParent,

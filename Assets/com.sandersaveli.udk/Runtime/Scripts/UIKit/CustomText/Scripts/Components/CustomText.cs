@@ -17,9 +17,19 @@ namespace CustomText
 
         private bool _isSubcribed = false;
 
-        protected override void Start()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             Init();
+            TextStyleSettings.Instance.OnTextStyleChanged += Init;
+            ColorSettings.Instance.OnColorStyleChanged += ApplyColorSetting;
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            TextStyleSettings.Instance.OnTextStyleChanged -= Init;
+            ColorSettings.Instance.OnColorStyleChanged -= ApplyColorSetting;
         }
 
         public void ChangeStyle(Custom_TextStyle textStyle)
@@ -70,7 +80,7 @@ namespace CustomText
             _selectedTextColor = _textColor;
 
             if (ColorSettings.Instance == null) return;
-            var textColor = ColorSettings.Instance.Colors.Find(t => t.TextColorType.Equals(_textColor));
+            var textColor = ColorSettings.Instance.Colors.Find(t => t.TextColorType.Equals(_selectedTextColor));
             if (textColor != null)
             {
                 color = textColor.Color;

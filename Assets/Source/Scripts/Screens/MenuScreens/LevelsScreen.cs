@@ -1,7 +1,9 @@
+using Cysharp.Threading.Tasks;
 using SanderSaveli.UDK.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Zenject;
 
 namespace SanderSaveli.GravityMaze
@@ -13,6 +15,7 @@ namespace SanderSaveli.GravityMaze
 
         [Header("Components")]
         [SerializeField] private Transform _levelsParent;
+        [SerializeField] private SelectingSnapScroll _scroll;
 
         [Header("Prefabs")]
         [SerializeField] private LevelsFiller _levelsFillerPrefab;
@@ -25,21 +28,23 @@ namespace SanderSaveli.GravityMaze
         private DiContainer _container;
         private SignalBus _signalBus;
         private IGameContext _gameContext;
-        private ILevelStorage _levelStorage;
 
         [Inject]
-        public void Construct(ILevelManager levelManager, DiContainer container, SignalBus signalBus, IGameContext gameContext, ILevelStorage levelStorage)
+        public void Construct(ILevelManager levelManager, DiContainer container, SignalBus signalBus, IGameContext gameContext)
         {
             _levelManager = levelManager;
             _container = container;
             _signalBus = signalBus;
             _gameContext = gameContext;
-            _levelStorage = levelStorage;
         }
 
-        private void Start()
+        private async void Start()
         {
             CreateAllPages();
+            await UniTask.Yield();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_levelsParent as RectTransform);
+            await UniTask.Yield();
+            OpenPageWithCurrentLevel();
         }
 
         private new void OnDestroy()
@@ -54,7 +59,6 @@ namespace SanderSaveli.GravityMaze
             base.OnDestroy();
         }
 
-
         private void CreateAllPages()
         {
             _pages = new List<LevelsFiller>();
@@ -63,6 +67,14 @@ namespace SanderSaveli.GravityMaze
             {
                 _pages.Add(CreatePage(page));
             }
+        }
+
+        private void OpenPageWithCurrentLevel()
+        {
+            int pageNumber = Mathf.FloorToInt(_levelManager.CurrentLevel / _onePageSlotCount);
+            LevelsFiller filler = Pages[pageNumber];
+
+            _scroll.SnapImmediatley(filler.transform as RectTransform);
         }
 
         private List<List<LevelData>> PaginateList(List<LevelData> allLevels)
@@ -92,7 +104,7 @@ namespace SanderSaveli.GravityMaze
         private void OnLevelSelect(LevelData levelData)
         {
             _gameContext.LevelNumber = levelData.Number - 1;
-            _signalBus.Fire(new SignalInputAction(InputActionType.LoadGame));
+            _signalBus.Fire(new SignalInputAction(InputActionType.LoadLevelFromMenu));
         }
     }
 }

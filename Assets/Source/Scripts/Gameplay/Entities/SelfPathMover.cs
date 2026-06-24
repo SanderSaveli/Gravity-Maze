@@ -1,0 +1,91 @@
+using UnityEngine;
+
+namespace SanderSaveli.GravityMaze
+{
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class SelfPathMover : MonoBehaviour
+    {
+        [Header("Point 1")]
+        [SerializeField] private Vector2 _position1;
+        [SerializeField] private float _rotation1;
+
+        [Header("Point 2")]
+        [SerializeField] private Vector2 _position2;
+        [SerializeField] private float _rotation2;
+
+        [Header("Movement")]
+        [Tooltip("Time in seconds to move from Point 1 to Point 2")]
+        [SerializeField] private float _cycleDuration = 2f;
+
+        private Rigidbody2D _rb;
+
+        private float _t;              
+        private int _direction = 1;    
+
+        private void Awake()
+        {
+            _rb = GetComponent<Rigidbody2D>();
+        }
+
+        private void FixedUpdate()
+        {
+            UpdateProgress();
+            Move();
+            Rotate();
+        }
+
+        private void UpdateProgress()
+        {
+            if (_cycleDuration <= 0f)
+                return;
+
+            float delta = Time.fixedDeltaTime / _cycleDuration;
+            _t += delta * _direction;
+
+            if (_t >= 1f)
+            {
+                _t = 1f;
+                _direction = -1;
+            }
+            else if (_t <= 0f)
+            {
+                _t = 0f;
+                _direction = 1;
+            }
+        }
+
+        private void Move()
+        {
+            Vector2 localTarget =
+                Vector2.Lerp(_position1, _position2, _t);
+
+            Vector2 worldTarget =
+                transform.parent.TransformPoint(localTarget);
+
+            _rb.MovePosition(worldTarget);
+        }
+
+        private void Rotate()
+        {
+            float localRot =
+                Mathf.LerpAngle(_rotation1, _rotation2, _t);
+
+            float worldRot =
+                transform.parent.eulerAngles.z + localRot;
+
+            _rb.MoveRotation(worldRot);
+        }
+
+        public void RecordPoint1()
+        {
+            _position1 = transform.localPosition;
+            _rotation1 = transform.localEulerAngles.z;
+        }
+
+        public void RecordPoint2()
+        {
+            _position2 = transform.localPosition;
+            _rotation2 = transform.localEulerAngles.z;
+        }
+    }
+}

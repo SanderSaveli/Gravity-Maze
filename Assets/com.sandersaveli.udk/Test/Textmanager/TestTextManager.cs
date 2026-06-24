@@ -25,6 +25,20 @@ namespace SanderSaveli.UDK
                     return texts.EN;
                 case LanguageType.RU:
                     return texts.RU;
+                case LanguageType.DE:
+                    return texts.DE;
+                case LanguageType.FR:
+                    return texts.FR;
+                case LanguageType.IT:
+                    return texts.IT;
+                case LanguageType.ES:
+                    return texts.ES;
+                case LanguageType.JA:
+                    return texts.JA;
+                case LanguageType.KO:
+                    return texts.KO;
+                case LanguageType.PT:
+                    return texts.PT;
                 default:
                     throw new Exception($"There is no case for language type: {Language}");
             }

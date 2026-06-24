@@ -9,7 +9,7 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] protected Button _button;
 
         public bool IsSelected { get; protected set; }
-        public Action<bool> OnSwitched { get; protected set; }
+        public Action<bool> OnSwitched { get; set; }
 
         private void OnEnable()
         {
@@ -59,6 +59,18 @@ namespace SanderSaveli.GravityMaze
             IsSelected = false;
             OnSwitched?.Invoke(IsSelected);
             HandleDeselect();
+        }
+
+        public void SetState(bool state)
+        {
+            if (state)
+            {
+                Select();
+            }
+            else
+            {
+                Deselect();
+            }
         }
 
         protected abstract void HandleSelect();

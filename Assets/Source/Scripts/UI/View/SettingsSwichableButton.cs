@@ -1,8 +1,10 @@
 using CustomText;
 using DG.Tweening;
+using SanderSaveli.UDK;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace SanderSaveli.GravityMaze
 {
@@ -10,6 +12,8 @@ namespace SanderSaveli.GravityMaze
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _image;
+        [SerializeField] private RawImage _rawImage;
+        [SerializeField] private TextByTableKey _textByTableKey;
 
         [Header("Properties")]
         [SerializeField] private float _animationDuration = 0.5f;
@@ -19,31 +23,62 @@ namespace SanderSaveli.GravityMaze
         [Space]
         [SerializeField] private Custom_ColorStyle _imageSelectColor;
         [SerializeField] private Custom_ColorStyle _imageDeselectColor;
+        [Space]
+        [SerializeField] private string _selectedTextKey;
+        [SerializeField] private string _deselectTextKey;
         private ColorSettings _colorSettings;
 
-        private void Awake()
+        [Inject]
+        public void Construct()
         {
             _colorSettings = ColorSettings.Instance;
         }
 
         protected override void HandleDeselect()
         {
+            KillColorTweens();
             _text.text = "off";
             Color textColor = _colorSettings.GetColorByStyle(_testDeselectColor);
             _text.DOColor(textColor, _animationDuration).SetLink(gameObject);
 
             Color imageColor = _colorSettings.GetColorByStyle(_imageDeselectColor);
-            _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            if (_image != null)
+            {
+                _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
+            if(_rawImage != null)
+            {
+                _rawImage.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
+
+            _textByTableKey.ChangeText(_deselectTextKey);
         }
 
         protected override void HandleSelect()
         {
+            KillColorTweens();
             _text.text = "on";
             Color textColor = _colorSettings.GetColorByStyle(_textSelectColor);
             _text.DOColor(textColor, _animationDuration).SetLink(gameObject);
 
             Color imageColor = _colorSettings.GetColorByStyle(_imageSelectColor);
-            _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            if (_image != null)
+            {
+                _image.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
+            if (_rawImage != null)
+            {
+                _rawImage.DOColor(imageColor, _animationDuration).SetLink(gameObject);
+            }
+
+            _textByTableKey.ChangeText(_selectedTextKey);
+        }
+
+        private void KillColorTweens()
+        {
+            _text?.DOKill();
+            _image?.DOKill();
+            _rawImage?.DOKill();
         }
     }
 }

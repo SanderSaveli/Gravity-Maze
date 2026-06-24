@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SanderSaveli.GravityMaze;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,13 +10,16 @@ namespace SanderSaveli.UDK.UI
     {
         [SerializeField] private int _startSelectedElement;
 
-        [SerializeField] private List<RadioButton<T>> _radioButtons;
+        [SerializeField] protected List<RadioButton<T>> _radioButtons;
+        private bool _isSelectInitialized;
+
+        public RadioButton<T> ActiveElement => _selectedElement;
 
         public T Value
         {
             get
             {
-                if (_selectedElement != null && !Equals(_selectedElement.Value, default(T)))
+                if (_selectedElement != null)
                     return _selectedElement.Value;
 
                 return _radioButtons[_startSelectedElement].Value;
@@ -28,10 +32,13 @@ namespace SanderSaveli.UDK.UI
 
         private void Awake()
         {
-            _selectedElement = _radioButtons[_startSelectedElement];
+            if (!_isSelectInitialized && _radioButtons.Count >0)
+            {
+                _selectedElement = _radioButtons[_startSelectedElement];
+            }
         }
 
-        private void Start()
+        protected void Start()
         {
             foreach (var radioButton in _radioButtons)
             {
@@ -41,8 +48,9 @@ namespace SanderSaveli.UDK.UI
             _selectedElement.Select();
         }
 
-        public void SetSelect(T type)
+        public virtual void SetSelect(T type)
         {
+            _isSelectInitialized = true;
             RadioButton<T> button = _radioButtons.FirstOrDefault(t => t.Value.Equals(type));
             OnSelectInput(button);
         }
@@ -51,11 +59,10 @@ namespace SanderSaveli.UDK.UI
         {
             if (radioButton == _selectedElement)
             {
-                Debug.Log("this one");
                 return;
             }
 
-            _selectedElement.Deselect();
+            _selectedElement?.Deselect();
             _selectedElement = radioButton;
             radioButton.Select();
             OnValueChanged?.Invoke(Value);

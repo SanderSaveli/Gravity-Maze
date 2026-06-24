@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.appodeal.mediation": {
+      "version": "https://github.com/appodeal/appodeal-unity-plugin-upm.git#v4.2.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.google.external-dependency-manager": "1.2.175"
+      },
+      "hash": "5655ccd876d77a359cf79b676465b9d3e83da9d6"
+    },
     "com.cysharp.r3": {
       "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity",
       "depth": 0,
@@ -22,6 +31,36 @@
       "source": "git",
       "dependencies": {},
       "hash": "c2af83c9d4f8cdaada9d4a0e94de2f195d8e1d01"
+    },
+    "com.google.external-dependency-manager": {
+      "version": "file:C:/Users/ssavi/Downloads/com.google.external-dependency-manager-1.2.177.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {}
+    },
+    "com.google.firebase.analytics": {
+      "version": "file:Firebase/com.google.firebase.analytics-11.6.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.google.firebase.app": "11.6.0"
+      }
+    },
+    "com.google.firebase.app": {
+      "version": "file:Firebase/com.google.firebase.app-11.6.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.google.external-dependency-manager": "1.2.177"
+      }
+    },
+    "com.google.firebase.firestore": {
+      "version": "file:Firebase/com.google.firebase.firestore-11.6.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.google.firebase.app": "11.6.0"
+      }
     },
     "com.unity.2d.animation": {
       "version": "9.2.0",
@@ -119,6 +158,16 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.ads": {
+      "version": "4.17.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.androidjni": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.burst": {
       "version": "1.8.21",
       "depth": 3,
@@ -200,6 +249,66 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.purchasing": {
+      "version": "5.2.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.services.core": "1.14.0",
+        "com.unity.modules.androidjni": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.recorder": {
+      "version": "4.0.3",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.timeline": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.render-pipelines.core": {
+      "version": "14.0.12",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.searcher": {
+      "version": "4.9.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.services.core": {
+      "version": "1.14.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.shadergraph": {
+      "version": "14.0.12",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.12",
+        "com.unity.searcher": "4.9.2"
+      }
+    },
     "com.unity.test-framework": {
       "version": "1.1.33",
       "depth": 0,
@@ -250,6 +359,15 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "xyz.candycoded.hapticfeedback": {
+      "version": "https://github.com/CandyCoded/HapticFeedback.git#v1.0.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0"
+      },
+      "hash": "4597a0376eafedee647bc3a02c6b574c309f3fa7"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

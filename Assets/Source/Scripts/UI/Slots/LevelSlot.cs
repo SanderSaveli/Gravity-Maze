@@ -1,3 +1,5 @@
+using CustomText;
+using Cysharp.Threading.Tasks;
 using SanderSaveli.UDK.UI;
 using System;
 using System.Collections.Generic;
@@ -13,30 +15,26 @@ namespace SanderSaveli.GravityMaze
         public Action<LevelData> OnSelectLevel {  get; set; }
 
         [Header("Components")]
-        [SerializeField] private TMP_Text _levelNumber;
+        [SerializeField] private CustomText.CustomText _levelNumber;
         [SerializeField] private Transform _starParent;
         [SerializeField] private Image _lockImage;
-        [SerializeField] private Image _backgroundImage;
+        [SerializeField] private Image _border;
+        [SerializeField] private ImageColorByType _backgroundImage;
         [SerializeField] private Button _button;
 
         [Header("Prefabs")]
         [SerializeField] private GameObject _starPrefab;
 
         [Header("Params")]
-        [SerializeField] private Color _lockColor = Color.white;
-        [SerializeField] private Color _currentColor = Color.white;
-        [SerializeField] private Color _completeColor = Color.white;
+        [SerializeField] private Custom_ColorStyle _lockColor;
+        [SerializeField] private Custom_ColorStyle _currentColor;
+        [SerializeField] private Custom_ColorStyle _completeColor;
+        [Space]
+        [SerializeField] private Custom_ColorStyle _defaultTextColor;
+        [SerializeField] private Custom_ColorStyle _activeTextColor;
 
         private LevelData _levelData;
         private List<GameObject> _stars = new();
-        private ILevelManager _levelManager;
-
-        [Inject]
-        public void Construct(ILevelManager levelManager)
-        {
-            _levelManager = levelManager;
-        }
-
 
         private void OnEnable()
         {
@@ -48,7 +46,7 @@ namespace SanderSaveli.GravityMaze
             _button.onClick.RemoveListener(HandleButtonClick);
         }
 
-        public void Fill(LevelData value)
+        public async void Fill(LevelData value)
         {
             _levelData = value;
             _levelNumber.text = value.Number.ToString();
@@ -56,18 +54,23 @@ namespace SanderSaveli.GravityMaze
             {
                 case LevelStatus.Complete:
                     _lockImage.gameObject.SetActive(false);
-                    _backgroundImage.color = _completeColor;
+                    _levelNumber.ChangeColor(_defaultTextColor);
+                    _backgroundImage.ChangeColor(_completeColor);
+                    _border.gameObject.SetActive(true);
                     SetStarCount(value.StarCount);
                     break;
                 case LevelStatus.Current:
                     _lockImage.gameObject.SetActive(false);
-                    _backgroundImage.color = _currentColor;
+                    _levelNumber.ChangeColor(_activeTextColor);
+                    _backgroundImage.ChangeColor(_currentColor);
+                    _border.gameObject.SetActive(false);
                     SetStarCount(value.StarCount);
                     break;
                 case LevelStatus.Locked:
                     _levelNumber.text = "";
                     _lockImage.gameObject.SetActive(true);
-                    _backgroundImage.color = _lockColor;
+                    _backgroundImage.ChangeColor(_lockColor);
+                    _border.gameObject.SetActive(false);
                     SetStarCount(0);
                     break;
             }
@@ -92,7 +95,6 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleButtonClick()
         {
-            Debug.Log("Click");
             if(_levelData.Status != LevelStatus.Locked)
             {
                 OnSelectLevel?.Invoke(_levelData);

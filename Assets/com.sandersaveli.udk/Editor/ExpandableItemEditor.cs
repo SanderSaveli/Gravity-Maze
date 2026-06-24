@@ -45,7 +45,7 @@ namespace SanderSaveli.UDK.UI
             SetupRectTransform(textTransform, new Vector2(400, 80));
 
             CustomText.CustomText customText = textObject.GetComponent<CustomText.CustomText>();
-            customText.ChangeColor(Custom_ColorStyle.Black);
+            customText.ChangeColor(Custom_ColorStyle.Default);
             customText.text = "New Text";
 
             return textObject;

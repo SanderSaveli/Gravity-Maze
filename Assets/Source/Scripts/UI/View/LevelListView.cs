@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SanderSaveli.GravityMaze
@@ -16,9 +18,11 @@ namespace SanderSaveli.GravityMaze
         [SerializeField] private string _format = "{0}/{1}";
 
         private LevelsFiller _currentFiller;
+        private List<LevelsFiller> _pages;
 
         private async void OnEnable()
         {
+            _pages = new List<LevelsFiller>();
             await UniTask.Yield();
             SubscribeToEvents();
         }
@@ -65,7 +69,10 @@ namespace SanderSaveli.GravityMaze
         private void UpdateView(LevelsFiller filler)
         {
             _currentFiller = filler;
-            _levelsText.text = string.Format(_format, filler.MinLevel, filler.MaxLevel);
+            _pages.Clear();
+            _pages = _levelScreen.Pages.ToList();
+            _levelsText.text = (_pages.IndexOf(filler) +1).ToString();
+            //_levelsText.text = string.Format(_format, filler.MinLevel, filler.MaxLevel);
 
             _previousButton.SwitchButton(_levelScreen.Pages.First() != filler);
             _nextButton.SwitchButton(_levelScreen.Pages.Last() != filler);
@@ -73,11 +80,10 @@ namespace SanderSaveli.GravityMaze
 
         private void HandleNext()
         {
-            Debug.Log("Next");
             int index = _levelScreen.Pages.ToList().IndexOf(_currentFiller);
             if (index + 1 >= _levelScreen.Pages.Count)
                 return;
-            Debug.Log("Next_2");
+
             LevelsFiller filler = _levelScreen.Pages[index+1];
             _scroll.SnapTo(filler.GetComponent<RectTransform>());
         }

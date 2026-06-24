@@ -35,6 +35,12 @@ namespace CustomText
             return instance;
         }
 
+        public void SetNewColors(List<ColorParams> colors)
+        {
+            Colors = colors;
+            OnColorStyleChanged?.Invoke();
+        }
+
 #if UNITY_EDITOR
         private void OnValidate()
         {

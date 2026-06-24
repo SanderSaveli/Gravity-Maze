@@ -27,7 +27,6 @@ namespace SanderSaveli.GravityMaze
 
         private async void Start()
         {
-            await UniTask.Yield();
             _collider = GetComponent<BoxCollider2D>();
             BuildBorederCollider();
             Debug.Log("Build Side Collider size");

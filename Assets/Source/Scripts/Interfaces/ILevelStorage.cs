@@ -7,5 +7,6 @@ namespace SanderSaveli.GravityMaze
     {
         public ReactiveProperty<List<LevelSaveData>> Levels { get; }
         public ReactiveProperty<int> CurrentLevel { get; }
+        public int StarCount { get; }
     }
 }

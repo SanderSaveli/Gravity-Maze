@@ -1,3 +1,4 @@
+using SanderSaveli.GravityMaze;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -17,9 +18,13 @@ namespace SanderSaveli.UDK
             _textManager = textManager;
         }
 
-        private void OnEnable()
+        private void Awake()
         {
             _text = GetComponent<TMP_Text>();
+        }
+
+        private void OnEnable()
+        {
             _textManager.OnTextChanged += UpdateText;
             _textManager.OnLanguageChanged += UpdateText;
             UpdateText();
@@ -42,8 +47,12 @@ namespace SanderSaveli.UDK
             SetText(_textManager.GetText(_key));
         }
 
-        private void SetText(string text)
+        protected virtual void SetText(string text)
         {
+            if(_text == null)
+            {
+                _text = GetComponent<TMP_Text>();
+            }
             _text.text = text;
         }
     }
