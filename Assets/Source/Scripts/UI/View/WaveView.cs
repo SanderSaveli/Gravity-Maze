@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ namespace SanderSaveli.GravityMaze
 {
     public class WaveView : MonoBehaviour
     {
+        public Action<WaveView> OnRemoved { get; set; }
+
         [Header("Components")]
         [SerializeField] private Image _image;
 
@@ -15,7 +18,7 @@ namespace SanderSaveli.GravityMaze
 
         private void OnDisable()
         {
-            Destroy(gameObject);
+            ReleaseWave();
         }
 
         private void Start()
@@ -25,12 +28,18 @@ namespace SanderSaveli.GravityMaze
                 .Append(transform.DOScale(_maxScale, _animationDuration))
                 .Join(_image.DOFade(0, _animationDuration))
                 .SetLink(gameObject)
-                .OnComplete(()=> Destroy(gameObject));
+                .OnComplete(()=> ReleaseWave());
         }
 
         public void SetColor(Color color)
         {
             _image.color = color;
+        }
+
+        private void ReleaseWave()
+        {
+            OnRemoved?.Invoke(this);
+            Destroy(gameObject);
         }
     }
 }
