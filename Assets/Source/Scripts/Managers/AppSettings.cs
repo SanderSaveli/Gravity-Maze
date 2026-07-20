@@ -85,10 +85,35 @@ namespace SanderSaveli.GravityMaze
             sd.is_sound_on = true;
             sd.is_vibration_on = true;
             sd.is_ads_removed = false;
-            sd.language = GravityMaze.Language.en;
+            sd.language = GetDefaultLanguage();
             sd.color = GravityMaze.ColorSheme.dark_9;
             sd.time_mode = GravityMaze.TimeMode.normal;
             return sd;
+        }
+
+        private Language GetDefaultLanguage()
+        {
+            switch (Application.systemLanguage)
+            {
+                case SystemLanguage.Russian:
+                    return GravityMaze.Language.ru;
+                case SystemLanguage.German:
+                    return GravityMaze.Language.de;
+                case SystemLanguage.Spanish:
+                    return GravityMaze.Language.es;
+                case SystemLanguage.French:
+                    return GravityMaze.Language.fr;
+                case SystemLanguage.Italian:
+                    return GravityMaze.Language.it;
+                case SystemLanguage.Japanese:
+                    return GravityMaze.Language.ja;
+                case SystemLanguage.Korean:
+                    return GravityMaze.Language.ko;
+                case SystemLanguage.Portuguese:
+                    return GravityMaze.Language.pt;
+                default:
+                    return GravityMaze.Language.en;
+            }
         }
 
         private SettingsData GetCurrentData()
