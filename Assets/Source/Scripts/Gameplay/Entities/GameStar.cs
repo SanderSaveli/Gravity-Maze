@@ -17,6 +17,7 @@ namespace SanderSaveli.GravityMaze
         public void Construct(SignalBus signalBus)
         {
             _signalBus = signalBus;
+            IsCollected = false;
         }
 
 
@@ -29,9 +30,12 @@ namespace SanderSaveli.GravityMaze
         {
             if (collision.gameObject.TryGetComponent<Player>(out _))
             {
-                IsCollected = true;
-                OnCollected?.Invoke();
-                _signalBus.Fire(new SignalStarCollected(this));
+                if(!IsCollected)
+                {
+                    IsCollected = true;
+                    OnCollected?.Invoke();
+                    _signalBus.Fire(new SignalStarCollected(this));
+                }
             }
         }
     }
