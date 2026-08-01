@@ -39,7 +39,7 @@ namespace SanderSaveli.GravityMaze
         {
             float volume = Mathf.Lerp(0f, _hitSoundCount -1, _currentVolume);
             int index = Mathf.RoundToInt(volume);
-            Debug.Log("Play Sound With Index " + index);
+
             return _hitSounds[index];
         }
     }

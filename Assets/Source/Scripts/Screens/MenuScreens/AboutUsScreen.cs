@@ -42,12 +42,12 @@ namespace SanderSaveli.GravityMaze
 
         private void HandlePrivacy()
         {
-            Application.OpenURL("https://sites.google.com/view/babube-privacy-policy/");
+            Application.OpenURL(Const.PrivacyPolicyURL);
         }
 
         private void HandleRate()
         {
-            Application.OpenURL("https://play.google.com/store/apps/details?id=com.SanderSaveli.GravityMaze");
+            Application.OpenURL(Const.ShopURL);
         }
     }
 }
