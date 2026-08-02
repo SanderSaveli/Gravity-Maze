@@ -9,5 +9,9 @@ namespace SanderSaveli.GravityMaze
         public void SendSessionEndEvent(int levelsCompleteCount, float playTime);
         public void SendRemoveAdsClickedEvent();
         public void SendUnlockColorForAdEvent(ColorSheme forSheme);
+        public void SendSupportUsScreenShow();
+        public void SendSupportUsScreenSupportButtonClicked();
+        public void SendSupportUsScreenMaybeLaterButtonClicked();
+        public void SendSupportUsScreenNeverButtonClicked();
     }
 }

@@ -107,5 +107,25 @@ namespace SanderSaveli.GravityMaze
         {
             throw new NotImplementedException();
         }
+
+        public void SendSupportUsScreenShow()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendSupportUsScreenSupportButtonClicked()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendSupportUsScreenMaybeLaterButtonClicked()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SendSupportUsScreenNeverButtonClicked()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

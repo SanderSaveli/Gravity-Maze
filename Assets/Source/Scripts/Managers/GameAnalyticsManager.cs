@@ -116,5 +116,33 @@ namespace SanderSaveli.GravityMaze
         {
             GameAnalytics.NewDesignEvent("remove_ads_clicked");
         }
+
+        public void SendSupportUsScreenShow()
+        {
+            GameAnalytics.NewDesignEvent(
+                $"support_us_screen_showed"
+            );
+        }
+
+        public void SendSupportUsScreenSupportButtonClicked()
+        {
+            GameAnalytics.NewDesignEvent(
+                $"support_us_screen_support_button_clicked"
+            );
+        }
+
+        public void SendSupportUsScreenMaybeLaterButtonClicked()
+        {
+            GameAnalytics.NewDesignEvent(
+                $"support_us_screen_later_button_clicked"
+            );
+        }
+
+        public void SendSupportUsScreenNeverButtonClicked()
+        {
+            GameAnalytics.NewDesignEvent(
+                $"support_us_screen_never_button_clicked"
+            );
+        }
     }
 }
